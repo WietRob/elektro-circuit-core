@@ -1,0 +1,358 @@
+{
+  "$schema": "../schemas/ontology.json",
+  "circuitId": "folgeschaltung",
+  "version": "2.1.0",
+
+  "topology": {
+    "stages": [
+      {
+        "id": "stage1",
+        "device": "K1",
+        "role": "Startet ZUERST"
+      },
+      {
+        "id": "stage2",
+        "device": "K2",
+        "role": "Startet danach",
+        "requires": "K1"
+      }
+    ],
+    "freigabe": {
+      "from": "K1-AUX-NO",
+      "to": "S2",
+      "role": "FREIGABE"
+    }
+  },
+
+  "components": {
+    "S1": {
+      "id": "S1",
+      "type": "pushbutton",
+      "label": "S1 Start K1",
+      "parts": {
+        "S1-BUTTON": {
+          "id": "S1-BUTTON",
+          "type": "button_mechanism",
+          "terminals": {
+            "13": { "id": "13", "function": "input", "potential": "L" },
+            "14": { "id": "14", "function": "output", "potential": "control1" }
+          }
+        }
+      }
+    },
+
+    "K1": {
+      "id": "K1",
+      "type": "contactor",
+      "label": "K1 Schuetz (Stufe 1)",
+      "parts": {
+        "K1-COIL": {
+          "id": "K1-COIL",
+          "type": "coil",
+          "terminals": {
+            "A1": { "id": "A1", "function": "coil_in", "potential": "control1" },
+            "A2": { "id": "A2", "function": "coil_out", "potential": "N" }
+          }
+        },
+        "K1-AUX-NO": {
+          "id": "K1-AUX-NO",
+          "type": "aux_no",
+          "terminals": {
+            "13": { "id": "13", "function": "contact_in", "potential": "L" },
+            "14": { "id": "14", "function": "contact_out", "potential": "enable2" }
+          },
+          "mechanicallyCoupledTo": "K1-COIL.ANKER"
+        }
+      }
+    },
+
+    "S2": {
+      "id": "S2",
+      "type": "pushbutton",
+      "label": "S2 Start K2",
+      "parts": {
+        "S2-BUTTON": {
+          "id": "S2-BUTTON",
+          "type": "button_mechanism",
+          "terminals": {
+            "13": { "id": "13", "function": "input", "potential": "enable2" },
+            "14": { "id": "14", "function": "output", "potential": "control2" }
+          }
+        }
+      }
+    },
+
+    "K2": {
+      "id": "K2",
+      "type": "contactor",
+      "label": "K2 Schuetz (Stufe 2)",
+      "parts": {
+        "K2-COIL": {
+          "id": "K2-COIL",
+          "type": "coil",
+          "terminals": {
+            "A1": { "id": "A1", "function": "coil_in", "potential": "control2" },
+            "A2": { "id": "A2", "function": "coil_out", "potential": "N" }
+          }
+        },
+        "K2-AUX-NO": {
+          "id": "K2-AUX-NO",
+          "type": "aux_no",
+          "terminals": {
+            "13": { "id": "13", "function": "contact_in", "potential": "L" },
+            "14": { "id": "14", "function": "contact_out", "potential": "load" }
+          },
+          "mechanicallyCoupledTo": "K2-COIL.ANKER"
+        }
+      }
+    },
+
+    "P1": {
+      "id": "P1",
+      "type": "lamp",
+      "label": "P1 K1 aktiv",
+      "parts": {
+        "P1-LAMP": {
+          "id": "P1-LAMP",
+          "type": "lamp_element",
+          "terminals": {
+            "IN": { "id": "IN", "function": "input", "potential": "L" },
+            "OUT": { "id": "OUT", "function": "output", "potential": "N" }
+          }
+        }
+      }
+    },
+
+    "P2": {
+      "id": "P2",
+      "type": "lamp",
+      "label": "P2 K2 aktiv",
+      "parts": {
+        "P2-LAMP": {
+          "id": "P2-LAMP",
+          "type": "lamp_element",
+          "terminals": {
+            "IN": { "id": "IN", "function": "input", "potential": "load" },
+            "OUT": { "id": "OUT", "function": "output", "potential": "N" }
+          }
+        }
+      }
+    }
+  },
+
+  "anchors": {
+    "DIN-S1-BUTTON-13": { "id": "DIN-S1-BUTTON-13", "view": "DIN", "component": "S1", "part": "S1-BUTTON", "terminal": "13", "x": 100, "y": 100 },
+    "DIN-S1-BUTTON-14": { "id": "DIN-S1-BUTTON-14", "view": "DIN", "component": "S1", "part": "S1-BUTTON", "terminal": "14", "x": 100, "y": 150 },
+    "DIN-K1-COIL-A1": { "id": "DIN-K1-COIL-A1", "view": "DIN", "component": "K1", "part": "K1-COIL", "terminal": "A1", "x": 600, "y": 250 },
+    "DIN-K1-COIL-A2": { "id": "DIN-K1-COIL-A2", "view": "DIN", "component": "K1", "part": "K1-COIL", "terminal": "A2", "x": 600, "y": 300 },
+    "DIN-K1-AUX-NO-13": { "id": "DIN-K1-AUX-NO-13", "view": "DIN", "component": "K1", "part": "K1-AUX-NO", "terminal": "13", "x": 200, "y": 180 },
+    "DIN-K1-AUX-NO-14": { "id": "DIN-K1-AUX-NO-14", "view": "DIN", "component": "K1", "part": "K1-AUX-NO", "terminal": "14", "x": 200, "y": 205 },
+    "DIN-S2-BUTTON-13": { "id": "DIN-S2-BUTTON-13", "view": "DIN", "component": "S2", "part": "S2-BUTTON", "terminal": "13", "x": 300, "y": 180 },
+    "DIN-S2-BUTTON-14": { "id": "DIN-S2-BUTTON-14", "view": "DIN", "component": "S2", "part": "S2-BUTTON", "terminal": "14", "x": 300, "y": 230 },
+    "DIN-K2-COIL-A1": { "id": "DIN-K2-COIL-A1", "view": "DIN", "component": "K2", "part": "K2-COIL", "terminal": "A1", "x": 600, "y": 320 },
+    "DIN-K2-COIL-A2": { "id": "DIN-K2-COIL-A2", "view": "DIN", "component": "K2", "part": "K2-COIL", "terminal": "A2", "x": 600, "y": 350 },
+    "DIN-K2-AUX-NO-13": { "id": "DIN-K2-AUX-NO-13", "view": "DIN", "component": "K2", "part": "K2-AUX-NO", "terminal": "13", "x": 400, "y": 180 },
+    "DIN-K2-AUX-NO-14": { "id": "DIN-K2-AUX-NO-14", "view": "DIN", "component": "K2", "part": "K2-AUX-NO", "terminal": "14", "x": 400, "y": 205 },
+    "DIN-P1-LAMP-IN": { "id": "DIN-P1-LAMP-IN", "view": "DIN", "component": "P1", "part": "P1-LAMP", "terminal": "IN", "x": 500, "y": 180 },
+    "DIN-P1-LAMP-OUT": { "id": "DIN-P1-LAMP-OUT", "view": "DIN", "component": "P1", "part": "P1-LAMP", "terminal": "OUT", "x": 500, "y": 205 },
+    "DIN-P2-LAMP-IN": { "id": "DIN-P2-LAMP-IN", "view": "DIN", "component": "P2", "part": "P2-LAMP", "terminal": "IN", "x": 500, "y": 250 },
+    "DIN-P2-LAMP-OUT": { "id": "DIN-P2-LAMP-OUT", "view": "DIN", "component": "P2", "part": "P2-LAMP", "terminal": "OUT", "x": 500, "y": 275 },
+    "DIN-RAIL-L": { "id": "DIN-RAIL-L", "view": "DIN", "component": "RAIL", "part": "L", "terminal": "L", "x": 100, "y": 40 },
+    "DIN-RAIL-N": { "id": "DIN-RAIL-N", "view": "DIN", "component": "RAIL", "part": "N", "terminal": "N", "x": 600, "y": 380 },
+
+    "LAB-S1-BUTTON-13": { "id": "LAB-S1-BUTTON-13", "view": "LAB", "component": "S1", "part": "S1-BUTTON", "terminal": "13", "x": 80, "y": 100 },
+    "LAB-S1-BUTTON-14": { "id": "LAB-S1-BUTTON-14", "view": "LAB", "component": "S1", "part": "S1-BUTTON", "terminal": "14", "x": 80, "y": 125 },
+    "LAB-K1-COIL-A1": { "id": "LAB-K1-COIL-A1", "view": "LAB", "component": "K1", "part": "K1-COIL", "terminal": "A1", "x": 130, "y": 220 },
+    "LAB-K1-COIL-A2": { "id": "LAB-K1-COIL-A2", "view": "LAB", "component": "K1", "part": "K1-COIL", "terminal": "A2", "x": 130, "y": 270 },
+    "LAB-K1-AUX-NO-13": { "id": "LAB-K1-AUX-NO-13", "view": "LAB", "component": "K1", "part": "K1-AUX-NO", "terminal": "13", "x": 180, "y": 100 },
+    "LAB-K1-AUX-NO-14": { "id": "LAB-K1-AUX-NO-14", "view": "LAB", "component": "K1", "part": "K1-AUX-NO", "terminal": "14", "x": 180, "y": 155 },
+    "LAB-S2-BUTTON-13": { "id": "LAB-S2-BUTTON-13", "view": "LAB", "component": "S2", "part": "S2-BUTTON", "terminal": "13", "x": 180, "y": 180 },
+    "LAB-S2-BUTTON-14": { "id": "LAB-S2-BUTTON-14", "view": "LAB", "component": "S2", "part": "S2-BUTTON", "terminal": "14", "x": 180, "y": 205 },
+    "LAB-K2-COIL-A1": { "id": "LAB-K2-COIL-A1", "view": "LAB", "component": "K2", "part": "K2-COIL", "terminal": "A1", "x": 230, "y": 220 },
+    "LAB-K2-COIL-A2": { "id": "LAB-K2-COIL-A2", "view": "LAB", "component": "K2", "part": "K2-COIL", "terminal": "A2", "x": 230, "y": 270 },
+    "LAB-K2-AUX-NO-13": { "id": "LAB-K2-AUX-NO-13", "view": "LAB", "component": "K2", "part": "K2-AUX-NO", "terminal": "13", "x": 280, "y": 100 },
+    "LAB-K2-AUX-NO-14": { "id": "LAB-K2-AUX-NO-14", "view": "LAB", "component": "K2", "part": "K2-AUX-NO", "terminal": "14", "x": 280, "y": 155 },
+    "LAB-P1-LAMP-IN": { "id": "LAB-P1-LAMP-IN", "view": "LAB", "component": "P1", "part": "P1-LAMP", "terminal": "IN", "x": 380, "y": 100 },
+    "LAB-P1-LAMP-OUT": { "id": "LAB-P1-LAMP-OUT", "view": "LAB", "component": "P1", "part": "P1-LAMP", "terminal": "OUT", "x": 380, "y": 155 },
+    "LAB-P2-LAMP-IN": { "id": "LAB-P2-LAMP-IN", "view": "LAB", "component": "P2", "part": "P2-LAMP", "terminal": "IN", "x": 480, "y": 100 },
+    "LAB-P2-LAMP-OUT": { "id": "LAB-P2-LAMP-OUT", "view": "LAB", "component": "P2", "part": "P2-LAMP", "terminal": "OUT", "x": 480, "y": 155 },
+    "LAB-RAIL-L": { "id": "LAB-RAIL-L", "view": "LAB", "component": "RAIL", "part": "L", "terminal": "L", "x": 80, "y": 25 },
+    "LAB-RAIL-N": { "id": "LAB-RAIL-N", "view": "LAB", "component": "RAIL", "part": "N", "terminal": "N", "x": 300, "y": 370 }
+  },
+
+  "wires": [
+    { "id": "din-wire-l-s1", "fromAnchor": "DIN-RAIL-L", "toAnchor": "DIN-S1-BUTTON-13", "type": "control", "route": [{"x": 100, "y": 40}, {"x": 100, "y": 100}] },
+    { "id": "din-wire-s1-k1", "fromAnchor": "DIN-S1-BUTTON-14", "toAnchor": "DIN-K1-COIL-A1", "type": "control", "route": [{"x": 100, "y": 150}, {"x": 100, "y": 250}, {"x": 600, "y": 250}] },
+    { "id": "din-wire-k1-n", "fromAnchor": "DIN-K1-COIL-A2", "toAnchor": "DIN-RAIL-N", "type": "control", "route": [{"x": 600, "y": 300}, {"x": 600, "y": 380}] },
+    { "id": "din-wire-l-k1h", "fromAnchor": "DIN-RAIL-L", "toAnchor": "DIN-K1-AUX-NO-13", "type": "load", "route": [{"x": 200, "y": 40}, {"x": 200, "y": 180}] },
+    { "id": "din-wire-k1h-s2", "fromAnchor": "DIN-K1-AUX-NO-14", "toAnchor": "DIN-S2-BUTTON-13", "type": "control", "route": [{"x": 200, "y": 205}, {"x": 300, "y": 205}, {"x": 300, "y": 180}] },
+    { "id": "din-wire-s2-k2", "fromAnchor": "DIN-S2-BUTTON-14", "toAnchor": "DIN-K2-COIL-A1", "type": "control", "route": [{"x": 300, "y": 230}, {"x": 300, "y": 320}, {"x": 600, "y": 320}] },
+    { "id": "din-wire-k2-n", "fromAnchor": "DIN-K2-COIL-A2", "toAnchor": "DIN-RAIL-N", "type": "control", "route": [{"x": 600, "y": 350}, {"x": 600, "y": 380}] },
+    { "id": "din-wire-l-k2h", "fromAnchor": "DIN-RAIL-L", "toAnchor": "DIN-K2-AUX-NO-13", "type": "load", "route": [{"x": 400, "y": 40}, {"x": 400, "y": 180}] },
+    { "id": "din-wire-k2h-p2", "fromAnchor": "DIN-K2-AUX-NO-14", "toAnchor": "DIN-P2-LAMP-IN", "type": "load", "route": [{"x": 400, "y": 205}, {"x": 500, "y": 205}, {"x": 500, "y": 250}] },
+    { "id": "din-wire-p2-n", "fromAnchor": "DIN-P2-LAMP-OUT", "toAnchor": "DIN-RAIL-N", "type": "load", "route": [{"x": 500, "y": 275}, {"x": 500, "y": 380}] },
+    { "id": "din-wire-l-p1", "fromAnchor": "DIN-RAIL-L", "toAnchor": "DIN-P1-LAMP-IN", "type": "load", "route": [{"x": 500, "y": 40}, {"x": 500, "y": 180}] },
+    { "id": "din-wire-p1-n", "fromAnchor": "DIN-P1-LAMP-OUT", "toAnchor": "DIN-RAIL-N", "type": "load", "route": [{"x": 500, "y": 205}, {"x": 500, "y": 380}] },
+
+    { "id": "lab-wire-l-s1", "fromAnchor": "LAB-RAIL-L", "toAnchor": "LAB-S1-BUTTON-13", "type": "control", "color": "#1976d2", "route": [{"x": 80, "y": 25}, {"x": 80, "y": 100}] },
+    { "id": "lab-wire-s1-k1", "fromAnchor": "LAB-S1-BUTTON-14", "toAnchor": "LAB-K1-COIL-A1", "type": "control", "color": "#1976d2", "route": [{"x": 80, "y": 125}, {"x": 80, "y": 220}, {"x": 130, "y": 220}] },
+    { "id": "lab-wire-k1-n", "fromAnchor": "LAB-K1-COIL-A2", "toAnchor": "LAB-RAIL-N", "type": "control", "color": "#1976d2", "route": [{"x": 130, "y": 270}, {"x": 130, "y": 370}] },
+    { "id": "lab-wire-k1h-s2", "fromAnchor": "LAB-K1-AUX-NO-14", "toAnchor": "LAB-S2-BUTTON-13", "type": "control", "color": "#1976d2", "route": [{"x": 180, "y": 155}, {"x": 180, "y": 180}] },
+    { "id": "lab-wire-s2-k2", "fromAnchor": "LAB-S2-BUTTON-14", "toAnchor": "LAB-K2-COIL-A1", "type": "control", "color": "#1976d2", "route": [{"x": 180, "y": 205}, {"x": 180, "y": 220}, {"x": 230, "y": 220}] },
+    { "id": "lab-wire-k2-n", "fromAnchor": "LAB-K2-COIL-A2", "toAnchor": "LAB-RAIL-N", "type": "control", "color": "#1976d2", "route": [{"x": 230, "y": 270}, {"x": 230, "y": 370}] },
+    { "id": "lab-wire-l-k2h", "fromAnchor": "LAB-RAIL-L", "toAnchor": "LAB-K2-AUX-NO-13", "type": "preinstalled", "color": "#607d8b", "route": [{"x": 280, "y": 25}, {"x": 280, "y": 100}] },
+    { "id": "lab-wire-k2h-p2", "fromAnchor": "LAB-K2-AUX-NO-14", "toAnchor": "LAB-P2-LAMP-IN", "type": "load", "color": "#1976d2", "route": [{"x": 280, "y": 155}, {"x": 480, "y": 155}, {"x": 480, "y": 100}] },
+    { "id": "lab-wire-p2-n", "fromAnchor": "LAB-P2-LAMP-OUT", "toAnchor": "LAB-RAIL-N", "type": "preinstalled", "color": "#607d8b", "route": [{"x": 480, "y": 155}, {"x": 480, "y": 370}] },
+    { "id": "lab-wire-l-p1", "fromAnchor": "LAB-RAIL-L", "toAnchor": "LAB-P1-LAMP-IN", "type": "preinstalled", "color": "#607d8b", "route": [{"x": 380, "y": 25}, {"x": 380, "y": 100}] },
+    { "id": "lab-wire-p1-n", "fromAnchor": "LAB-P1-LAMP-OUT", "toAnchor": "LAB-RAIL-N", "type": "preinstalled", "color": "#607d8b", "route": [{"x": 380, "y": 155}, {"x": 380, "y": 370}] }
+  ],
+
+  "states": {
+    "initial": {
+      "id": "initial",
+      "initial": true,
+      "transitions": [
+        { "trigger": "S1.pressed", "target": "k1_only", "actions": { "K1-COIL.active": true, "K1-AUX-NO.closed": true } }
+      ],
+      "expected": {
+        "wireCurrentCount": 0,
+        "activePaths": [],
+        "componentStates": { "S1": "open", "K1-COIL": "inactive", "K1-AUX-NO": "open", "S2": "open", "K2-COIL": "inactive", "K2-AUX-NO": "open", "P1": "dark", "P2": "dark" }
+      }
+    },
+    "k1_only": {
+      "id": "k1_only",
+      "initial": false,
+      "transitions": [
+        { "trigger": "S2.pressed", "target": "k1_and_k2", "actions": { "K2-COIL.active": true, "K2-AUX-NO.closed": true } }
+      ],
+      "expected": {
+        "wireCurrentCount": 15,
+        "activePaths": ["k1_control", "k1_load", "k1_enable"],
+        "componentStates": { "S1": "open", "K1-COIL": "active", "K1-AUX-NO": "closed", "S2": "open", "K2-COIL": "inactive", "K2-AUX-NO": "open", "P1": "lit", "P2": "dark" }
+      }
+    },
+    "k1_and_k2": {
+      "id": "k1_and_k2",
+      "initial": false,
+      "transitions": [
+        { "trigger": "S1.pressed", "target": "k2_only", "actions": { "K1-COIL.inactive": true, "K1-AUX-NO.open": true } }
+      ],
+      "expected": {
+        "wireCurrentCount": 25,
+        "activePaths": ["k1_control", "k1_load", "k1_enable", "k2_control", "k2_load"],
+        "componentStates": { "S1": "open", "K1-COIL": "active", "K1-AUX-NO": "closed", "S2": "open", "K2-COIL": "active", "K2-AUX-NO": "closed", "P1": "lit", "P2": "lit" }
+      }
+    },
+    "k2_only": {
+      "id": "k2_only",
+      "initial": false,
+      "transitions": [
+        { "trigger": "S2.pressed", "target": "initial", "actions": { "K2-COIL.inactive": true, "K2-AUX-NO.open": true } }
+      ],
+      "expected": {
+        "wireCurrentCount": 10,
+        "activePaths": ["k2_control", "k2_load"],
+        "componentStates": { "S1": "open", "K1-COIL": "inactive", "K1-AUX-NO": "open", "S2": "open", "K2-COIL": "active", "K2-AUX-NO": "closed", "P1": "dark", "P2": "lit" }
+      }
+    }
+  },
+
+  "transferMappings": [
+    { "dinComponent": "DIN-S1-BUTTON", "laborTarget": { "component": "LAB-S1-BUTTON", "highlight": "component" }, "bidirectional": true },
+    { "dinComponent": "DIN-K1-COIL", "laborTarget": { "component": "LAB-K1-COIL", "highlight": "component" }, "bidirectional": true },
+    { "dinComponent": "DIN-K1-AUX-NO", "laborTarget": { "component": "LAB-K1-AUX-NO", "highlight": "component" }, "bidirectional": true },
+    { "dinComponent": "DIN-S2-BUTTON", "laborTarget": { "component": "LAB-S2-BUTTON", "highlight": "component" }, "bidirectional": true },
+    { "dinComponent": "DIN-K2-COIL", "laborTarget": { "component": "LAB-K2-COIL", "highlight": "component" }, "bidirectional": true },
+    { "dinComponent": "DIN-K2-AUX-NO", "laborTarget": { "component": "LAB-K2-AUX-NO", "highlight": "component" }, "bidirectional": true },
+    { "dinComponent": "DIN-P1-LAMP", "laborTarget": { "component": "LAB-P1-LAMP", "highlight": "component" }, "bidirectional": true },
+    { "dinComponent": "DIN-P2-LAMP", "laborTarget": { "component": "LAB-P2-LAMP", "highlight": "component" }, "bidirectional": true }
+  ],
+
+  "logic": {
+    "S1.closed": "states.k1_only",
+    "S2.closed": "(states.k1_only AND K1-AUX-NO.closed) -> states.k1_and_k2",
+    "K1-COIL.active": "S1.closed",
+    "K1-COIL.ANKER.attracted": "K1-COIL.active",
+    "K1-AUX-NO.closed": "K1-COIL.ANKER.attracted",
+    "K2-COIL.active": "S2.closed AND K1-AUX-NO.closed",
+    "K2-COIL.ANKER.attracted": "K2-COIL.active",
+    "K2-AUX-NO.closed": "K2-COIL.ANKER.attracted",
+    "P1.lit": "K1-COIL.active",
+    "P2.lit": "K2-AUX-NO.closed"
+  },
+
+  "currentPaths": [
+    {
+      "id": "k1_control",
+      "label": "K1 Steuerpfad",
+      "role": "activation",
+      "description": "S1 schaltet K1 ein",
+      "activeWhen": "K1-COIL.active",
+      "wires": ["din-wire-l-s1", "din-wire-s1-k1", "din-wire-k1-n"],
+      "potentialFlow": "L -> S1.13 -> S1.14 -> K1.A1 -> K1.COIL -> K1.A2 -> N"
+    },
+    {
+      "id": "k1_load",
+      "label": "K1 Lastpfad (P1)",
+      "role": "effect",
+      "description": "K1 aktiv zeigt P1",
+      "activeWhen": "K1-COIL.active",
+      "wires": ["din-wire-l-p1", "din-wire-p1-n"],
+      "potentialFlow": "L -> P1.IN -> P1 -> P1.OUT -> N"
+    },
+    {
+      "id": "k1_enable",
+      "label": "Freigabe fuer K2",
+      "role": "enable",
+      "description": "K1h schliesst und ermoeglicht K2-Steuerung",
+      "activeWhen": "K1-AUX-NO.closed",
+      "wires": ["din-wire-l-k1h", "din-wire-k1h-s2"],
+      "potentialFlow": "L -> K1h.13 -> K1h.14 -> S2.13"
+    },
+    {
+      "id": "k2_control",
+      "label": "K2 Steuerpfad",
+      "role": "activation",
+      "description": "S2 schaltet K2 ein (nur wenn K1 aktiv)",
+      "activeWhen": "K2-COIL.active",
+      "wires": ["din-wire-k1h-s2", "din-wire-s2-k2", "din-wire-k2-n"],
+      "potentialFlow": "K1h.14 -> S2.13 -> S2.14 -> K2.A1 -> K2.COIL -> K2.A2 -> N"
+    },
+    {
+      "id": "k2_load",
+      "label": "K2 Lastpfad (P2)",
+      "role": "effect",
+      "description": "K2 aktiv zeigt P2",
+      "activeWhen": "K2-AUX-NO.closed",
+      "wires": ["din-wire-l-k2h", "din-wire-k2h-p2", "din-wire-p2-n"],
+      "potentialFlow": "L -> K2h.13 -> K2h.14 -> P2.IN -> P2 -> P2.OUT -> N"
+    }
+  ],
+
+  "didactic": {
+    "functions": [
+      {
+        "id": "overview",
+        "title": "Ueberblick",
+        "goal": "Die Folgeschaltung als zweistufige Sequenz erkennen",
+        "paths": [],
+        "focus": {
+          "din": ["DIN-S1-BUTTON", "DIN-K1-COIL", "DIN-K1-AUX-NO", "DIN-S2-BUTTON", "DIN-K2-COIL", "DIN-P1-LAMP", "DIN-P2-LAMP"],
+          "lab": ["LAB-S1-BUTTON", "LAB-K1-COIL", "LAB-S2-BUTTON", "LAB-K2-COIL", "LAB-P1-LAMP", "LAB-P2-LAMP"]
+        },
+        "explain": [
+          "Diese Schaltung zeigt die Folgeschaltung (Sequenzsteuerung):",
+          "K1 muss erst eingeschaltet sein, bevor K2 gestartet werden kann",
+          "S1 = Start fuer K1 (erste Stufe)",
+          "S2 = Start fuer K2 (zweite Stufe, aber nur wenn K1 laeuft!)",
+          "Besonderheit: K1h ermoeglicht erst die Freigabe fuer K2"
+        ],
+        "voltagePoints": [
+          { "point": "L", "value": "+24V" },
+          { "point": "N", "value": "0V" }
+        ]
+      }
+    ]
+  }
+}

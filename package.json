@@ -1,0 +1,16 @@
+{
+  "name": "elektro-circuit-core",
+  "version": "2.0.0",
+  "description": "Elektrotechnik Schaltplan-Generator Core",
+  "main": "src/generator/circuit-generator-v2.js",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "check": "node scripts/build.js --check"
+  },
+  "keywords": ["elektrotechnik", "schaltplan", "generator"],
+  "author": "Roberto Schmidt",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

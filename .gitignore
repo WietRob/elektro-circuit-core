@@ -1,0 +1,17 @@
+# Build-Outputs
+test_output/
+candidates/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*~
+
+# Node (falls später hinzugefügt)
+node_modules/
+npm-debug.log*

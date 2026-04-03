@@ -1,0 +1,219 @@
+{
+  "$schema": "../schemas/ontology.json",
+  "circuitId": "tippbetrieb",
+  "version": "2.1.0",
+
+  "components": {
+    "S1": {
+      "id": "S1",
+      "type": "pushbutton",
+      "label": "S1 Taster",
+      "parts": {
+        "S1-BUTTON": {
+          "id": "S1-BUTTON",
+          "type": "button_mechanism",
+          "terminals": {
+            "13": { "id": "13", "function": "input", "potential": "L" },
+            "14": { "id": "14", "function": "output", "potential": "switched" }
+          }
+        }
+      }
+    },
+
+    "K1": {
+      "id": "K1",
+      "type": "contactor",
+      "label": "K1 Schuetz",
+      "parts": {
+        "K1-COIL": {
+          "id": "K1-COIL",
+          "type": "coil",
+          "terminals": {
+            "A1": { "id": "A1", "function": "coil_in", "potential": "control" },
+            "A2": { "id": "A2", "function": "coil_out", "potential": "N" }
+          }
+        },
+        "K1-AUX-NO": {
+          "id": "K1-AUX-NO",
+          "type": "aux_no",
+          "terminals": {
+            "13": { "id": "13", "function": "contact_in", "potential": "L" },
+            "14": { "id": "14", "function": "contact_out", "potential": "load" }
+          },
+          "mechanicallyCoupledTo": "K1-COIL.ANKER"
+        }
+      }
+    },
+
+    "P1": {
+      "id": "P1",
+      "type": "lamp",
+      "label": "P1 Meldeleuchte",
+      "parts": {
+        "P1-LAMP": {
+          "id": "P1-LAMP",
+          "type": "lamp_element",
+          "terminals": {
+            "IN": { "id": "IN", "function": "input", "potential": "load" },
+            "OUT": { "id": "OUT", "function": "output", "potential": "N" }
+          }
+        }
+      }
+    }
+  },
+
+  "anchors": {
+    "DIN-S1-BUTTON-13": { "id": "DIN-S1-BUTTON-13", "view": "DIN", "component": "S1", "part": "S1-BUTTON", "terminal": "13", "x": 100, "y": 80 },
+    "DIN-S1-BUTTON-14": { "id": "DIN-S1-BUTTON-14", "view": "DIN", "component": "S1", "part": "S1-BUTTON", "terminal": "14", "x": 100, "y": 105 },
+    "DIN-K1-COIL-A1": { "id": "DIN-K1-COIL-A1", "view": "DIN", "component": "K1", "part": "K1-COIL", "terminal": "A1", "x": 600, "y": 250 },
+    "DIN-K1-COIL-A2": { "id": "DIN-K1-COIL-A2", "view": "DIN", "component": "K1", "part": "K1-COIL", "terminal": "A2", "x": 600, "y": 280 },
+    "DIN-K1-AUX-NO-13": { "id": "DIN-K1-AUX-NO-13", "view": "DIN", "component": "K1", "part": "K1-AUX-NO", "terminal": "13", "x": 300, "y": 180 },
+    "DIN-K1-AUX-NO-14": { "id": "DIN-K1-AUX-NO-14", "view": "DIN", "component": "K1", "part": "K1-AUX-NO", "terminal": "14", "x": 300, "y": 205 },
+    "DIN-P1-LAMP-IN": { "id": "DIN-P1-LAMP-IN", "view": "DIN", "component": "P1", "part": "P1-LAMP", "terminal": "IN", "x": 500, "y": 180 },
+    "DIN-P1-LAMP-OUT": { "id": "DIN-P1-LAMP-OUT", "view": "DIN", "component": "P1", "part": "P1-LAMP", "terminal": "OUT", "x": 500, "y": 205 },
+    "DIN-RAIL-L": { "id": "DIN-RAIL-L", "view": "DIN", "component": "RAIL", "part": "L", "terminal": "L", "x": 100, "y": 40 },
+    "DIN-RAIL-N": { "id": "DIN-RAIL-N", "view": "DIN", "component": "RAIL", "part": "N", "terminal": "N", "x": 600, "y": 370 },
+
+    "LAB-S1-BUTTON-13": { "id": "LAB-S1-BUTTON-13", "view": "LAB", "component": "S1", "part": "S1-BUTTON", "terminal": "13", "x": 100, "y": 55 },
+    "LAB-S1-BUTTON-14": { "id": "LAB-S1-BUTTON-14", "view": "LAB", "component": "S1", "part": "S1-BUTTON", "terminal": "14", "x": 100, "y": 80 },
+    "LAB-K1-COIL-A1": { "id": "LAB-K1-COIL-A1", "view": "LAB", "component": "K1", "part": "K1-COIL", "terminal": "A1", "x": 155, "y": 220 },
+    "LAB-K1-COIL-A2": { "id": "LAB-K1-COIL-A2", "view": "LAB", "component": "K1", "part": "K1-COIL", "terminal": "A2", "x": 195, "y": 220 },
+    "LAB-K1-AUX-NO-13": { "id": "LAB-K1-AUX-NO-13", "view": "LAB", "component": "K1", "part": "K1-AUX-NO", "terminal": "13", "x": 155, "y": 130 },
+    "LAB-K1-AUX-NO-14": { "id": "LAB-K1-AUX-NO-14", "view": "LAB", "component": "K1", "part": "K1-AUX-NO", "terminal": "14", "x": 195, "y": 155 },
+    "LAB-P1-LAMP-IN": { "id": "LAB-P1-LAMP-IN", "view": "LAB", "component": "P1", "part": "P1-LAMP", "terminal": "IN", "x": 348, "y": 370 },
+    "LAB-P1-LAMP-OUT": { "id": "LAB-P1-LAMP-OUT", "view": "LAB", "component": "P1", "part": "P1-LAMP", "terminal": "OUT", "x": 372, "y": 370 },
+    "LAB-RAIL-L": { "id": "LAB-RAIL-L", "view": "LAB", "component": "RAIL", "part": "L", "terminal": "L", "x": 100, "y": 25 },
+    "LAB-RAIL-N": { "id": "LAB-RAIL-N", "view": "LAB", "component": "RAIL", "part": "N", "terminal": "N", "x": 175, "y": 370 }
+  },
+
+  "wires": [
+    { "id": "din-wire-l-s1", "fromAnchor": "DIN-RAIL-L", "toAnchor": "DIN-S1-BUTTON-13", "type": "control", "route": [{"x": 100, "y": 40}, {"x": 100, "y": 80}] },
+    { "id": "din-wire-s1-k1", "fromAnchor": "DIN-S1-BUTTON-14", "toAnchor": "DIN-K1-COIL-A1", "type": "control", "route": [{"x": 100, "y": 105}, {"x": 100, "y": 250}, {"x": 600, "y": 250}] },
+    { "id": "din-wire-k1-n", "fromAnchor": "DIN-K1-COIL-A2", "toAnchor": "DIN-RAIL-N", "type": "control", "route": [{"x": 600, "y": 280}, {"x": 600, "y": 370}] },
+    { "id": "din-wire-l-k1h", "fromAnchor": "DIN-RAIL-L", "toAnchor": "DIN-K1-AUX-NO-13", "type": "load", "route": [{"x": 300, "y": 40}, {"x": 300, "y": 180}] },
+    { "id": "din-wire-k1h-p1", "fromAnchor": "DIN-K1-AUX-NO-14", "toAnchor": "DIN-P1-LAMP-IN", "type": "load", "route": [{"x": 300, "y": 205}, {"x": 500, "y": 205}, {"x": 500, "y": 180}] },
+    { "id": "din-wire-p1-n", "fromAnchor": "DIN-P1-LAMP-OUT", "toAnchor": "DIN-RAIL-N", "type": "load", "route": [{"x": 500, "y": 205}, {"x": 500, "y": 370}] },
+
+    { "id": "lab-wire-l-s1", "fromAnchor": "LAB-RAIL-L", "toAnchor": "LAB-S1-BUTTON-13", "type": "control", "color": "#1976d2", "route": [{"x": 100, "y": 25}, {"x": 100, "y": 55}] },
+    { "id": "lab-wire-s1-k1", "fromAnchor": "LAB-S1-BUTTON-14", "toAnchor": "LAB-K1-COIL-A1", "type": "control", "color": "#1976d2", "route": [{"x": 100, "y": 80}, {"x": 100, "y": 220}, {"x": 155, "y": 220}] },
+    { "id": "lab-wire-k1-n", "fromAnchor": "LAB-K1-COIL-A2", "toAnchor": "LAB-RAIL-N", "type": "control", "color": "#1976d2", "route": [{"x": 195, "y": 220}, {"x": 195, "y": 370}] },
+    { "id": "lab-wire-l-k1h", "fromAnchor": "LAB-RAIL-L", "toAnchor": "LAB-K1-AUX-NO-13", "type": "preinstalled", "color": "#607d8b", "route": [{"x": 200, "y": 25}, {"x": 200, "y": 130}] },
+    { "id": "lab-wire-k1h-p1", "fromAnchor": "LAB-K1-AUX-NO-14", "toAnchor": "LAB-P1-LAMP-IN", "type": "load", "color": "#1976d2", "route": [{"x": 195, "y": 155}, {"x": 195, "y": 170}, {"x": 348, "y": 170}, {"x": 348, "y": 370}] },
+    { "id": "lab-wire-p1-n", "fromAnchor": "LAB-P1-LAMP-OUT", "toAnchor": "LAB-RAIL-N", "type": "preinstalled", "color": "#607d8b", "route": [{"x": 372, "y": 370}, {"x": 175, "y": 370}] }
+  ],
+
+  "states": {
+    "initial": {
+      "id": "initial",
+      "initial": true,
+      "transitions": [
+        { "trigger": "S1.pressed", "target": "active", "actions": { "S1.closed": true } }
+      ],
+      "expected": {
+        "wireCurrentCount": 0,
+        "activePaths": [],
+        "componentStates": {
+          "S1": "open",
+          "K1-COIL": "inactive",
+          "K1-AUX-NO": "open",
+          "P1": "dark"
+        }
+      }
+    },
+    "active": {
+      "id": "active",
+      "initial": false,
+      "transitions": [
+        { "trigger": "S1.released", "target": "reset", "actions": { "S1.closed": false } }
+      ],
+      "expected": {
+        "wireCurrentCount": 18,
+        "activePaths": ["control_path", "load_path"],
+        "componentStates": {
+          "S1": "closed",
+          "K1-COIL": "active",
+          "K1-AUX-NO": "closed",
+          "P1": "lit"
+        }
+      }
+    },
+    "reset": {
+      "id": "reset",
+      "initial": false,
+      "transitions": [
+        { "trigger": "reset.ack", "target": "initial", "actions": {} }
+      ],
+      "expected": {
+        "wireCurrentCount": 0,
+        "activePaths": [],
+        "componentStates": {
+          "S1": "open",
+          "K1-COIL": "inactive",
+          "K1-AUX-NO": "open",
+          "P1": "dark"
+        }
+      }
+    }
+  },
+
+  "transferMappings": [
+    { "dinComponent": "DIN-S1", "laborTarget": { "component": "LAB-S1", "highlight": "component" }, "bidirectional": true },
+    { "dinComponent": "DIN-K1-COIL", "laborTarget": { "component": "LAB-K1", "highlight": "component" }, "bidirectional": true },
+    { "dinComponent": "DIN-K1-AUX-NO", "laborTarget": { "component": "LAB-K1", "part": "LAB-K1-AUX-NO", "highlight": "part" }, "bidirectional": true },
+    { "dinComponent": "DIN-P1", "laborTarget": { "component": "LAB-P1", "highlight": "component" }, "bidirectional": true }
+  ],
+
+  "logic": {
+    "S1.closed": "states.active",
+    "K1-COIL.active": "S1.closed",
+    "K1-COIL.ANKER.attracted": "K1-COIL.active",
+    "K1-AUX-NO.closed": "K1-COIL.ANKER.attracted",
+    "P1.lit": "K1-AUX-NO.closed"
+  },
+
+  "currentPaths": [
+    {
+      "id": "control_path",
+      "label": "Steuerpfad (Aktivierung)",
+      "role": "activation",
+      "description": "Taster schliesst Steuerstromkreis, Spule zieht an",
+      "activeWhen": "S1.closed",
+      "wires": ["din-wire-l-s1", "din-wire-s1-k1", "din-wire-k1-n"],
+      "potentialFlow": "L -> S1.13 -> S1.14 -> K1.A1 -> K1.COIL -> K1.A2 -> N"
+    },
+    {
+      "id": "load_path",
+      "label": "Lastpfad (Wirkung)",
+      "role": "effect",
+      "description": "Hilfskontakt schliesst, Lampe bekommt Strom",
+      "activeWhen": "K1-AUX-NO.closed",
+      "wires": ["din-wire-l-k1h", "din-wire-k1h-p1", "din-wire-p1-n"],
+      "potentialFlow": "L -> K1.AUX.13 -> K1.AUX.14 -> P1.IN -> P1 -> P1.OUT -> N"
+    }
+  ],
+
+  "didactic": {
+    "functions": [
+      {
+        "id": "overview",
+        "title": "Ueberblick",
+        "goal": "Die gesamte Schaltung mit allen Bauteilen und Verbindungen erkennen",
+        "paths": [],
+        "focus": {
+          "din": ["DIN-S1", "DIN-K1-COIL", "DIN-K1-AUX-NO", "DIN-P1"],
+          "lab": ["LAB-S1", "LAB-K1", "LAB-P1"]
+        },
+        "explain": [
+          "Diese Schaltung besteht aus drei Hauptbauteilen:",
+          "S1 = Taster (Schliesser) - startet den Steuerstrom",
+          "K1 = Schuetz mit Spule und Hilfskontakt - schaltet den Laststrom",
+          "P1 = Meldeleuchte - zeigt an, dass der Stromkreis aktiv ist"
+        ],
+        "voltagePoints": [
+          { "point": "L", "value": "+24V" },
+          { "point": "N", "value": "0V" }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://raw.githubusercontent.com/schmidt-unterricht/schaltplan-baukasten/main/schemas/circuit-manifest.schema.json",
+  "version": "1.0",
+  "name": "Stern-Dreieck Schaltung",
+  "description": "Motor starts in star (lower voltage), switches to delta after timer",
+  
+  "grid": {
+    "cellWidth": 80,
+    "cellHeight": 80,
+    "origin": { "x": 40, "y": 40 }
+  },
+  
+  "components": [
+    { "id": "S0", "type": "NC_Switch", "grid": [1, 1], "label": "NOT-AUS" },
+    { "id": "S1", "type": "NO_Switch", "grid": [1, 2], "label": "EIN" },
+    { "id": "K1", "type": "Contactor", "auxContacts": ["NO"], "grid": [2, 2], "label": "K1 (Stern)" },
+    { "id": "K2", "type": "Contactor", "auxContacts": ["NO"], "grid": [2, 3], "label": "K2 (Dreieck)" },
+    { "id": "KT", "type": "Timer", "grid": [3, 2], "label": "KT (Zeit)" },
+    { "id": "F1", "type": "Fuse", "grid": [1, 0], "label": "F1" },
+    { "id": "M1", "type": "Motor3Phase", "grid": [4, 2], "label": "M1" },
+    { "id": "P1", "type": "Lamp", "grid": [4, 1], "label": "P1 (Betrieb)" }
+  ],
+  
+  "wires": [
+    { "from": "L", "to": "F1", "potential": "P1" },
+    { "from": "F1", "to": "S0", "potential": "P2" },
+    { "from": "S0", "to": "S1", "potential": "P2" },
+    { "from": "S1", "to": "K1.A1", "potential": "P2" },
+    { "from": "S1", "to": "KT", "potential": "P2" },
+    { "from": "K1.A2", "to": "N", "potential": "P4" },
+    { "from": "KT.out", "to": "K2.A1", "potential": "P2" },
+    { "from": "K2.A2", "to": "N", "potential": "P4" },
+    { "from": "K1.contacts[0].out", "to": "M1.U", "potential": "P3" },
+    { "from": "K2.contacts[0].out", "to": "M1.W", "potential": "P3" },
+    { "from": "M1.V", "to": "N", "potential": "P4" }
+  ],
+  
+  "logic": {
+    "K1.coil": "S0_closed AND S1_pressed",
+    "K2.coil": "S0_closed AND KT_timed_out AND K1_active",
+    "KT.start": "S1_pressed",
+    "KT.timeout": "5s",
+    "M1.rotation": "K1_active ? 'star' : (K2_active ? 'delta' : 'stop')"
+  },
+  
+  "behavior": {
+    "description": "S1 startet K1 (Stern). Nach 5s schaltet KT auf K2 (Dreieck).",
+    "sequence": [
+      { "trigger": "S1 pressed", "action": "K1 activates, KT starts" },
+      { "trigger": "5s elapsed", "action": "KT activates K2, K1 releases" }
+    ]
+  }
+}

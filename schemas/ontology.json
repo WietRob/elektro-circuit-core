@@ -1,0 +1,204 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://schaltplan-baukasten.de/schemas/ontology.json",
+  "title": "Schaltplan-Baukasten Ontologie",
+  "description": "Globale Ontologie: component/part/anchor/wire/state",
+  "version": "2.0.0",
+
+  "definitions": {
+    "Component": {
+      "type": "object",
+      "required": ["id", "type", "parts"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Z][0-9]+$",
+          "description": "Komponenten-ID: K1, S1, P1, etc."
+        },
+        "type": {
+          "enum": ["pushbutton", "contactor", "lamp", "motor", "switch", "fuse", "motor_protection"],
+          "description": "Komponententyp"
+        },
+        "label": { "type": "string" },
+        "parts": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/definitions/Part" },
+          "description": "Parts dieser Komponente"
+        }
+      }
+    },
+
+    "Part": {
+      "type": "object",
+      "required": ["id", "type", "terminals"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Z][0-9]+-[A-Z_]+$",
+          "description": "Part-ID: K1-COIL, K1-AUX_NO, etc."
+        },
+        "type": {
+          "enum": ["coil", "aux_no", "aux_nc", "main_contact", "button_mechanism", "lamp_element"],
+          "description": "Part-Typ"
+        },
+        "terminals": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/definitions/Terminal" },
+          "description": "Terminals dieses Parts"
+        },
+        "mechanicallyCoupledTo": {
+          "type": "string",
+          "description": "Referenz zu anderem Part (z.B. AUX -> COIL.ANKER)"
+        },
+        "visualPosition": {
+          "type": "object",
+          "properties": {
+            "relativeTo": { "type": "string" },
+            "offsetX": { "type": "number" },
+            "offsetY": { "type": "number" }
+          }
+        }
+      }
+    },
+
+    "Terminal": {
+      "type": "object",
+      "required": ["id", "function"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Terminal-ID: A1, A2, 13, 14, etc."
+        },
+        "function": {
+          "enum": ["input", "output", "common", "coil_in", "coil_out", "contact_in", "contact_out"],
+          "description": "Funktion des Terminals"
+        },
+        "potential": {
+          "type": "string",
+          "description": "Normalerweise anliegendes Potential"
+        }
+      }
+    },
+
+    "Anchor": {
+      "type": "object",
+      "description": "Verbindungspunkt in einer View",
+      "required": ["id", "component", "part", "terminal", "x", "y"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(DIN|LAB)-[A-Z][0-9]+-[A-Z_]+-[A-Z0-9]+$",
+          "description": "Anchor-ID: DIN-K1-COIL-A1, LAB-K1-AUX_NO-13"
+        },
+        "view": { "enum": ["DIN", "LAB"] },
+        "component": { "type": "string" },
+        "part": { "type": "string" },
+        "terminal": { "type": "string" },
+        "x": { "type": "number" },
+        "y": { "type": "number" }
+      }
+    },
+
+    "Wire": {
+      "type": "object",
+      "required": ["id", "fromAnchor", "toAnchor"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^(din|lab)-wire-[a-z0-9-]+$",
+          "description": "Wire-ID: din-wire-l-s1, lab-wire-k1-n"
+        },
+        "fromAnchor": { "type": "string" },
+        "toAnchor": { "type": "string" },
+        "type": { "enum": ["control", "load", "preinstalled"] },
+        "color": { "type": "string" },
+        "path": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "x": { "type": "number" },
+              "y": { "type": "number" }
+            }
+          }
+        }
+      }
+    },
+
+    "State": {
+      "type": "object",
+      "required": ["id", "initial", "transitions"],
+      "properties": {
+        "id": { "type": "string" },
+        "initial": { "type": "boolean" },
+        "transitions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "trigger": { "type": "string" },
+              "target": { "type": "string" },
+              "actions": { "type": "object" }
+            }
+          }
+        }
+      }
+    },
+
+    "TransferMapping": {
+      "type": "object",
+      "required": ["dinComponent", "laborTarget"],
+      "properties": {
+        "dinComponent": { "type": "string" },
+        "laborTarget": {
+          "type": "object",
+          "required": ["component"],
+          "properties": {
+            "component": { "type": "string" },
+            "part": { "type": "string" },
+            "highlight": { "enum": ["component", "part"] }
+          }
+        },
+        "bidirectional": { "type": "boolean", "default": true }
+      }
+    }
+  },
+
+  "type": "object",
+  "required": ["circuitId", "components", "wires", "states", "transferMappings"],
+  "properties": {
+    "circuitId": { "type": "string" },
+    "components": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/definitions/Component" }
+    },
+    "anchors": {
+      "type": "object",
+      "patternProperties": {
+        "^(DIN|LAB)-": { "$ref": "#/definitions/Anchor" }
+      }
+    },
+    "wires": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/Wire" }
+    },
+    "states": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/definitions/State" }
+    },
+    "transferMappings": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/TransferMapping" }
+    },
+    "powerRails": {
+      "type": "object",
+      "properties": {
+        "L": { "type": "object" },
+        "N": { "type": "object" },
+        "L1": { "type": "object" },
+        "L2": { "type": "object" },
+        "L3": { "type": "object" }
+      }
+    }
+  }
+}
