@@ -17,6 +17,8 @@ node_modules/
 npm-debug.log*
 test-results/
 
-# Giancarlo Podcast — abgeleitete Artefakte
+# Giancarlo Podcast — abgeleitete Artefakte (lokal, nicht im Repo)
 .cache/
 data/giancarlo/*.json
+docs/research/giancarlo/
+scripts/parse_giancarlo_rss.py
