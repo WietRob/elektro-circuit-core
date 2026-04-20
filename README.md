@@ -12,18 +12,40 @@ npm test         # Alle Tests ausführen
 
 ## Build-Artefakte
 
-Jede Schaltung wird in zwei strikt getrennten Varianten generiert:
+Jede Schaltung wird in zwei strikt getrennten Varianten generiert, jeweils als HTML und SVG:
 
-| Variante | Datei-Suffix | Inhalt |
-|----------|--------------|--------|
-| **GRUNDBILD** | `_grundbild.html` | Reiner technischer Schaltplan ohne Didaktik |
-| **OVERLAY** | `_overlay.html` | Interaktive Schaltung mit Didaktik-Layer |
+| Variante | HTML | SVG | Inhalt |
+|----------|------|-----|--------|
+| **GRUNDBILD** | `_grundbild.html` | `_grundbild.svg` | Reiner technischer Schaltplan ohne Didaktik |
+| **OVERLAY** | `_overlay.html` | `_overlay.svg` | Interaktive Schaltung mit Didaktik-Layer |
 
 ### Unterschiede
 
 **GRUNDBILD:** DIN-Ansicht + LAB-Ansicht, Rails, Wires, Komponenten
 
 **OVERLAY:** Zusätzlich Zonen-Markierung, Topologie-Overlay, interaktive Steuerung, State-Machine-Animation
+
+### Output-Struktur
+
+```
+test_output/          # Dev-Build (temporär, .gitignore)
+├── html/             # HTML-Dateien
+│   ├── selbsthaltung_grundbild.html
+│   ├── selbsthaltung_overlay.html
+│   └── ...
+└── svg/              # SVG-Dateien (DIN-Ansicht)
+    ├── selbsthaltung_grundbild.svg
+    ├── selbsthaltung_overlay.svg
+    └── ...
+
+candidates/           # Build-Kandidaten (nicht kanonisch)
+├── html/             # Kandidaten-HTML
+└── svg/              # Kandidaten-SVG
+
+final/                # KANONISCH (nicht durch Build überschreibbar)
+├── html/             # Kanonische HTML
+└── svg/              # Kanonische SVG
+```
 
 ## Struktur
 
@@ -33,14 +55,26 @@ Jede Schaltung wird in zwei strikt getrennten Varianten generiert:
 - `scripts/` - Build-Skripte
 - `tests/` - Unit-Tests (Koordinatenbeweis, State-Engine, Geometrie-Vertrag)
 
-## Generator-Modus
-
-Der Generator unterstützt zwei Modi über die `mode`-Option:
+## Generator-API
 
 ```javascript
+const { CircuitGeneratorV2 } = require('./src/generator/circuit-generator-v2.js');
+
+// HTML-Export (beide Ansichten in einer Datei)
 const generator = new CircuitGeneratorV2(specPath, { mode: 'grundbild' });
-const generator = new CircuitGeneratorV2(specPath, { mode: 'overlay' });
+const html = generator.generate();
+
+// SVG-Export (einzelne Ansicht)
+const svgDin = generator.generateSVG('DIN');   // DIN-Ansicht
+const svgLab = generator.generateSVG('LAB');   // LAB-Ansicht
 ```
+
+### Modi
+
+| Modus | HTML | SVG | Beschreibung |
+|-------|------|-----|--------------|
+| `grundbild` | DIN + LAB, keine Didaktik | DIN, keine Didaktik | Reiner technischer Schaltplan |
+| `overlay` | DIN + LAB, mit Didaktik | DIN, mit Didaktik | Interaktive Lehrvariante |
 
 ## Lizenz
 

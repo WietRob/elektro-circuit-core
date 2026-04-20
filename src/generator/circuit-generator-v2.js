@@ -306,6 +306,40 @@ ${scriptHtml}
 </html>`;
   }
 
+  /**
+   * STANDALONE SVG GENERIERUNG
+   * Erzeugt eine eigenständige .svg-Datei für eine Ansicht (DIN oder LAB)
+   */
+  buildStandaloneSVG(viewType, circuitState = null) {
+    const title = `${this.spec.circuitId} ${viewType}`;
+    const viewBox = '0 0 700 400';
+    const width = 700;
+    const height = 400;
+    
+    const content = this.generateViewSVG(viewType, circuitState);
+    
+    return `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- CircuitGeneratorV2: ${title} ${this.options.mode} -->
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="${viewBox}"
+     width="${width}" height="${height}"
+     version="1.1">
+  <title>${title}</title>
+  <desc>${this.spec.circuitId} - ${viewType} Ansicht (${this.options.mode})</desc>
+  ${content}
+</svg>`;
+  }
+
+  /**
+   * Öffentliche API für SVG-Export
+   * @param {string} viewType - 'DIN' oder 'LAB'
+   * @param {Object} circuitState - Optionaler Zustand
+   * @returns {string} Vollständige SVG-Datei
+   */
+  generateSVG(viewType = 'DIN', circuitState = null) {
+    return this.buildStandaloneSVG(viewType, circuitState);
+  }
+
   generateViewSVG(viewType, circuitState = null) {
     let svg = `<!-- CircuitGeneratorV2: ${this.spec.circuitId} ${viewType} -->\n`;
     

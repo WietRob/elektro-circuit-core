@@ -1,16 +1,19 @@
 #!/usr/bin/env node
 /**
- * build.js - Batch 2 (gehärtet): Expliziter Build-Vertrag
- * 
+ * build.js - Batch 3A: Artefaktvertrag mit HTML + SVG
+ *
  * Nutzung:
- *   node build.js              # Dev-Build nach test_output/
- *   node build.js --candidate  # Candidate-Build nach candidates/html/
+ *   node build.js              # Dev-Build nach test_output/{html,svg}/
+ *   node build.js --candidate  # Candidate-Build nach candidates/{html,svg}/
  *   node build.js --check      # Prüft Konsistenz ohne Schreiben
- * 
+ *
  * Artefaktvertrag:
- *   - test_output/     = Entwicklung, temporär (in .gitignore)
- *   - candidates/html/ = Build-Kandidaten, nicht kanonisch
- *   - final/html/      = KANONISCH, nicht durch automatischen Build überschreibbar
+ *   - test_output/html/ = Dev-HTML, temporär (in .gitignore)
+ *   - test_output/svg/  = Dev-SVG, temporär (in .gitignore)
+ *   - candidates/html/  = HTML-Kandidaten, nicht kanonisch
+ *   - candidates/svg/   = SVG-Kandidaten, nicht kanonisch
+ *   - final/html/       = KANONISCH, nicht durch automatischen Build überschreibbar
+ *   - final/svg/        = KANONISCH, nicht durch automatischen Build überschreibbar
  */
 
 const fs = require('fs');
@@ -37,37 +40,44 @@ const circuits = [
 const isCandidate = process.argv.includes('--candidate');
 const isCheck = process.argv.includes('--check');
 
-// Output-Verzeichnis - NIE direkt nach final/
-const outputDir = isCandidate 
-  ? path.join(__dirname, '..', 'candidates', 'html')
+// Output-Verzeichnisse - NIE direkt nach final/
+const baseDir = isCandidate
+  ? path.join(__dirname, '..', 'candidates')
   : path.join(__dirname, '..', 'test_output');
+const htmlDir = path.join(baseDir, 'html');
+const svgDir = path.join(baseDir, 'svg');
 
 console.log(`╔════════════════════════════════════════════════════════════╗`);
-console.log(`║  Batch 2 Build-Vertrag                                    ║`);
+console.log(`║  Batch 3A Build-Vertrag                                   ║`);
 console.log(`╠════════════════════════════════════════════════════════════╣`);
-console.log(`║  Modus: ${isCandidate ? 'CANDIDATE -> candidates/html/' : 'DEV      -> test_output/'}${' '.repeat(isCandidate ? 8 : 9)}║`);
+console.log(`║  Modus: ${isCandidate ? 'CANDIDATE -> candidates/{html,svg}/' : 'DEV      -> test_output/{html,svg}/'}║`);
 console.log(`║  Generator: CircuitGeneratorV2                            ║`);
 console.log(`╚════════════════════════════════════════════════════════════╝\n`);
 
 if (isCheck) {
   console.log('CHECK-Modus: Prüfe Konsistenz...\n');
-  const finalExists = fs.existsSync(path.join(__dirname, 'final', 'html'));
-  const candidatesExists = fs.existsSync(path.join(__dirname, 'candidates', 'html'));
-  const testExists = fs.existsSync(path.join(__dirname, 'test_output'));
-  console.log(`  final/html/       : ${finalExists ? '✓ (kanonisch)' : '✗'}`);
-  console.log(`  candidates/html/  : ${candidatesExists ? '✓' : '✗'}`);
-  console.log(`  test_output/      : ${testExists ? '✓' : '✗'}`);
-  console.log(`  Generator         : ✓`);
+  const finalHtmlExists = fs.existsSync(path.join(__dirname, '..', 'final', 'html'));
+  const finalSvgExists = fs.existsSync(path.join(__dirname, '..', 'final', 'svg'));
+  const candidatesHtmlExists = fs.existsSync(path.join(__dirname, '..', 'candidates', 'html'));
+  const candidatesSvgExists = fs.existsSync(path.join(__dirname, '..', 'candidates', 'svg'));
+  const testExists = fs.existsSync(path.join(__dirname, '..', 'test_output'));
+  console.log(`  final/html/         : ${finalHtmlExists ? '✓ (kanonisch)' : '✗'}`);
+  console.log(`  final/svg/          : ${finalSvgExists ? '✓ (kanonisch)' : '✗'}`);
+  console.log(`  candidates/html/    : ${candidatesHtmlExists ? '✓' : '✗'}`);
+  console.log(`  candidates/svg/     : ${candidatesSvgExists ? '✓' : '✗'}`);
+  console.log(`  test_output/        : ${testExists ? '✓' : '✗'}`);
+  console.log(`  Generator           : ✓`);
   console.log(`\nHINWEIS: final/ wird durch diesen Build NICHT verändert.`);
   console.log(`         Verwenden Sie --candidate für Build-Kandidaten.\n`);
   process.exit(0);
 }
 
-// Sicherstellen, dass Output-Verzeichnis existiert
-if (!fs.existsSync(outputDir)) {
-  fs.mkdirSync(outputDir, { recursive: true });
-  console.log(`  Verzeichnis erstellt: ${outputDir}\n`);
-}
+// Sicherstellen, dass Output-Verzeichnisse existieren
+[htmlDir, svgDir].forEach(dir => {
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+});
 
 // Build
 console.log('Generiere Schaltungen...\n');
@@ -76,46 +86,73 @@ let failCount = 0;
 
 for (const circuit of circuits) {
   const circuitPath = path.join(__dirname, '..', circuit.file);
+  const target = isCandidate ? 'candidates/' : 'test_output/';
 
-  // 1. GRUNDBILD: Reiner technischer Schaltplan
+  // 1. GRUNDBILD HTML: Reiner technischer Schaltplan
   try {
     const grundGenerator = new CircuitGeneratorV2(circuitPath, {
       generateStates: true,
       mode: 'grundbild'
     });
     const grundHtml = grundGenerator.generate({});
-
     const grundName = `${circuit.name}_grundbild.html`;
-    const grundPath = path.join(outputDir, grundName);
-    fs.writeFileSync(grundPath, grundHtml);
-
+    fs.writeFileSync(path.join(htmlDir, grundName), grundHtml);
     const grundSize = (grundHtml.length / 1024).toFixed(2);
-    const target = isCandidate ? 'candidates/' : 'test_output/';
-    console.log(`  ✓ ${circuit.name.padEnd(15)} ${grundSize.padStart(6)}KB -> ${target}${grundName}`);
+    console.log(`  ✓ ${circuit.name.padEnd(15)} ${grundSize.padStart(6)}KB -> ${target}html/${grundName}`);
     successCount++;
   } catch (error) {
-    console.error(`  ✗ ${circuit.name.padEnd(15)} GRUNDBILD ${error.message}`);
+    console.error(`  ✗ ${circuit.name.padEnd(15)} GRUNDBILD-HTML ${error.message}`);
     failCount++;
   }
 
-  // 2. OVERLAY: Mit Didaktik-Layer
+  // 2. GRUNDBILD SVG: Reiner technischer Schaltplan als SVG
+  try {
+    const grundSvgGenerator = new CircuitGeneratorV2(circuitPath, {
+      generateStates: true,
+      mode: 'grundbild'
+    });
+    const grundSvg = grundSvgGenerator.generateSVG('DIN', {});
+    const grundSvgName = `${circuit.name}_grundbild.svg`;
+    fs.writeFileSync(path.join(svgDir, grundSvgName), grundSvg);
+    const grundSvgSize = (grundSvg.length / 1024).toFixed(2);
+    console.log(`  ✓ ${circuit.name.padEnd(15)} ${grundSvgSize.padStart(6)}KB -> ${target}svg/${grundSvgName}`);
+    successCount++;
+  } catch (error) {
+    console.error(`  ✗ ${circuit.name.padEnd(15)} GRUNDBILD-SVG ${error.message}`);
+    failCount++;
+  }
+
+  // 3. OVERLAY HTML: Mit Didaktik-Layer
   try {
     const overlayGenerator = new CircuitGeneratorV2(circuitPath, {
       generateStates: true,
       mode: 'overlay'
     });
     const overlayHtml = overlayGenerator.generate({});
-
     const overlayName = `${circuit.name}_overlay.html`;
-    const overlayPath = path.join(outputDir, overlayName);
-    fs.writeFileSync(overlayPath, overlayHtml);
-
+    fs.writeFileSync(path.join(htmlDir, overlayName), overlayHtml);
     const overlaySize = (overlayHtml.length / 1024).toFixed(2);
-    const target = isCandidate ? 'candidates/' : 'test_output/';
-    console.log(`  ✓ ${circuit.name.padEnd(15)} ${overlaySize.padStart(6)}KB -> ${target}${overlayName}`);
+    console.log(`  ✓ ${circuit.name.padEnd(15)} ${overlaySize.padStart(6)}KB -> ${target}html/${overlayName}`);
     successCount++;
   } catch (error) {
-    console.error(`  ✗ ${circuit.name.padEnd(15)} OVERLAY ${error.message}`);
+    console.error(`  ✗ ${circuit.name.padEnd(15)} OVERLAY-HTML ${error.message}`);
+    failCount++;
+  }
+
+  // 4. OVERLAY SVG: Mit Didaktik-Layer als SVG
+  try {
+    const overlaySvgGenerator = new CircuitGeneratorV2(circuitPath, {
+      generateStates: true,
+      mode: 'overlay'
+    });
+    const overlaySvg = overlaySvgGenerator.generateSVG('DIN', {});
+    const overlaySvgName = `${circuit.name}_overlay.svg`;
+    fs.writeFileSync(path.join(svgDir, overlaySvgName), overlaySvg);
+    const overlaySvgSize = (overlaySvg.length / 1024).toFixed(2);
+    console.log(`  ✓ ${circuit.name.padEnd(15)} ${overlaySvgSize.padStart(6)}KB -> ${target}svg/${overlaySvgName}`);
+    successCount++;
+  } catch (error) {
+    console.error(`  ✗ ${circuit.name.padEnd(15)} OVERLAY-SVG ${error.message}`);
     failCount++;
   }
 }
@@ -125,11 +162,11 @@ console.log(`Ergebnis: ${successCount} erfolgreich, ${failCount} fehlgeschlagen`
 console.log(`${'═'.repeat(62)}\n`);
 
 if (isCandidate) {
-  console.log('HINWEIS: Candidate-Artefakte nach candidates/html/ geschrieben.');
+  console.log('HINWEIS: Candidate-Artefakte nach candidates/{html,svg}/ geschrieben.');
   console.log('         Diese Dateien sind Build-Kandidaten, NICHT kanonisch.');
   console.log('         Manuelle Prüfung erforderlich vor Übernahme nach final/.\n');
 } else {
-  console.log('HINWEIS: Dev-Artefakte nach test_output/ geschrieben.');
+  console.log('HINWEIS: Dev-Artefakte nach test_output/{html,svg}/ geschrieben.');
   console.log('         Diese Dateien sind in .gitignore und temporär.\n');
   console.log('Für Candidate-Build: node build.js --candidate\n');
 }
