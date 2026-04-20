@@ -76,6 +76,43 @@ const svgLab = generator.generateSVG('LAB');   // LAB-Ansicht
 | `grundbild` | DIN + LAB, keine Didaktik | DIN, keine Didaktik | Reiner technischer Schaltplan |
 | `overlay` | DIN + LAB, mit Didaktik | DIN, mit Didaktik | Interaktive Lehrvariante |
 
+## Lokaler Qualitäts-Gate
+
+Der lokale Prüfpfad verifiziert den aktuell belastbaren Generator-Stand ohne CI/CD:
+
+```bash
+npm run verify:local        # Build + Unit-Tests + Minimale Visual-Tests
+npm run verify:visual:local # Build + Nur Visual-Tests
+npm run check               # Konsistenz-Check (kein Build)
+```
+
+### Was geprüft wird
+
+| Befehl | Build | Unit-Tests | Visual-Tests | Tests |
+|--------|-------|------------|--------------|-------|
+| `npm run verify:local` | ✓ | 66 | 18 | 84 |
+| `npm test` | – | 66 | – | 66 |
+| `npm run test:visual` | – | – | 18 | 18 |
+
+**Unit-Tests (66):**
+- Koordinatenbeweis (Terminal-Positionen, Geometrie)
+- State-Engine (Zustandsübergänge, Initialzustände)
+- Geometrie-Vertrag (Bounds, Rails, Caching)
+
+**Visual-Tests (18):**
+- DOM-Struktur (DIN/LAB-Ansichten vorhanden)
+- Rails-Farben (IEC 60446)
+- Orthogonale Verdrahtung
+- SVG viewBox
+- Controls und Reset-Button
+
+### Was bewusst NICHT geprüft wird
+
+- Story-Mode / Didaktik-Panel (noch nicht im Generator)
+- Runtime-State-Transitions (`window.currentState`)
+- Screenshot-Baselines (Snapshots veraltet)
+- Transfer-Highlighting DIN↔LAB
+
 ## Lizenz
 
 MIT

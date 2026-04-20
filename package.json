@@ -7,7 +7,9 @@
     "build": "node scripts/build.js",
     "check": "node scripts/build.js --check",
     "test": "node tests/runner.js && node tests/state-engine.test.js && node tests/geometry-contract.test.js",
-    "test:visual": "npx playwright test tests/visual/ci-minimal.spec.js"
+    "test:visual": "npx playwright test tests/visual/ci-minimal.spec.js",
+    "verify:local": "npm run build && npm test && npm run test:visual",
+    "verify:visual:local": "npm run build && npm run test:visual"
   },
   "keywords": [
     "elektrotechnik",
