@@ -12,7 +12,7 @@ const path = require('path');
  */
 
 test.describe('Coverage Gate: Spec-to-DOM Validation', () => {
-  const specPath = path.resolve(__dirname, '../../circuits/selbsthaltung.json');
+  const specPath = path.resolve(__dirname, '../../examples/selbsthaltung.json');
   let spec;
   
   test.beforeAll(() => {
@@ -20,7 +20,7 @@ test.describe('Coverage Gate: Spec-to-DOM Validation', () => {
   });
   
   test.beforeEach(async ({ page }) => {
-    await page.goto('/artifacts/selbsthaltung/generated.html');
+    await page.goto('/selbsthaltung_overlay.html');
     await page.waitForTimeout(200);
   });
 

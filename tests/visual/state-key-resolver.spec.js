@@ -3,7 +3,7 @@ const { test, expect } = require('@playwright/test');
 test.describe('State-Key-Resolver Unit Tests', () => {
   
   test('Format 1: Single-Part Komponente (S2 → S2-BUTTON)', async ({ page }) => {
-    await page.goto('/artifacts/selbsthaltung/generated.html');
+    await page.goto('/selbsthaltung_overlay.html');
     await page.waitForTimeout(200);
     
     const result = await page.evaluate(() => {
@@ -17,7 +17,7 @@ test.describe('State-Key-Resolver Unit Tests', () => {
   });
 
   test('Format 2: Direkter Part-Key (K1-COIL)', async ({ page }) => {
-    await page.goto('/artifacts/selbsthaltung/generated.html');
+    await page.goto('/selbsthaltung_overlay.html');
     await page.waitForTimeout(200);
     
     const result = await page.evaluate(() => {
@@ -31,7 +31,7 @@ test.describe('State-Key-Resolver Unit Tests', () => {
   });
 
   test('Format 2: Direkter Part-Key mit Bindestrich (K1-AUX-NO)', async ({ page }) => {
-    await page.goto('/artifacts/selbsthaltung/generated.html');
+    await page.goto('/selbsthaltung_overlay.html');
     await page.waitForTimeout(200);
     
     const result = await page.evaluate(() => {
@@ -45,7 +45,7 @@ test.describe('State-Key-Resolver Unit Tests', () => {
   });
 
   test('Format 1: Lamp (P1 → P1-LAMP)', async ({ page }) => {
-    await page.goto('/artifacts/selbsthaltung/generated.html');
+    await page.goto('/selbsthaltung_overlay.html');
     await page.waitForTimeout(200);
     
     const result = await page.evaluate(() => {
@@ -59,7 +59,7 @@ test.describe('State-Key-Resolver Unit Tests', () => {
   });
 
   test('Ungültiger Key gibt null zurück', async ({ page }) => {
-    await page.goto('/artifacts/selbsthaltung/generated.html');
+    await page.goto('/selbsthaltung_overlay.html');
     await page.waitForTimeout(200);
     
     const result = await page.evaluate(() => {
@@ -70,7 +70,7 @@ test.describe('State-Key-Resolver Unit Tests', () => {
   });
 
   test('Folgeschaltung: K2-COIL', async ({ page }) => {
-    await page.goto('/artifacts/folgeschaltung/generated.html');
+    await page.goto('/folgeschaltung_overlay.html');
     await page.waitForTimeout(200);
     
     const result = await page.evaluate(() => {
@@ -84,7 +84,7 @@ test.describe('State-Key-Resolver Unit Tests', () => {
   });
 
   test('Folgeschaltung: P2 (single-part)', async ({ page }) => {
-    await page.goto('/artifacts/folgeschaltung/generated.html');
+    await page.goto('/folgeschaltung_overlay.html');
     await page.waitForTimeout(200);
     
     const result = await page.evaluate(() => {

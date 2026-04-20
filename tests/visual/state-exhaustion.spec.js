@@ -5,8 +5,8 @@ const path = require('path');
 const circuits = [
   { 
     name: 'tippbetrieb', 
-    specPath: '../../circuits/tippbetrieb.json', 
-    htmlPath: '/artifacts/tippbetrieb/generated.html',
+    specPath: '../../examples/tippbetrieb.json',
+    htmlPath: '/tippbetrieb_overlay.html',
     stateSequence: [
       { from: 'initial', trigger: 'S1.pressed', to: 'active', check: { currentWires: '>0' } },
       { from: 'active', trigger: 'S1.released', to: 'reset', check: { currentWires: 0 } }
@@ -14,8 +14,8 @@ const circuits = [
   },
   { 
     name: 'selbsthaltung', 
-    specPath: '../../circuits/selbsthaltung.json', 
-    htmlPath: '/artifacts/selbsthaltung/generated.html',
+    specPath: '../../examples/selbsthaltung.json',
+    htmlPath: '/selbsthaltung_overlay.html',
     stateSequence: [
       { from: 'initial', trigger: 'S1.pressed', to: 'active', check: { 'K1-AUX-NO': 'closed', 'P1-LAMP': 'lit' } },
       { from: 'active', trigger: 'S2.pressed', to: 'reset', check: { 'S2-BUTTON': 'open', 'K1-AUX-NO': 'open' } }
@@ -23,8 +23,8 @@ const circuits = [
   },
   { 
     name: 'folgeschaltung', 
-    specPath: '../../circuits/folgeschaltung.json', 
-    htmlPath: '/artifacts/folgeschaltung/generated.html',
+    specPath: '../../examples/folgeschaltung.json',
+    htmlPath: '/folgeschaltung_overlay.html',
     stateSequence: [
       { from: 'initial', trigger: 'S1.pressed', to: 'k1_only', check: { 'K1-AUX-NO': 'closed', 'P1-LAMP': 'lit', 'P2-LAMP': 'dark' } },
       { from: 'k1_only', trigger: 'S2.pressed', to: 'k1_and_k2', check: { 'K1-AUX-NO': 'closed', 'K2-AUX-NO': 'closed', 'P1-LAMP': 'lit', 'P2-LAMP': 'lit' } }

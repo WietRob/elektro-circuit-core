@@ -6,12 +6,21 @@
   "scripts": {
     "build": "node scripts/build.js",
     "check": "node scripts/build.js --check",
-    "test": "node tests/runner.js && node tests/state-engine.test.js && node tests/geometry-contract.test.js"
+    "test": "node tests/runner.js && node tests/state-engine.test.js && node tests/geometry-contract.test.js",
+    "test:visual": "npx playwright test tests/visual/ci-minimal.spec.js"
   },
-  "keywords": ["elektrotechnik", "schaltplan", "generator"],
+  "keywords": [
+    "elektrotechnik",
+    "schaltplan",
+    "generator"
+  ],
   "author": "Roberto Schmidt",
   "license": "MIT",
   "engines": {
     "node": ">=16.0.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "http-server": "^14.1.1"
   }
 }

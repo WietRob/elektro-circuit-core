@@ -1,11 +1,11 @@
 const { test, expect } = require('@playwright/test');
 const fs = require('fs');
 
-const spec = JSON.parse(fs.readFileSync('./circuits/tippbetrieb.json', 'utf8'));
+const spec = JSON.parse(fs.readFileSync('./examples/tippbetrieb.json', 'utf8'));
 
 test.describe('Tippbetrieb - Visual Contract', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/artifacts/tippbetrieb/generated.html');
+    await page.goto('/tippbetrieb_overlay.html');
     await page.waitForTimeout(200);
   });
 

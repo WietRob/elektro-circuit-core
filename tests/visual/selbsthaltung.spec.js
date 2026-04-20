@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 
 test.describe('Selbsthaltung - Generalisierungsnachweis', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/artifacts/selbsthaltung/generated.html');
+    await page.goto('/selbsthaltung_overlay.html');
     await page.waitForTimeout(200);
   });
 

@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 
 test.describe('VISUAL DoD - DIN Compliance', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/artifacts/tippbetrieb/generated.html');
+    await page.goto('/tippbetrieb_overlay.html');
     await page.waitForTimeout(200);
   });
 
@@ -58,7 +58,7 @@ test.describe('VISUAL DoD - DIN Compliance', () => {
 
 test.describe('VISUAL DoD - Orthogonale Verdrahtung', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/artifacts/tippbetrieb/generated.html');
+    await page.goto('/tippbetrieb_overlay.html');
     await page.waitForTimeout(200);
   });
 
@@ -107,7 +107,7 @@ test.describe('VISUAL DoD - Orthogonale Verdrahtung', () => {
 
 test.describe('VISUAL DoD - Lesbarkeit (Didaktik)', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/artifacts/tippbetrieb/generated.html');
+    await page.goto('/tippbetrieb_overlay.html');
     await page.waitForTimeout(200);
   });
 
@@ -172,7 +172,7 @@ test.describe('VISUAL DoD - Lesbarkeit (Didaktik)', () => {
 
 test.describe('VISUAL DoD - Layout und Konsistenz', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/artifacts/tippbetrieb/generated.html');
+    await page.goto('/tippbetrieb_overlay.html');
     await page.waitForTimeout(200);
   });
 
@@ -330,7 +330,7 @@ test.describe('VISUAL DoD - Layout und Konsistenz', () => {
 
 test.describe('VISUAL DoD - Interaktivität', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/artifacts/tippbetrieb/generated.html');
+    await page.goto('/tippbetrieb_overlay.html');
     await page.waitForTimeout(200);
   });
 
@@ -388,7 +388,7 @@ test.describe('VISUAL DoD - Interaktivität', () => {
 
 test.describe('VISUAL DoD - Didaktische Klarheit', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/artifacts/tippbetrieb/generated.html');
+    await page.goto('/tippbetrieb_overlay.html');
     await page.waitForTimeout(200);
   });
 
@@ -426,7 +426,7 @@ test.describe('VISUAL DoD - Didaktische Klarheit', () => {
 
 test.describe('VISUAL DoD - Summary', () => {
   test('Alle MUST-Kriterien erfüllt', async ({ page }) => {
-    await page.goto('/artifacts/tippbetrieb/generated.html');
+    await page.goto('/tippbetrieb_overlay.html');
     await page.waitForTimeout(200);
     
     const results = await page.evaluate(() => {

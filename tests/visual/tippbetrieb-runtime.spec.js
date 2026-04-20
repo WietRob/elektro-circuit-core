@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 
 test.describe('Tippbetrieb - Runtime-Verifikation', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/artifacts/tippbetrieb/generated.html');
+    await page.goto('/tippbetrieb_overlay.html');
     await page.waitForTimeout(200);
   });
 

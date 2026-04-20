@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 
 test.describe('Folgeschaltung - Behavioral Gate', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/artifacts/folgeschaltung/generated.html');
+    await page.goto('/folgeschaltung_overlay.html');
     await page.waitForTimeout(200);
   });
 

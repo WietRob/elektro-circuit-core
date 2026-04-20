@@ -3,9 +3,9 @@ const fs = require('fs');
 const path = require('path');
 
 const circuits = [
-  { name: 'tippbetrieb', specPath: '../../circuits/tippbetrieb.json', htmlPath: '/artifacts/tippbetrieb/generated.html' },
-  { name: 'selbsthaltung', specPath: '../../circuits/selbsthaltung.json', htmlPath: '/artifacts/selbsthaltung/generated.html' },
-  { name: 'folgeschaltung', specPath: '../../circuits/folgeschaltung.json', htmlPath: '/artifacts/folgeschaltung/generated.html' }
+  { name: 'tippbetrieb', specPath: '../../examples/tippbetrieb.json', htmlPath: '/tippbetrieb_overlay.html' },
+  { name: 'selbsthaltung', specPath: '../../examples/selbsthaltung.json', htmlPath: '/selbsthaltung_overlay.html' },
+  { name: 'folgeschaltung', specPath: '../../examples/folgeschaltung.json', htmlPath: '/folgeschaltung_overlay.html' }
 ];
 
 for (const circuit of circuits) {
