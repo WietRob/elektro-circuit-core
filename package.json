@@ -5,7 +5,8 @@
   "main": "src/generator/circuit-generator-v2.js",
   "scripts": {
     "build": "node scripts/build.js",
-    "check": "node scripts/build.js --check"
+    "check": "node scripts/build.js --check",
+    "test": "node tests/runner.js && node tests/state-engine.test.js && node tests/geometry-contract.test.js"
   },
   "keywords": ["elektrotechnik", "schaltplan", "generator"],
   "author": "Roberto Schmidt",

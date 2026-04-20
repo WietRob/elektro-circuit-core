@@ -1,10 +1,10 @@
-const { StateEngine } = require('../generator/state-engine.js');
+const { StateEngine } = require('../src/generator/state-engine.js');
 const fs = require('fs');
 const path = require('path');
 
 console.log('=== STATE ENGINE TESTS ===\n');
 
-const circuitsDir = path.join(__dirname, '../circuits');
+const circuitsDir = path.join(__dirname, '../examples');
 const circuits = ['tippbetrieb.json', 'selbsthaltung.json', 'folgeschaltung.json'];
 
 let totalPassed = 0;

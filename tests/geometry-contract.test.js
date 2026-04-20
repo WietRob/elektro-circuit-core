@@ -1,4 +1,4 @@
-const { GeometryEngine } = require('../generator/geometry-engine.js');
+const { GeometryEngine } = require('../src/generator/geometry-engine.js');
 
 const testSpec = {
   circuitId: 'test-circuit',

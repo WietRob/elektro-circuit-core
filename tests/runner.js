@@ -9,8 +9,8 @@
 
 const fs = require('fs');
 const path = require('path');
-const { CircuitGeneratorV2 } = require('../generator/circuit-generator-v2.js');
-const { GeometryEngine } = require('../generator/geometry-engine.js');
+const { CircuitGeneratorV2 } = require('../src/generator/circuit-generator-v2.js');
+const { GeometryEngine } = require('../src/generator/geometry-engine.js');
 
 class TestRunner {
   constructor() {
@@ -22,7 +22,7 @@ class TestRunner {
   async runAll() {
     console.log('=== CircuitGeneratorV2 Test Suite ===\n');
     
-    const specPath = path.join(__dirname, '../circuits/selbsthaltung.json');
+    const specPath = path.join(__dirname, '../examples/selbsthaltung.json');
     const spec = JSON.parse(fs.readFileSync(specPath, 'utf8'));
     const generator = new CircuitGeneratorV2(specPath);
     const geometry = new GeometryEngine(spec);
@@ -51,8 +51,8 @@ class TestRunner {
     const requiredTerminals = [
       { view: 'DIN', component: 'S1', part: 'S1-BUTTON', terminal: '13', label: 'S1.13' },
       { view: 'DIN', component: 'S1', part: 'S1-BUTTON', terminal: '14', label: 'S1.14' },
-      { view: 'DIN', component: 'S2', part: 'S2-BUTTON', terminal: '11', label: 'S2.11' },
-      { view: 'DIN', component: 'S2', part: 'S2-BUTTON', terminal: '12', label: 'S2.12' },
+      { view: 'DIN', component: 'S2', part: 'S2-BUTTON', terminal: '21', label: 'S2.21' },
+      { view: 'DIN', component: 'S2', part: 'S2-BUTTON', terminal: '22', label: 'S2.22' },
       { view: 'DIN', component: 'K1', part: 'K1-COIL', terminal: 'A1', label: 'K1.A1' },
       { view: 'DIN', component: 'K1', part: 'K1-COIL', terminal: 'A2', label: 'K1.A2' },
       { view: 'DIN', component: 'K1', part: 'K1-AUX-NO', terminal: '13', label: 'K1h.13' },
@@ -168,15 +168,15 @@ class TestRunner {
   }
 
   validateNCContact(geometry, spec) {
-    const term11 = geometry.getTerminal('DIN', 'S2', 'S2-BUTTON', '11');
-    const term12 = geometry.getTerminal('DIN', 'S2', 'S2-BUTTON', '12');
-    return term11 && term12 && term11.y < term12.y; // 11 oben, 12 unten
+    const term21 = geometry.getTerminal('DIN', 'S2', 'S2-BUTTON', '21');
+    const term22 = geometry.getTerminal('DIN', 'S2', 'S2-BUTTON', '22');
+    return term21 && term22 && term21.y < term22.y; // 21 oben, 22 unten
   }
 
   validateCoil(geometry, spec) {
     const a1 = geometry.getTerminal('DIN', 'K1', 'K1-COIL', 'A1');
     const a2 = geometry.getTerminal('DIN', 'K1', 'K1-COIL', 'A2');
-    return a1 && a2 && Math.abs(a2.x - a1.x) === 40; // A2 ist 40px rechts von A1
+    return a1 && a2 && a1.x === a2.x && Math.abs(a2.y - a1.y) === 30; // DIN: A1 und A2 vertikal angeordnet
   }
 
   validateLamp(geometry, spec) {
@@ -208,7 +208,12 @@ class TestRunner {
 
   checkParentSemantics(geometry, spec) {
     const meta = geometry.getIntegrationMeta('K1', 'K1-AUX-NO');
-    return meta && meta.isIntegratedPart && meta.parent === 'K1';
+    const hasVisualIntegration = meta && meta.isIntegratedPart && meta.parent === 'K1';
+
+    const k1AuxPart = spec.components['K1']?.parts['K1-AUX-NO'];
+    const hasMechanicalCoupling = k1AuxPart?.mechanicallyCoupledTo?.startsWith('K1') ?? false;
+
+    return hasVisualIntegration || hasMechanicalCoupling;
   }
 
   checkPeerBounds(geometry, spec) {

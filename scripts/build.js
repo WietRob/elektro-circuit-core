@@ -75,28 +75,47 @@ let successCount = 0;
 let failCount = 0;
 
 for (const circuit of circuits) {
+  const circuitPath = path.join(__dirname, '..', circuit.file);
+
+  // 1. GRUNDBILD: Reiner technischer Schaltplan
   try {
-    const circuitPath = path.join(__dirname, '..', circuit.file);
-    const generator = new CircuitGeneratorV2(circuitPath, { 
-      generateStates: true  // Immer mit State-Machine
+    const grundGenerator = new CircuitGeneratorV2(circuitPath, {
+      generateStates: true,
+      mode: 'grundbild'
     });
-    
-    // Generiere Grundbild-Variante (Interaktiv)
-    const html = generator.generate({});
-    
-    const outputName = isCandidate 
-      ? `${circuit.name}_grundbild.html`
-      : `${circuit.name}_din_v2.html`;
-    
-    const outputPath = path.join(outputDir, outputName);
-    fs.writeFileSync(outputPath, html);
-    
-    const sizeKB = (html.length / 1024).toFixed(2);
+    const grundHtml = grundGenerator.generate({});
+
+    const grundName = `${circuit.name}_grundbild.html`;
+    const grundPath = path.join(outputDir, grundName);
+    fs.writeFileSync(grundPath, grundHtml);
+
+    const grundSize = (grundHtml.length / 1024).toFixed(2);
     const target = isCandidate ? 'candidates/' : 'test_output/';
-    console.log(`  ✓ ${circuit.name.padEnd(15)} ${sizeKB.padStart(6)}KB -> ${target}${outputName}`);
+    console.log(`  ✓ ${circuit.name.padEnd(15)} ${grundSize.padStart(6)}KB -> ${target}${grundName}`);
     successCount++;
   } catch (error) {
-    console.error(`  ✗ ${circuit.name.padEnd(15)} ${error.message}`);
+    console.error(`  ✗ ${circuit.name.padEnd(15)} GRUNDBILD ${error.message}`);
+    failCount++;
+  }
+
+  // 2. OVERLAY: Mit Didaktik-Layer
+  try {
+    const overlayGenerator = new CircuitGeneratorV2(circuitPath, {
+      generateStates: true,
+      mode: 'overlay'
+    });
+    const overlayHtml = overlayGenerator.generate({});
+
+    const overlayName = `${circuit.name}_overlay.html`;
+    const overlayPath = path.join(outputDir, overlayName);
+    fs.writeFileSync(overlayPath, overlayHtml);
+
+    const overlaySize = (overlayHtml.length / 1024).toFixed(2);
+    const target = isCandidate ? 'candidates/' : 'test_output/';
+    console.log(`  ✓ ${circuit.name.padEnd(15)} ${overlaySize.padStart(6)}KB -> ${target}${overlayName}`);
+    successCount++;
+  } catch (error) {
+    console.error(`  ✗ ${circuit.name.padEnd(15)} OVERLAY ${error.message}`);
     failCount++;
   }
 }

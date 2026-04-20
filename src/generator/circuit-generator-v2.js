@@ -33,8 +33,9 @@ class CircuitGeneratorV2 {
     // PRODUKTION: Neue Architektur ist immer aktiv
     // Flag nur für temporäre Notfallschalter (wird in v3.0 entfernt)
     this.options = {
-      useNewRenderer: true,  // IMMER true in Produktion
-      generateStates: options.generateStates !== false, // Default: true
+      useNewRenderer: true,
+      generateStates: options.generateStates !== false,
+      mode: options.mode || 'overlay',
       outputDir: options.outputDir || null,
       ...options
     };
@@ -241,21 +242,25 @@ class CircuitGeneratorV2 {
    */
   buildHTML(circuitState = null) {
     const title = this.spec.circuitId;
-    
+    const isOverlay = this.options.mode === 'overlay';
+
     const dinSVG = this.generateViewSVG('DIN', circuitState);
     const labSVG = this.generateViewSVG('LAB', circuitState);
-    
-    // Generiere Controls aus den verfuegbaren Triggers
-    const controlsHtml = this.generateInteractiveControls();
-    
+
+    const controlsHtml = isOverlay ? this.generateInteractiveControls() : '';
+    const scriptHtml = isOverlay ? `<script>\n${this.generateInteractiveScript()}</script>` : '';
+    const controlsSection = isOverlay
+      ? `<div class="controls">\n  <div id="state-display">Status: initial</div>\n  ${controlsHtml}</div>`
+      : '';
+
     return `<!DOCTYPE html>
-<!-- CircuitGeneratorV2: ${title} -->
+<!-- CircuitGeneratorV2: ${title} ${this.options.mode} -->
 <html lang="de">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="CircuitGeneratorV2">
-<title>${title} - Interaktive Schaltung</title>
+<title>${title} - ${isOverlay ? 'Interaktive Schaltung' : 'Schaltplan'}</title>
 <style>
 * { box-sizing: border-box; }
 body { font-family: Arial, sans-serif; margin: 0; padding: 10px; background: #f5f5f5; }
@@ -277,10 +282,7 @@ body { font-family: Arial, sans-serif; margin: 0; padding: 10px; background: #f5
 </head>
 <body>
 <h1>${title.toUpperCase()}</h1>
-<div class="controls">
-  <div id="state-display">Status: initial</div>
-  ${controlsHtml}
-</div>
+${controlsSection}
 <div class="views">
   <div class="view" id="din-view">
     <h3>DIN-Ansicht</h3>
@@ -299,9 +301,7 @@ body { font-family: Arial, sans-serif; margin: 0; padding: 10px; background: #f5
     </div>
   </div>
 </div>
-<script>
-${this.generateInteractiveScript()}
-</script>
+${scriptHtml}
 </body>
 </html>`;
   }
@@ -320,18 +320,23 @@ ${this.generateInteractiveScript()}
     // View-Adapter für saubere Trennung DIN/LAB
     const viewAdapter = this.viewAdapterFactory.getAdapter(viewType);
     
-    // === BASIS-LAYER: Zonen, Rails, Wires, Geometrische Junctions ===
-    svg += viewAdapter.renderZones();
+    const isOverlay = this.options.mode === 'overlay';
+
+    // === BASIS-LAYER: Rails, Wires, Geometrische Junctions ===
+    if (isOverlay) {
+      svg += viewAdapter.renderZones();
+    }
     svg += viewAdapter.renderRails();
     svg += this.renderWiresV2(viewType, state, viewAdapter);
     svg += this.renderWireJunctions(viewType);
-    
-    // === TOPOLOGIE-LAYER (optional, nur wenn Topologie im Modell definiert) ===
-    if (this.spec.topology && viewType === 'DIN') {
-      svg += this.renderTopologyOverlay(viewType);
-    } else {
-      // Fallback für Familien ohne Topologie
-      svg += this.renderGenericPathLabels(viewType);
+
+    // === TOPOLOGIE-LAYER (nur im Overlay-Modus) ===
+    if (isOverlay && viewType === 'DIN') {
+      if (this.spec.topology) {
+        svg += this.renderTopologyOverlay(viewType);
+      } else {
+        svg += this.renderGenericPathLabels(viewType);
+      }
     }
     
     // === KOMPONENTEN-LAYER ===
