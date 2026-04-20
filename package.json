@@ -8,8 +8,10 @@
     "check": "node scripts/build.js --check",
     "test": "node tests/runner.js && node tests/state-engine.test.js && node tests/geometry-contract.test.js",
     "test:visual": "npx playwright test tests/visual/ci-minimal.spec.js",
+    "test:runtime": "npx playwright test tests/visual/smoke.spec.js tests/visual/folgeschaltung-smoke.spec.js",
     "verify:local": "npm run build && npm test && npm run test:visual",
-    "verify:visual:local": "npm run build && npm run test:visual"
+    "verify:visual:local": "npm run build && npm run test:visual",
+    "verify:runtime:local": "npm run build && npm run test:runtime"
   },
   "keywords": [
     "elektrotechnik",

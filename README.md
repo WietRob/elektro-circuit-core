@@ -109,9 +109,23 @@ npm run check               # Konsistenz-Check (kein Build)
 ### Was bewusst NICHT geprüft wird
 
 - Story-Mode / Didaktik-Panel (noch nicht im Generator)
-- Runtime-State-Transitions (`window.currentState`)
 - Screenshot-Baselines (Snapshots veraltet)
 - Transfer-Highlighting DIN↔LAB
+
+## Lokaler Runtime-Gate (getrennt)
+
+Ein eigener Prüfpfad für Runtime-State-Tests, die DOM-Interaktionen erfordern:
+
+```bash
+npm run verify:runtime:local   # Build + Runtime-Smoke-Tests
+npm run test:runtime           # Nur Runtime-Tests (ohne Build)
+```
+
+**Runtime-Tests (6):**
+- `smoke.spec.js` (3) – Selbsthaltung: State-Transitions, data-projected-state
+- `folgeschaltung-smoke.spec.js` (3) – Folgeschaltung: Multi-Step-Transitions
+
+**Warum getrennt:** Runtime-Tests brauchen einen laufenden Browser und sind langsamer als der Haupt-Gate. Sie prüfen `window.currentState`, `data-runtime-target` und `data-projected-state` nach DOM-Interaktionen. Der Haupt-Gate bleibt schlank und schnell.
 
 ## Lizenz
 
