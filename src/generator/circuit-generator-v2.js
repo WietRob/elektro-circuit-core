@@ -394,11 +394,11 @@ ${scriptHtml}
       
       if (hasCoupledParts) {
         // Einheit mit Container für gekoppelte Komponenten
-        svg += `  <g id="${canonicalId}" class="component-unit">
+        svg += `  <g id="${canonicalId}" class="component-unit" data-component="${componentId}">
 `;
         // Dynamisch berechneter Rahmen um die Einheit
         svg += this.renderComponentUnitFrame(viewType, componentId, component);
-        
+
         for (const [partId, part] of Object.entries(component.parts || {})) {
           let canonicalPartId = partId.replace(`${componentId}-`, '');
           if (canonicalPartId === 'AUX-NO') canonicalPartId = 'AUX';
@@ -406,7 +406,7 @@ ${scriptHtml}
           const partCanonicalId = `${idPrefix}-${componentId}-${canonicalPartId}`;
           const partSvg = this.renderPart(partId, part, componentId, viewType, state);
           if (partSvg) {
-            svg += `    <g id="${partCanonicalId}">
+            svg += `    <g id="${partCanonicalId}" data-component="${componentId}" data-part="${canonicalPartId}">
 ${partSvg}    </g>
 `;
           }
@@ -421,9 +421,9 @@ ${partSvg}    </g>
         for (const [partId, part] of Object.entries(component.parts || {})) {
           componentSvg += this.renderPart(partId, part, componentId, viewType, state);
         }
-        
+
         if (componentSvg) {
-          svg += `  <g id="${canonicalId}" class="component">
+          svg += `  <g id="${canonicalId}" class="component" data-component="${componentId}">
 ${componentSvg}  </g>
 `;
         }
@@ -904,31 +904,30 @@ ${componentSvg}  </g>
    */
   generateInteractiveControls() {
     let controls = '';
-    
-    // Sammle alle verfuegbaren Triggers aus den States
-    const triggers = new Set();
+
+    // Sammle alle verfuegbaren Triggers + Targets aus den States
+    const triggerMap = new Map();
     if (this.spec.states) {
       for (const [stateId, state] of Object.entries(this.spec.states)) {
         if (state.transitions) {
           for (const transition of state.transitions) {
             if (transition.trigger) {
-              triggers.add(transition.trigger);
+              triggerMap.set(transition.trigger, transition.target);
             }
           }
         }
       }
     }
-    
+
     // Erstelle Buttons fuer jeden Trigger
-    const triggerArray = Array.from(triggers);
-    for (const trigger of triggerArray) {
+    for (const [trigger, target] of triggerMap) {
       const label = this.formatTriggerLabel(trigger);
-      controls += `  <button class="trigger-btn" data-runtime-control="transition" data-trigger="${trigger}">${label}</button>\n`;
+      controls += `  <button class="trigger-btn" data-runtime-control="transition" data-trigger="${trigger}" data-runtime-target="${target}">${label}</button>\n`;
     }
-    
+
     // Reset-Button
     controls += `  <button id="btn-reset" class="primary">RESET</button>\n`;
-    
+
     return controls;
   }
   
@@ -996,10 +995,20 @@ function animateStateChange() {
   }
 }
 
+function findElementForPart(viewPrefix, partId) {
+  const normalizedId = partId.replace('AUX-NO', 'AUX').replace('AUX-NC', 'AUX');
+  // Direkte Part-ID (z.B. din-K1-COIL)
+  let el = document.getElementById(viewPrefix + '-' + normalizedId);
+  if (el) return el;
+  // Component-Wrapper (z.B. din-P1 fuer P1-LAMP)
+  const componentId = normalizedId.split('-')[0];
+  el = document.getElementById(viewPrefix + '-' + componentId);
+  return el;
+}
+
 function animateComponent(componentId, state) {
-  const normalizedId = componentId.replace('AUX-NO', 'AUX').replace('AUX-NC', 'AUX');
-  const dinElement = document.getElementById('din-' + normalizedId);
-  const labElement = document.getElementById('labor-' + normalizedId);
+  const dinElement = findElementForPart('din', componentId);
+  const labElement = findElementForPart('labor', componentId);
 
   [dinElement, labElement].forEach(el => {
     if (el) {

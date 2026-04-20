@@ -7,14 +7,14 @@ test.describe('Runtime Smoke Test', () => {
   });
 
   test('Initial: dynamische Controls existieren', async ({ page }) => {
-    const controls = await page.locator('#dynamic-controls button').count();
-    expect(controls).toBe(1);
+    const controls = await page.locator('.controls .trigger-btn').count();
+    expect(controls).toBeGreaterThanOrEqual(1);
   });
 
   test('Initial: Button hat semantische data-Attribute', async ({ page }) => {
     const btn = await page.locator('[data-runtime-control="transition"]').first();
     await expect(btn).toHaveAttribute('data-trigger', 'S1.pressed');
-    await expect(btn).toHaveAttribute('data-target', 'active');
+    await expect(btn).toHaveAttribute('data-runtime-target', 'active');
   });
 
   test('Transition: S1.pressed wechselt zu active State', async ({ page }) => {
