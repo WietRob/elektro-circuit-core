@@ -1,19 +1,21 @@
 #!/usr/bin/env node
 /**
- * build.js - Batch 3A: Artefaktvertrag mit HTML + SVG
+ * build.js - Batch 5A: Artefaktvertrag mit HTML + SVG + Manifest
  *
  * Nutzung:
- *   node build.js              # Dev-Build nach test_output/{html,svg}/
- *   node build.js --candidate  # Candidate-Build nach candidates/{html,svg}/
+ *   node build.js              # Dev-Build nach test_output/{html,svg,manifest}/
+ *   node build.js --candidate  # Candidate-Build nach candidates/{html,svg,manifest}/
  *   node build.js --check      # Prüft Konsistenz ohne Schreiben
  *
  * Artefaktvertrag:
- *   - test_output/html/ = Dev-HTML, temporär (in .gitignore)
- *   - test_output/svg/  = Dev-SVG, temporär (in .gitignore)
- *   - candidates/html/  = HTML-Kandidaten, nicht kanonisch
- *   - candidates/svg/   = SVG-Kandidaten, nicht kanonisch
- *   - final/html/       = KANONISCH, nicht durch automatischen Build überschreibbar
- *   - final/svg/        = KANONISCH, nicht durch automatischen Build überschreibbar
+ *   - test_output/html/     = Dev-HTML, temporär (in .gitignore)
+ *   - test_output/svg/      = Dev-SVG, temporär (in .gitignore)
+ *   - test_output/manifest/ = Dev-Manifeste, temporär (in .gitignore)
+ *   - candidates/html/      = HTML-Kandidaten, nicht kanonisch
+ *   - candidates/svg/       = SVG-Kandidaten, nicht kanonisch
+ *   - candidates/manifest/  = Manifest-Kandidaten, nicht kanonisch
+ *   - final/html/           = KANONISCH, nicht durch automatischen Build überschreibbar
+ *   - final/svg/            = KANONISCH, nicht durch automatischen Build überschreibbar
  */
 
 const fs = require('fs');
@@ -46,6 +48,7 @@ const baseDir = isCandidate
   : path.join(__dirname, '..', 'test_output');
 const htmlDir = path.join(baseDir, 'html');
 const svgDir = path.join(baseDir, 'svg');
+const manifestDir = path.join(baseDir, 'manifest');
 
 console.log(`╔════════════════════════════════════════════════════════════╗`);
 console.log(`║  Batch 3A Build-Vertrag                                   ║`);
@@ -60,11 +63,13 @@ if (isCheck) {
   const finalSvgExists = fs.existsSync(path.join(__dirname, '..', 'final', 'svg'));
   const candidatesHtmlExists = fs.existsSync(path.join(__dirname, '..', 'candidates', 'html'));
   const candidatesSvgExists = fs.existsSync(path.join(__dirname, '..', 'candidates', 'svg'));
+  const candidatesManifestExists = fs.existsSync(path.join(__dirname, '..', 'candidates', 'manifest'));
   const testExists = fs.existsSync(path.join(__dirname, '..', 'test_output'));
   console.log(`  final/html/         : ${finalHtmlExists ? '✓ (kanonisch)' : '✗'}`);
   console.log(`  final/svg/          : ${finalSvgExists ? '✓ (kanonisch)' : '✗'}`);
   console.log(`  candidates/html/    : ${candidatesHtmlExists ? '✓' : '✗'}`);
   console.log(`  candidates/svg/     : ${candidatesSvgExists ? '✓' : '✗'}`);
+  console.log(`  candidates/manifest/: ${candidatesManifestExists ? '✓' : '✗'}`);
   console.log(`  test_output/        : ${testExists ? '✓' : '✗'}`);
   console.log(`  Generator           : ✓`);
   console.log(`\nHINWEIS: final/ wird durch diesen Build NICHT verändert.`);
@@ -73,7 +78,7 @@ if (isCheck) {
 }
 
 // Sicherstellen, dass Output-Verzeichnisse existieren
-[htmlDir, svgDir].forEach(dir => {
+[htmlDir, svgDir, manifestDir].forEach(dir => {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
   }
@@ -155,6 +160,54 @@ for (const circuit of circuits) {
     console.error(`  ✗ ${circuit.name.padEnd(15)} OVERLAY-SVG ${error.message}`);
     failCount++;
   }
+
+  // 5. MANIFEST: Maschinenlesbarer Vertrag fuer die Lern-App
+  try {
+    const spec = JSON.parse(fs.readFileSync(circuitPath, 'utf8'));
+
+    const states = Object.keys(spec.states || {});
+    const triggers = [];
+    const componentIds = Object.keys(spec.components || {});
+
+    for (const state of Object.values(spec.states || {})) {
+      if (state.transitions) {
+        for (const t of state.transitions) {
+          if (t.trigger && !triggers.includes(t.trigger)) {
+            triggers.push(t.trigger);
+          }
+        }
+      }
+    }
+
+    const manifest = {
+      circuitId: spec.circuitId,
+      version: spec.version,
+      title: spec.title || spec.circuitId,
+      variants: ['grundbild', 'overlay'],
+      formats: ['html', 'svg'],
+      artifacts: {
+        grundbild: {
+          html: `html/${circuit.name}_grundbild.html`,
+          svg: `svg/${circuit.name}_grundbild.svg`
+        },
+        overlay: {
+          html: `html/${circuit.name}_overlay.html`,
+          svg: `svg/${circuit.name}_overlay.svg`
+        }
+      },
+      states,
+      triggers,
+      componentIds
+    };
+
+    const manifestName = `${circuit.name}.manifest.json`;
+    fs.writeFileSync(path.join(manifestDir, manifestName), JSON.stringify(manifest, null, 2));
+    console.log(`  ✓ ${circuit.name.padEnd(15)} manifest -> ${target}manifest/${manifestName}`);
+    successCount++;
+  } catch (error) {
+    console.error(`  ✗ ${circuit.name.padEnd(15)} MANIFEST ${error.message}`);
+    failCount++;
+  }
 }
 
 console.log(`\n${'═'.repeat(62)}`);
@@ -162,11 +215,11 @@ console.log(`Ergebnis: ${successCount} erfolgreich, ${failCount} fehlgeschlagen`
 console.log(`${'═'.repeat(62)}\n`);
 
 if (isCandidate) {
-  console.log('HINWEIS: Candidate-Artefakte nach candidates/{html,svg}/ geschrieben.');
+  console.log('HINWEIS: Candidate-Artefakte nach candidates/{html,svg,manifest}/ geschrieben.');
   console.log('         Diese Dateien sind Build-Kandidaten, NICHT kanonisch.');
   console.log('         Manuelle Prüfung erforderlich vor Übernahme nach final/.\n');
 } else {
-  console.log('HINWEIS: Dev-Artefakte nach test_output/{html,svg}/ geschrieben.');
+  console.log('HINWEIS: Dev-Artefakte nach test_output/{html,svg,manifest}/ geschrieben.');
   console.log('         Diese Dateien sind in .gitignore und temporär.\n');
   console.log('Für Candidate-Build: node build.js --candidate\n');
 }

@@ -33,19 +33,57 @@ test_output/          # Dev-Build (temporär, .gitignore)
 │   ├── selbsthaltung_grundbild.html
 │   ├── selbsthaltung_overlay.html
 │   └── ...
-└── svg/              # SVG-Dateien (DIN-Ansicht)
-    ├── selbsthaltung_grundbild.svg
-    ├── selbsthaltung_overlay.svg
+├── svg/              # SVG-Dateien (DIN-Ansicht)
+│   ├── selbsthaltung_grundbild.svg
+│   ├── selbsthaltung_overlay.svg
+│   └── ...
+└── manifest/         # Manifeste für App-Integration
+    ├── selbsthaltung.manifest.json
+    ├── tippbetrieb.manifest.json
     └── ...
 
 candidates/           # Build-Kandidaten (nicht kanonisch)
 ├── html/             # Kandidaten-HTML
-└── svg/              # Kandidaten-SVG
+├── svg/              # Kandidaten-SVG
+└── manifest/         # Kandidaten-Manifeste
 
 final/                # KANONISCH (nicht durch Build überschreibbar)
 ├── html/             # Kanonische HTML
-└── svg/              # Kanonische SVG
+├── svg/              # Kanonische SVG
+└── manifest/         # Kanonische Manifeste
 ```
+
+## App-Integrations-Manifest
+
+Jede Schaltung erhält ein maschinenlesbares Manifest für die Lern-App:
+
+```json
+{
+  "circuitId": "selbsthaltung",
+  "version": "2.1.0",
+  "title": "selbsthaltung",
+  "variants": ["grundbild", "overlay"],
+  "formats": ["html", "svg"],
+  "artifacts": {
+    "grundbild": {
+      "html": "html/selbsthaltung_grundbild.html",
+      "svg": "svg/selbsthaltung_grundbild.svg"
+    },
+    "overlay": {
+      "html": "html/selbsthaltung_overlay.html",
+      "svg": "svg/selbsthaltung_overlay.svg"
+    }
+  },
+  "states": ["initial", "active", "reset"],
+  "triggers": ["S1.pressed", "S2.pressed", "S2.released"],
+  "componentIds": ["S2", "S1", "K1", "P1"]
+}
+```
+
+**Nutzung für die Lern-App:**
+- `variants` + `artifacts` → Pfade zu den Grafik-Assets
+- `states` + `triggers` → Interaktions-Modell
+- `componentIds` → Verfügbare Bauteile
 
 ## Struktur
 
