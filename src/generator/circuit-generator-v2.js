@@ -923,7 +923,7 @@ ${componentSvg}  </g>
     const triggerArray = Array.from(triggers);
     for (const trigger of triggerArray) {
       const label = this.formatTriggerLabel(trigger);
-      controls += `  <button class="trigger-btn" data-trigger="${trigger}">${label}</button>\n`;
+      controls += `  <button class="trigger-btn" data-runtime-control="transition" data-trigger="${trigger}">${label}</button>\n`;
     }
     
     // Reset-Button
@@ -977,8 +977,10 @@ function updateDisplay() {
   if (stateDisplay) {
     stateDisplay.textContent = 'Status: ' + currentStateId;
   }
-  
-  // Animation: Farbuebergaenge fuer aktive Komponenten
+
+  window.currentState = currentStateId;
+  document.body.setAttribute('data-runtime-state', currentStateId);
+
   animateStateChange();
 }
 
@@ -998,9 +1000,15 @@ function animateComponent(componentId, state) {
   const normalizedId = componentId.replace('AUX-NO', 'AUX').replace('AUX-NC', 'AUX');
   const dinElement = document.getElementById('din-' + normalizedId);
   const labElement = document.getElementById('labor-' + normalizedId);
-  
+
+  [dinElement, labElement].forEach(el => {
+    if (el) {
+      el.setAttribute('data-projected-state', state);
+    }
+  });
+
   // CSS-Animation fuer aktive Komponenten
-  if (state === 'active' || state === 'closed') {
+  if (state === 'active' || state === 'closed' || state === 'lit') {
     [dinElement, labElement].forEach(el => {
       if (el) {
         el.style.transition = 'all 0.3s ease';
