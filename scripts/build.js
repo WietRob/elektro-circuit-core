@@ -88,10 +88,10 @@ if (isCheck) {
 console.log('Generiere Schaltungen...\n');
 let successCount = 0;
 let failCount = 0;
+const target = isCandidate ? 'candidates/' : 'test_output/';
 
 for (const circuit of circuits) {
   const circuitPath = path.join(__dirname, '..', circuit.file);
-  const target = isCandidate ? 'candidates/' : 'test_output/';
 
   // 1. GRUNDBILD HTML: Reiner technischer Schaltplan
   try {
@@ -208,6 +208,39 @@ for (const circuit of circuits) {
     console.error(`  ✗ ${circuit.name.padEnd(15)} MANIFEST ${error.message}`);
     failCount++;
   }
+}
+
+// Root-Index fuer App-Discovery
+const indexCircuits = [];
+for (const circuit of circuits) {
+  const circuitPath = path.join(__dirname, '..', circuit.file);
+  try {
+    const spec = JSON.parse(fs.readFileSync(circuitPath, 'utf8'));
+    indexCircuits.push({
+      circuitId: spec.circuitId,
+      title: spec.title || spec.circuitId,
+      manifest: `manifest/${circuit.name}.manifest.json`,
+      variants: ['grundbild', 'overlay'],
+      formats: ['html', 'svg']
+    });
+  } catch (_) {
+    // ignore broken specs in index
+  }
+}
+
+const rootIndex = {
+  generatedAt: new Date().toISOString(),
+  buildType: isCandidate ? 'candidate' : 'dev',
+  circuits: indexCircuits
+};
+
+try {
+  fs.writeFileSync(path.join(manifestDir, 'index.json'), JSON.stringify(rootIndex, null, 2));
+  console.log(`  ✓ ${'index'.padEnd(15)} root     -> ${target}manifest/index.json`);
+  successCount++;
+} catch (error) {
+  console.error(`  ✗ ${'index'.padEnd(15)} INDEX ${error.message}`);
+  failCount++;
 }
 
 console.log(`\n${'═'.repeat(62)}`);

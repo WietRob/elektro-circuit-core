@@ -28,34 +28,53 @@ Jede Schaltung wird in zwei strikt getrennten Varianten generiert, jeweils als H
 ### Output-Struktur
 
 ```
-test_output/          # Dev-Build (temporär, .gitignore)
+test_output/          # Dev-Build (vom Generator erzeugt, .gitignore)
 ├── html/             # HTML-Dateien
-│   ├── selbsthaltung_grundbild.html
-│   ├── selbsthaltung_overlay.html
-│   └── ...
-├── svg/              # SVG-Dateien (DIN-Ansicht)
-│   ├── selbsthaltung_grundbild.svg
-│   ├── selbsthaltung_overlay.svg
-│   └── ...
-└── manifest/         # Manifeste für App-Integration
+├── svg/              # SVG-Dateien
+└── manifest/         # Manifeste + Root-Index
+    ├── index.json                      # Root-Index für App-Discovery
     ├── selbsthaltung.manifest.json
     ├── tippbetrieb.manifest.json
-    └── ...
+    └── folgeschaltung.manifest.json
 
-candidates/           # Build-Kandidaten (nicht kanonisch)
-├── html/             # Kandidaten-HTML
-├── svg/              # Kandidaten-SVG
-└── manifest/         # Kandidaten-Manifeste
+candidates/           # Build-Kandidaten (vom Generator erzeugt)
+├── html/
+├── svg/
+└── manifest/
 
-final/                # KANONISCH (nicht durch Build überschreibbar)
-├── html/             # Kanonische HTML
-├── svg/              # Kanonische SVG
-└── manifest/         # Kanonische Manifeste
+final/                # KANONISCH (manuell gepflegt, NICHT vom Build überschrieben)
+├── html/             # Kanonische HTML (manuell)
+└── svg/              # Kanonische SVG (manuell)
+# Hinweis: final/manifest/ existiert aktuell nicht automatisch
 ```
 
 ## App-Integrations-Manifest
 
-Jede Schaltung erhält ein maschinenlesbares Manifest für die Lern-App:
+### Root-Index (`manifest/index.json`)
+
+Der Build erzeugt einen Root-Index für App-Discovery:
+
+```json
+{
+  "generatedAt": "2026-04-21T10:52:48.924Z",
+  "buildType": "dev",
+  "circuits": [
+    {
+      "circuitId": "selbsthaltung",
+      "title": "selbsthaltung",
+      "manifest": "manifest/selbsthaltung.manifest.json",
+      "variants": ["grundbild", "overlay"],
+      "formats": ["html", "svg"]
+    }
+  ]
+}
+```
+
+**Nutzung:** Die Lern-App lädt `manifest/index.json` und findet damit alle verfügbaren Schaltungen ohne Verzeichnis-Scanning.
+
+### Per-Circuit-Manifest (`manifest/{circuit}.manifest.json`)
+
+Jede Schaltung erhält ein Detail-Manifest:
 
 ```json
 {
