@@ -62,7 +62,7 @@ Der Build erzeugt einen Root-Index für App-Discovery:
     {
       "circuitId": "selbsthaltung",
       "title": "selbsthaltung",
-      "manifest": "manifest/selbsthaltung.manifest.json",
+      "manifest": "selbsthaltung.manifest.json",
       "variants": ["grundbild", "overlay"],
       "formats": ["html", "svg"]
     }
@@ -70,7 +70,7 @@ Der Build erzeugt einen Root-Index für App-Discovery:
 }
 ```
 
-**Nutzung:** Die Lern-App lädt `manifest/index.json` und findet damit alle verfügbaren Schaltungen ohne Verzeichnis-Scanning.
+**Nutzung:** Die Lern-App lädt `manifest/index.json` und findet damit alle verfügbaren Schaltungen. Alle Pfade im Manifest sind relativ zur jeweiligen Manifest-Datei aufzulösen.
 
 ### Per-Circuit-Manifest (`manifest/{circuit}.manifest.json`)
 
@@ -85,12 +85,12 @@ Jede Schaltung erhält ein Detail-Manifest:
   "formats": ["html", "svg"],
   "artifacts": {
     "grundbild": {
-      "html": "html/selbsthaltung_grundbild.html",
-      "svg": "svg/selbsthaltung_grundbild.svg"
+      "html": "../html/selbsthaltung_grundbild.html",
+      "svg": "../svg/selbsthaltung_grundbild.svg"
     },
     "overlay": {
-      "html": "html/selbsthaltung_overlay.html",
-      "svg": "svg/selbsthaltung_overlay.svg"
+      "html": "../html/selbsthaltung_overlay.html",
+      "svg": "../svg/selbsthaltung_overlay.svg"
     }
   },
   "states": ["initial", "active", "reset"],
@@ -98,6 +98,10 @@ Jede Schaltung erhält ein Detail-Manifest:
   "componentIds": ["S2", "S1", "K1", "P1"]
 }
 ```
+
+**Pfadbasis:** Alle Pfade im Manifest sind relativ zur jeweiligen Manifest-Datei aufzulösen.
+- `manifest/index.json` → `"selbsthaltung.manifest.json"` (gleiches Verzeichnis)
+- `manifest/selbsthaltung.manifest.json` → `"../html/..."` (eine Ebene hoch, dann in `html/`)
 
 **Nutzung für die Lern-App:**
 - `variants` + `artifacts` → Pfade zu den Grafik-Assets

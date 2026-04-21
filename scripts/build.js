@@ -187,12 +187,12 @@ for (const circuit of circuits) {
       formats: ['html', 'svg'],
       artifacts: {
         grundbild: {
-          html: `html/${circuit.name}_grundbild.html`,
-          svg: `svg/${circuit.name}_grundbild.svg`
+          html: `../html/${circuit.name}_grundbild.html`,
+          svg: `../svg/${circuit.name}_grundbild.svg`
         },
         overlay: {
-          html: `html/${circuit.name}_overlay.html`,
-          svg: `svg/${circuit.name}_overlay.svg`
+          html: `../html/${circuit.name}_overlay.html`,
+          svg: `../svg/${circuit.name}_overlay.svg`
         }
       },
       states,
@@ -219,7 +219,7 @@ for (const circuit of circuits) {
     indexCircuits.push({
       circuitId: spec.circuitId,
       title: spec.title || spec.circuitId,
-      manifest: `manifest/${circuit.name}.manifest.json`,
+      manifest: `${circuit.name}.manifest.json`,
       variants: ['grundbild', 'overlay'],
       formats: ['html', 'svg']
     });
