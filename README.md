@@ -142,23 +142,32 @@ const svgLab = generator.generateSVG('LAB');   // LAB-Ansicht
 Der lokale Prüfpfad verifiziert den aktuell belastbaren Generator-Stand ohne CI/CD:
 
 ```bash
-npm run verify:local        # Build + Unit-Tests + Minimale Visual-Tests
+npm run verify:local        # Build + Unit-Tests + Manifest-Kontrakt + Visual-Tests
 npm run verify:visual:local # Build + Nur Visual-Tests
+npm run verify:runtime:local # Build + Runtime-Smoke-Tests
 npm run check               # Konsistenz-Check (kein Build)
 ```
 
 ### Was geprüft wird
 
-| Befehl | Build | Unit-Tests | Visual-Tests | Tests |
-|--------|-------|------------|--------------|-------|
-| `npm run verify:local` | ✓ | 66 | 18 | 84 |
-| `npm test` | – | 66 | – | 66 |
-| `npm run test:visual` | – | – | 18 | 18 |
+| Befehl | Build | Unit-Tests | Manifest | Visual-Tests | Tests |
+|--------|-------|------------|----------|--------------|-------|
+| `npm run verify:local` | ✓ | 66 | 44 | 18 | 128 |
+| `npm test` | – | 66 | – | – | 66 |
+| `npm run test:manifest` | – | – | 44 | – | 44 |
+| `npm run test:visual` | – | – | – | 18 | 18 |
 
 **Unit-Tests (66):**
 - Koordinatenbeweis (Terminal-Positionen, Geometrie)
 - State-Engine (Zustandsübergänge, Initialzustände)
 - Geometrie-Vertrag (Bounds, Rails, Caching)
+
+**Manifest-Kontrakt-Tests (44):**
+- Root-Index existiert und ist parsebar
+- Per-Circuit-Manifeste existieren und sind parsebar
+- circuitId-Konsistenz zwischen Index und Manifest
+- Alle Artifact-Pfade lassen sich korrekt auflösen
+- Alle referenzierten HTML/SVG-Dateien existieren
 
 **Visual-Tests (18):**
 - DOM-Struktur (DIN/LAB-Ansichten vorhanden)
