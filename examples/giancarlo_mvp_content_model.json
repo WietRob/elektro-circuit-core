@@ -1,0 +1,194 @@
+{
+  "schema_version": "1.0.0",
+  "app_metadata": {
+    "content_version": "2026-04-20",
+    "total_modules": 2,
+    "total_units": 8,
+    "episodes_linked": 4
+  },
+  "learning_modules": [
+    {
+      "id": "module_grundlagen",
+      "title": "Grundlagen Elektrotechnik",
+      "subtitle": "Strom, Spannung, Widerstand und das Ohmsche Gesetz — das Fundament für alle Azubis.",
+      "order": 1,
+      "target_audience": "1_lehrjahr",
+      "estimated_duration_minutes": 45,
+      "unit_ids": [
+        "unit_grundlagen_01",
+        "unit_grundlagen_02",
+        "unit_grundlagen_03",
+        "unit_grundlagen_04"
+      ],
+      "topic_tags": ["Physik & Grundlagen", "Arbeiten unter Spannung"],
+      "difficulty": "basis",
+      "status": "draft"
+    },
+    {
+      "id": "module_sicherheit",
+      "title": "Sicherheit & Schutzmaßnahmen",
+      "subtitle": "Die 5 Sicherheitsregeln, Stromwirkung auf den Körper und Schutzmaßnahmen nach VDE.",
+      "order": 2,
+      "target_audience": "1_lehrjahr",
+      "estimated_duration_minutes": 60,
+      "unit_ids": [
+        "unit_sicherheit_01",
+        "unit_sicherheit_02",
+        "unit_sicherheit_03",
+        "unit_sicherheit_04"
+      ],
+      "topic_tags": ["Sicherheit & Schutzmaßnahmen", "Normen & Vorschriften"],
+      "difficulty": "standard",
+      "status": "draft"
+    }
+  ],
+  "learning_units": [
+    {
+      "id": "unit_grundlagen_01",
+      "module_id": "module_grundlagen",
+      "title": "Folge #1: Was ist Strom? Was ist Spannung?",
+      "type": "episode_card",
+      "order": 1,
+      "estimated_duration_minutes": 20,
+      "linked_episode_numbers": [1],
+      "content": {
+        "description": "Giancarlo erklärt die physikalischen Grundlagen von Strom, Spannung und elektrischer Arbeit.",
+        "audio_url": "https://audio3.redcircle.com/episodes/ba0b7011-456e-4469-a1e5-544c2ef90125/stream.mp3"
+      },
+      "status": "published"
+    },
+    {
+      "id": "unit_grundlagen_02",
+      "module_id": "module_grundlagen",
+      "title": "Konzept: Elektrische Spannung",
+      "type": "concept_sheet",
+      "order": 2,
+      "estimated_duration_minutes": 5,
+      "linked_episode_numbers": [1],
+      "content": {
+        "description": "Spannung ist der elektrische Druck, der den Strom durch einen Leiter treibt. Analogie: Wasserturm (Höhe = Spannung, Wassermenge = Strom). Einheit: Volt (V). Formelzeichen: U."
+      },
+      "status": "draft"
+    },
+    {
+      "id": "unit_grundlagen_03",
+      "module_id": "module_grundlagen",
+      "title": "Quiz: Strom, Spannung oder Widerstand?",
+      "type": "quiz",
+      "order": 3,
+      "estimated_duration_minutes": 5,
+      "linked_episode_numbers": [1, 2],
+      "content": {
+        "quiz_questions": [
+          {
+            "question_text": "Welche Einheit hat die elektrische Spannung?",
+            "options": ["Ampere (A)", "Volt (V)", "Ohm (Ω)", "Watt (W)"],
+            "correct_answer_index": 1,
+            "explanation": "Die Spannung wird in Volt (V) gemessen. Ampere ist die Einheit des Stroms, Ohm des Widerstands und Watt der Leistung.",
+            "difficulty": "easy"
+          }
+        ]
+      },
+      "status": "draft"
+    },
+    {
+      "id": "unit_grundlagen_04",
+      "module_id": "module_grundlagen",
+      "title": "Flashcard: U = R × I",
+      "type": "flashcard",
+      "order": 4,
+      "estimated_duration_minutes": 2,
+      "linked_episode_numbers": [8],
+      "content": {
+        "flashcard_front": "Was sagt das Ohmsche Gesetz?",
+        "flashcard_back": "U = R × I\nSpannung = Widerstand × Strom\n\nBei konstantem Widerstand steigt die Spannung proportional zum Strom."
+      },
+      "status": "draft"
+    },
+    {
+      "id": "unit_sicherheit_01",
+      "module_id": "module_sicherheit",
+      "title": "Folge #4: Stromwirkung auf den menschlichen Körper",
+      "type": "episode_card",
+      "order": 1,
+      "estimated_duration_minutes": 15,
+      "linked_episode_numbers": [4],
+      "content": {
+        "description": "Giancarlo erklärt die Wirkung des elektrischen Stroms auf den menschlichen Körper: Herzkammerflimmern, Muskelkontraktionen, Verbrennungen.",
+        "audio_url": "https://audio3.redcircle.com/episodes/43ce02ba-f598-4394-bd5b-2228144c805b/stream.mp3"
+      },
+      "status": "published"
+    },
+    {
+      "id": "unit_sicherheit_02",
+      "module_id": "module_sicherheit",
+      "title": "Konzept: Die 5 Sicherheitsregeln",
+      "type": "concept_sheet",
+      "order": 2,
+      "estimated_duration_minutes": 10,
+      "linked_episode_numbers": [7],
+      "content": {
+        "description": "1. Freischalten\n2. Gegen Wiedereinschalten sichern\n3. Spannungsfreiheit feststellen\n4. Erden und Kurzschließen\n5. Benachbarte, spannungsführende Teile abdecken oder abschranken"
+      },
+      "status": "draft"
+    },
+    {
+      "id": "unit_sicherheit_03",
+      "module_id": "module_sicherheit",
+      "title": "Quiz: Sicherheit unter Spannung",
+      "type": "quiz",
+      "order": 3,
+      "estimated_duration_minutes": 8,
+      "linked_episode_numbers": [4, 7],
+      "content": {
+        "quiz_questions": [
+          {
+            "question_text": "Ab welchem Strom ist das Leben gefährdet?",
+            "options": ["1 mA", "10 mA", "30 mA", "100 mA"],
+            "correct_answer_index": 2,
+            "explanation": "Ab etwa 30 mA Wechselstrom besteht Lebensgefahr durch Herzkammerflimmern. RCDs mit 30 mA sind deshalb lebensrettend.",
+            "difficulty": "medium"
+          }
+        ]
+      },
+      "status": "draft"
+    },
+    {
+      "id": "unit_sicherheit_04",
+      "module_id": "module_sicherheit",
+      "title": "Flashcard: Körperwiderstand",
+      "type": "flashcard",
+      "order": 4,
+      "estimated_duration_minutes": 2,
+      "linked_episode_numbers": [4],
+      "content": {
+        "flashcard_front": "Wie hoch ist der typische Körperwiderstand?",
+        "flashcard_back": "Trockene Haut: 1.000 – 100.000 Ω\nFeuchte Haut: 500 – 1.000 Ω\nInnere Organe: ~500 Ω\n\nBei feuchter Haut fließt deutlich mehr Strom!"
+      },
+      "status": "draft"
+    }
+  ],
+  "episode_source_links": [
+    {
+      "episode_number": 242,
+      "episode_title": "Elektrotechnik Podcast # 242: IT Netz prüfen nach VDE",
+      "sources": [
+        {
+          "q_number": 1,
+          "label": "HTW-Dresden: Prüfung von IT-Systemen",
+          "url": "https://www.htw-dresden.de/...",
+          "source_type": "pdf",
+          "trust_level": "official"
+        },
+        {
+          "q_number": 2,
+          "label": "Bender: Isolationsüberwachung",
+          "url": "https://www.bender.de/...",
+          "source_type": "dokumentation",
+          "trust_level": "verified"
+        }
+      ],
+      "source_count": 4
+    }
+  ]
+}

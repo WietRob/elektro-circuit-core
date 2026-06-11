@@ -35,7 +35,8 @@ const { CircuitGeneratorV2 } = require(v2FullPath);
 const circuits = [
   { name: 'selbsthaltung', file: './examples/selbsthaltung.json' },
   { name: 'tippbetrieb', file: './examples/tippbetrieb.json' },
-  { name: 'folgeschaltung', file: './examples/folgeschaltung.json' }
+  { name: 'folgeschaltung', file: './examples/folgeschaltung.json' },
+  { name: 'zeitverzoegerung', file: './examples/zeitverzoegerung.json' }
 ];
 
 // CLI Args
@@ -233,6 +234,23 @@ const rootIndex = {
   buildType: isCandidate ? 'candidate' : 'dev',
   circuits: indexCircuits
 };
+
+const pdfManifestPath = path.join(baseDir, 'pdf', 'symbol-templates.manifest.json');
+if (fs.existsSync(pdfManifestPath)) {
+  try {
+    const pdfManifest = JSON.parse(fs.readFileSync(pdfManifestPath, 'utf8'));
+    rootIndex.symbolTemplates = {
+      manifest: '../pdf/symbol-templates.manifest.json',
+      symbolCount: pdfManifest.symbolCount,
+      symbols: pdfManifest.symbols.map(s => ({
+        symbolClass: s.symbolClass,
+        variant: s.variant,
+        view: s.view,
+        pdf: s.pdf
+      }))
+    };
+  } catch (_) {}
+}
 
 try {
   fs.writeFileSync(path.join(manifestDir, 'index.json'), JSON.stringify(rootIndex, null, 2));

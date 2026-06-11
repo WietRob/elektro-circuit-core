@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0.0",
+  "module_id": "module_grundlagen",
+  "description": "10 Flashcards fuer das V1-Core-Modul 'Grundlagen Elektrotechnik'. Jede Karte verbindet einen Begriff mit einer praezisen Definition, einem Merksatz oder einer Analogie.",
+  "flashcards": [
+    {
+      "id": "fc_m1_01",
+      "concept_id": "concept_spannung",
+      "front": "Was ist elektrische Spannung?",
+      "back": "Der elektrische Druck, der den Strom durch einen Leiter treibt.\n\nEinheit: Volt (V)\nFormelzeichen: U\n\nAnalogie: Hoehe eines Wasserturms — je hoeher, desto mehr Druck.",
+      "linked_episode_numbers": [1],
+      "difficulty": "basis"
+    },
+    {
+      "id": "fc_m1_02",
+      "concept_id": "concept_strom",
+      "front": "Was ist elektrischer Strom?",
+      "back": "Die gerichtete Bewegung von Ladungstraegern (Elektronen) in einem Leiter.\n\nEinheit: Ampere (A)\nFormelzeichen: I\n\nAnalogie: Wassermenge, die pro Sekunde durch ein Rohr fliess.",
+      "linked_episode_numbers": [1],
+      "difficulty": "basis"
+    },
+    {
+      "id": "fc_m1_03",
+      "concept_id": "concept_widerstand",
+      "front": "Was ist elektrischer Widerstand?",
+      "back": "Die Eigenschaft eines Materials, den Stromfluss zu behindern.\n\nEinheit: Ohm (Ω)\nFormelzeichen: R\n\nAnalogie: Verengung im Rohr — je enger, desto weniger Wasser fliess.",
+      "linked_episode_numbers": [6],
+      "difficulty": "basis"
+    },
+    {
+      "id": "fc_m1_04",
+      "concept_id": "concept_ohmsches_gesetz",
+      "front": "Wie lautet das Ohmsche Gesetz?",
+      "back": "U = R × I\n\nSpannung = Widerstand × Strom\n\nU in Volt (V), R in Ohm (Ω), I in Ampere (A)\n\nMerksatz: Bei gleichem Widerstand steigt der Strom proportional zur Spannung.",
+      "linked_episode_numbers": [8],
+      "difficulty": "basis"
+    },
+    {
+      "id": "fc_m1_05",
+      "concept_id": "concept_farbcode",
+      "front": "Farbcode: Rot-Rot-Orange-Gold",
+      "back": "Rot = 2\nRot = 2\nOrange = × 1.000\nGold = ± 5 %\n\n= 22 × 1.000 = 22.000 Ω\n= 22 kΩ ± 5 %",
+      "linked_episode_numbers": [6],
+      "difficulty": "basis"
+    },
+    {
+      "id": "fc_m1_06",
+      "concept_id": "concept_gleichstrom",
+      "front": "Was ist der Unterschied zwischen Gleich- und Wechselstrom?",
+      "back": "Gleichstrom (DC): Strom fliess immer in eine Richtung\n→ Batterie, Akku, Solarzelle\n\nWechselstrom (AC): Stromrichtung wechselt periodisch\n→ Steckdose (50 Hz in Deutschland)\n\nMerksatz: DC = gerade, AC = hin und her.",
+      "linked_episode_numbers": [5],
+      "difficulty": "basis"
+    },
+    {
+      "id": "fc_m1_07",
+      "concept_id": "concept_arbeit",
+      "front": "Was ist elektrische Arbeit?",
+      "back": "Die Energie, die in einem Stromkreis verrichtet wird.\n\nFormel: W = U × I × t\nEinheit: Wattsekunde (Ws) oder Kilowattstunde (kWh)\n\nAnalogie: Gesamtwassermenge, die in einer bestimmten Zeit geflossen ist.",
+      "linked_episode_numbers": [1],
+      "difficulty": "standard"
+    },
+    {
+      "id": "fc_m1_08",
+      "concept_id": "concept_leistung",
+      "front": "Was ist elektrische Leistung?",
+      "back": "Die pro Zeiteinheit verrichtete elektrische Arbeit.\n\nFormel: P = U × I\nEinheit: Watt (W)\n\nAnalogie: Wassermenge pro Sekunde — wie viel Wasser fliess in einer Sekunde durch?",
+      "linked_episode_numbers": [1],
+      "difficulty": "standard"
+    },
+    {
+      "id": "fc_m1_09",
+      "concept_id": "concept_stromerzeugung",
+      "front": "Wie entsteht elektrischer Strom in einem Kraftwerk?",
+      "back": "Durch elektromagnetische Induktion:\n1. Magnet bewegt sich relativ zu einer Spule\n2. In der Spule wird Spannung induziert\n3. Strom fliess\n\nEnergiequellen: Wasser, Dampf, Wind, Sonne, Kernspaltung\n\nMerksatz: Strom wird nicht erzeugt, sondern umgewandelt.",
+      "linked_episode_numbers": [3],
+      "difficulty": "standard"
+    },
+    {
+      "id": "fc_m1_10",
+      "concept_id": "concept_wechselstrom",
+      "front": "Warum 230 V / 50 Hz in Deutschland?",
+      "back": "230 V: Kompromiss aus Sicherheit und Effizienz\n(frueher 220 V, heute EU-Standard)\n\n50 Hz: Historisch festgelegt\n(Tesla-System vs. Edison-System)\nHeute europaeischer Standard\n\nMerksatz: 230 V = Spannung, 50 Hz = Wechselgeschwindigkeit.",
+      "linked_episode_numbers": [11],
+      "difficulty": "standard"
+    }
+  ],
+  "metadata": {
+    "total_flashcards": 10,
+    "by_difficulty": {
+      "basis": 7,
+      "standard": 3
+    },
+    "by_concept": {
+      "concept_spannung": 1,
+      "concept_strom": 1,
+      "concept_widerstand": 1,
+      "concept_ohmsches_gesetz": 1,
+      "concept_farbcode": 1,
+      "concept_gleichstrom": 1,
+      "concept_arbeit": 1,
+      "concept_leistung": 1,
+      "concept_stromerzeugung": 1,
+      "concept_wechselstrom": 1
+    }
+  }
+}

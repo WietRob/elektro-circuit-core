@@ -108,10 +108,53 @@ Jede Schaltung erhält ein Detail-Manifest:
 - `states` + `triggers` → Interaktions-Modell
 - `componentIds` → Verfügbare Bauteile
 
+## PDF-Vorlagenbibliothek
+
+Symbolvorlagen als PDF für normnahe Dokumentation:
+
+```bash
+npm run build:pdf          # PDF-Vorlagen erzeugen
+npm run test:pdf           # PDF-Vertrag prüfen
+npm run verify:pdf:local   # Build + PDF-Test
+```
+
+**Vertrag:**
+- Ein PDF pro Symbolklasse + Variante + DIN-Ansicht
+- Dateiname: `<symbolklasse>__<variante>__din.pdf`
+- Symbolkarte 150x150 px, schwarzweiß normnah
+- Mit Betriebsmittelkennzeichnung und Klemmenpunkten
+
+**Aktuelle Abdeckung (14 Vorlagen):**
+- Kontakte: `contact__no__din.pdf`, `contact__nc__din.pdf`
+- Spule: `coil__standard__din.pdf`
+- Lampe: `lamp__standard__din.pdf`
+- Taster: `button__no__din.pdf`, `button__nc__din.pdf`
+- Zeitrelais: `timer_coil__standard__din.pdf`, `timer_contact__v__din.pdf`, `timer_contact__p__din.pdf`, `timer_contact__s__din.pdf`
+- Klemme: `terminal_block__standard__din.pdf`
+- Sicherung: `fuse__standard__din.pdf`
+- Wechsler: `changeover_contact__standard__din.pdf`
+- Leistungskontakt: `power_contact__standard__din.pdf`
+
+**Manifest:** `test_output/pdf/symbol-templates.manifest.json`
+
+**Manifest-Semantik pro Symbol:**
+- `terminalLabels` - Sichtbare Labels im SVG/PDF
+- `terminalRolePolicy` - Semantische Zuordnung (z.B. `{common: "11", no: "14", nc: "12"}`)
+- `labelPolicyType` - `iec_like` oder `neutral`
+- `sourceStatus` - `used_in_example`, `template_and_pdf_only`, `render_test_only`
+
+**Grenzen:**
+- 14 von ~20 relevanten Symbolfamilien abgedeckt
+- Fehlend: Motorschutz, Transformator, Leitung/Kabel
+- Nur DIN-Ansicht, keine LAB-Ansicht für Einzelvorlagen
+- Terminalbeschriftung in PDF-Vorlagen: IEC-nähere Labels (13/14, 21/22, A1/A2, 11/14/12, L1/T1, L/T, 1/2, IN/OUT)
+- Siehe `docs/COVERAGE_MATRIX.md` für vollständige Matrix
+
 ## Struktur
 
 - `src/generator/` - Generator-Module (7 Module, ~2800 Zeilen)
-- `examples/` - Schaltungs-Beispiele (selbsthaltung, tippbetrieb, folgeschaltung)
+- `examples/` - Schaltungs-Beispiele (4 Schaltungen)
+- `docs/` - Abdeckungsmatrix und Gap-Priorisierung
 - `schemas/` - JSON-Schemas (Ontologie + Manifest-Validierung)
 - `scripts/` - Build-Skripte
 - `tests/` - Unit-Tests (Koordinatenbeweis, State-Engine, Geometrie-Vertrag)
@@ -150,12 +193,16 @@ npm run check               # Konsistenz-Check (kein Build)
 
 ### Was geprüft wird
 
-| Befehl | Build | Unit-Tests | Manifest | Visual-Tests | Tests |
-|--------|-------|------------|----------|--------------|-------|
-| `npm run verify:local` | ✓ | 66 | 44 | 18 | 128 |
-| `npm test` | – | 66 | – | – | 66 |
-| `npm run test:manifest` | – | – | 44 | – | 44 |
-| `npm run test:visual` | – | – | – | 18 | 18 |
+| Befehl | Build | Unit-Tests | Manifest | Visual-Tests | PDF | Tests |
+|--------|-------|------------|----------|--------------|-----|-------|
+| `npm run verify:local` | ✓ | 66 | 44 | 18 | – | 128 |
+| `npm run verify:pdf:local` | – | – | – | – | 176 | 176 |
+| `npm test` | – | 66 | – | – | – | 66 |
+| `npm run test:manifest` | – | – | 44 | – | – | 44 |
+| `npm run test:visual` | – | – | – | 18 | – | 18 |
+| `npm run test:pdf` | – | – | – | – | 176 | 176 |
+| `node tests/changeover-render.test.js` | – | – | – | – | 8 | 8 |
+| `node tests/changeover-mini-praxis.test.js` | – | – | – | – | 8 | 8 |
 
 **Unit-Tests (66):**
 - Koordinatenbeweis (Terminal-Positionen, Geometrie)
@@ -175,6 +222,19 @@ npm run check               # Konsistenz-Check (kein Build)
 - Orthogonale Verdrahtung
 - SVG viewBox
 - Controls und Reset-Button
+
+**PDF-Vertragstests (176):**
+- PDF-Verzeichnis, Manifest, JSON-Validität
+- Dateiexistenz pro Symbol
+- Dateinamenvertrag
+- SVG-Terminal-Labels
+- Manifest-Semantik (terminalLabels, terminalRolePolicy, labelPolicyType, sourceStatus)
+- PDF-Signatur-Validierung
+- Root-Index-Konsistenz
+
+**Changeover-Tests (16):**
+- `changeover-render.test.js` (8) - Isolierter Render-Test
+- `changeover-mini-praxis.test.js` (8) - Mini-Praxisnachweis mit realistischen Terminals
 
 ### Was bewusst NICHT geprüft wird
 

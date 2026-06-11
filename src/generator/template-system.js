@@ -132,6 +132,126 @@ const BUTTON_TEMPLATE = {
 };
 
 /**
+ * Timer relay coil template - rectangle with diagonal + timer symbol
+ * IEC 60617: Schützspule mit Zeitfunktion
+ */
+const TIMER_COIL_TEMPLATE = {
+  type: 'timer_coil',
+  terminals: ['A1', 'A2'],
+  geometry: {
+    width: null,
+    height: 30,
+    diagonalInset: 5,
+    strokeWidth: 2,
+    diagonalStrokeWidth: 1.5,
+    // Timer symbol: small rectangle with "T" inside, positioned at top-right
+    timerSymbolSize: 10,
+    timerSymbolOffset: { x: 8, y: -8 }
+  },
+  states: {
+    inactive: { stroke: 'colors.black' },
+    active: { stroke: 'colors.active' }
+  },
+  elements: [
+    { type: 'rect', from: 'calc:topLeft', to: 'calc:bottomRight', style: 'state:stroke' },
+    { type: 'line', from: 'calc:diagStart', to: 'calc:diagEnd', style: 'diagonal' },
+    { type: 'timerSymbol', position: 'calc:timerPos', size: 'geometry:timerSymbolSize' }
+  ]
+};
+
+/**
+ * Timer relay contact template - contact with timer indicator
+ * Variants: V (verzögert, delayed), P (potentialfrei, potential-free), S (sofort, immediate)
+ */
+const TIMER_CONTACT_TEMPLATE = {
+  type: 'timer_contact',
+  terminals: ['top', 'bottom'],
+  geometry: {
+    terminalGap: 8,
+    barLength: 12,
+    closedBarHalfWidth: 8,
+    strokeWidth: 2,
+    closedStrokeWidth: 3,
+    timerIndicatorSize: 6,
+    timerIndicatorOffset: { x: 10, y: 0 }
+  },
+  variants: {
+    V: {
+      label: 'V',
+      description: 'Einschaltverzögert / Ausschaltverzögert'
+    },
+    P: {
+      label: 'P',
+      description: 'Potentialfreier Wechsler'
+    },
+    S: {
+      label: 'S',
+      description: 'Sofortschaltend'
+    }
+  }
+};
+
+const TERMINAL_BLOCK_TEMPLATE = {
+  type: 'terminal_block',
+  terminals: ['top', 'bottom'],
+  geometry: {
+    terminalGap: 8,
+    barLength: 12,
+    strokeWidth: 2,
+    blockWidth: 20,
+    blockHeight: 8
+  },
+  variants: {
+    standard: {
+      label: 'X',
+      description: 'Klemme'
+    }
+  }
+};
+
+const FUSE_TEMPLATE = {
+  type: 'fuse',
+  terminals: ['top', 'bottom'],
+  geometry: {
+    terminalGap: 8,
+    barLength: 12,
+    strokeWidth: 2,
+    fuseWidth: 20,
+    fuseHeight: 10,
+    lineInset: 4
+  },
+  variants: {
+    standard: {
+      label: 'F',
+      description: 'Sicherung'
+    }
+  }
+};
+
+const CHANGEOVER_CONTACT_TEMPLATE = {
+  type: 'changeover_contact',
+  terminals: ['common', 'no', 'nc'],
+  geometry: {
+    terminalGap: 8,
+    strokeWidth: 2,
+    contactWidth: 20,
+    contactHeight: 25
+  }
+};
+
+const POWER_CONTACT_TEMPLATE = {
+  type: 'power_contact',
+  terminals: ['top', 'bottom'],
+  geometry: {
+    terminalGap: 8,
+    barLength: 12,
+    closedBarHalfWidth: 10,
+    strokeWidth: 2.5,
+    closedStrokeWidth: 4
+  }
+};
+
+/**
  * Color palette - centralized color definitions
  */
 const COLOR_PALETTE = {
@@ -166,7 +286,15 @@ const TEMPLATE_REGISTRY = {
   aux_nc: { base: CONTACT_TEMPLATE, variant: 'NC' },
   coil: { base: COIL_TEMPLATE },
   lamp_element: { base: LAMP_TEMPLATE },
-  button_mechanism: { base: BUTTON_TEMPLATE }
+  button_mechanism: { base: BUTTON_TEMPLATE },
+  timer_coil: { base: TIMER_COIL_TEMPLATE },
+  timer_contact_v: { base: TIMER_CONTACT_TEMPLATE, variant: 'V' },
+  timer_contact_p: { base: TIMER_CONTACT_TEMPLATE, variant: 'P' },
+  timer_contact_s: { base: TIMER_CONTACT_TEMPLATE, variant: 'S' },
+  terminal_block: { base: TERMINAL_BLOCK_TEMPLATE, variant: 'standard' },
+  fuse: { base: FUSE_TEMPLATE, variant: 'standard' },
+  changeover_contact: { base: CHANGEOVER_CONTACT_TEMPLATE, variant: 'standard' },
+  power_contact: { base: POWER_CONTACT_TEMPLATE, variant: 'standard' }
 };
 
 /**
@@ -422,6 +550,192 @@ class TemplateRenderer {
   /**
    * Main render entry point - template-driven, no circuit-specific logic
    */
+  renderTimerCoil(terminals, template, state) {
+    const a1 = terminals.find(t => t.terminal === 'A1');
+    const a2 = terminals.find(t => t.terminal === 'A2');
+    if (!a1 || !a2) return '';
+
+    const cfg = template.geometry;
+    const calc = CalculationHelpers;
+    const isHorizontal = Math.abs(a2.x - a1.x) > Math.abs(a2.y - a1.y);
+    const strokeColor = state.active ? this.colors.active : this.colors.black;
+
+    const bounds = calc.coilBounds(a1, a2, cfg.height, isHorizontal);
+    const diagonal = calc.coilDiagonal(bounds, cfg.diagonalInset, isHorizontal);
+
+    let svg = `<rect x="${bounds.x}" y="${bounds.y}" width="${bounds.width}" height="${bounds.height}" ` +
+           `fill="none" stroke="${strokeColor}" stroke-width="${cfg.strokeWidth}"/>
+`;
+    svg += `<line x1="${diagonal.start.x}" y1="${diagonal.start.y}" ` +
+           `x2="${diagonal.end.x}" y2="${diagonal.end.y}" ` +
+           `stroke="${strokeColor}" stroke-width="${cfg.diagonalStrokeWidth}"/>
+`;
+
+    // Timer symbol: small rectangle with "T" at top-right
+    const timerX = bounds.x + bounds.width - cfg.timerSymbolSize - cfg.timerSymbolOffset.x;
+    const timerY = bounds.y + cfg.timerSymbolOffset.y;
+    svg += `<rect x="${timerX}" y="${timerY}" width="${cfg.timerSymbolSize}" height="${cfg.timerSymbolSize}" ` +
+           `fill="none" stroke="${strokeColor}" stroke-width="1"/>
+`;
+    svg += `<text x="${timerX + cfg.timerSymbolSize/2}" y="${timerY + cfg.timerSymbolSize - 2}" ` +
+           `font-size="7" fill="${strokeColor}" text-anchor="middle">T</text>
+`;
+
+    return svg;
+  }
+
+  renderTimerContact(terminals, template, variant, state) {
+    const isClosed = state.closed || false;
+    const cfg = template.geometry;
+    const sorted = terminals.slice().sort((a, b) => a.y - b.y);
+    const tTop = sorted[0];
+    const tBottom = sorted[1];
+
+    const calc = CalculationHelpers;
+    const closedPos = calc.closedBar(tTop, tBottom, cfg.closedBarHalfWidth);
+    const diagonalPos = calc.diagonal(tTop, tBottom, cfg.barLength, cfg.terminalGap);
+
+    let svg = '';
+
+    svg += `<line x1="${tTop.x - cfg.terminalGap}" y1="${tTop.y}" x2="${tTop.x}" y2="${tTop.y}" ` +
+           `stroke="${this.colors.black}" stroke-width="${cfg.strokeWidth}"/>
+`;
+    svg += `<line x1="${tBottom.x}" y1="${tBottom.y}" x2="${tBottom.x + cfg.terminalGap}" y2="${tBottom.y}" ` +
+           `stroke="${this.colors.black}" stroke-width="${cfg.strokeWidth}"/>
+`;
+
+    if (isClosed) {
+      svg += `<line x1="${closedPos.left.x}" y1="${closedPos.left.y}" x2="${closedPos.right.x}" y2="${closedPos.right.y}" ` +
+             `stroke="${this.colors.black}" stroke-width="${cfg.closedStrokeWidth}"/>
+`;
+    } else {
+      svg += `<line x1="${tTop.x}" y1="${tTop.y}" x2="${diagonalPos.x}" y2="${diagonalPos.y}" ` +
+             `stroke="${this.colors.black}" stroke-width="${cfg.strokeWidth}"/>
+`;
+    }
+
+    const label = template.variants[variant]?.label || variant;
+    const indicatorX = tTop.x + cfg.timerIndicatorOffset.x;
+    const indicatorY = tTop.y + cfg.timerIndicatorOffset.y;
+    svg += `<text x="${indicatorX}" y="${indicatorY}" font-size="8" fill="${this.colors.black}" font-weight="bold">${label}</text>
+`;
+
+    return svg;
+  }
+
+  renderTerminalBlock(terminals, template, state) {
+    const cfg = template.geometry;
+    const sorted = terminals.slice().sort((a, b) => a.y - b.y);
+    const tTop = sorted[0];
+    const tBottom = sorted[1];
+
+    let svg = '';
+
+    svg += `<line x1="${tTop.x - cfg.terminalGap}" y1="${tTop.y}" x2="${tTop.x}" y2="${tTop.y}" ` +
+           `stroke="${this.colors.black}" stroke-width="${cfg.strokeWidth}"/>
+`;
+    svg += `<line x1="${tBottom.x}" y1="${tBottom.y}" x2="${tBottom.x + cfg.terminalGap}" y2="${tBottom.y}" ` +
+           `stroke="${this.colors.black}" stroke-width="${cfg.strokeWidth}"/>
+`;
+
+    const midY = (tTop.y + tBottom.y) / 2;
+    svg += `<rect x="${tTop.x - cfg.blockWidth / 2}" y="${midY - cfg.blockHeight / 2}" ` +
+           `width="${cfg.blockWidth}" height="${cfg.blockHeight}" ` +
+           `fill="none" stroke="${this.colors.black}" stroke-width="${cfg.strokeWidth}"/>
+`;
+
+    return svg;
+  }
+
+  renderFuse(terminals, template, state) {
+    const cfg = template.geometry;
+    const sorted = terminals.slice().sort((a, b) => a.y - b.y);
+    const tTop = sorted[0];
+    const tBottom = sorted[1];
+
+    let svg = '';
+
+    svg += `<line x1="${tTop.x - cfg.terminalGap}" y1="${tTop.y}" x2="${tTop.x}" y2="${tTop.y}" ` +
+           `stroke="${this.colors.black}" stroke-width="${cfg.strokeWidth}"/>
+`;
+    svg += `<line x1="${tBottom.x}" y1="${tBottom.y}" x2="${tBottom.x + cfg.terminalGap}" y2="${tBottom.y}" ` +
+           `stroke="${this.colors.black}" stroke-width="${cfg.strokeWidth}"/>
+`;
+
+    const midY = (tTop.y + tBottom.y) / 2;
+    svg += `<rect x="${tTop.x - cfg.fuseWidth / 2}" y="${midY - cfg.fuseHeight / 2}" ` +
+           `width="${cfg.fuseWidth}" height="${cfg.fuseHeight}" ` +
+           `fill="none" stroke="${this.colors.black}" stroke-width="${cfg.strokeWidth}"/>
+`;
+
+    svg += `<line x1="${tTop.x}" y1="${tTop.y}" x2="${tBottom.x}" y2="${tBottom.y}" ` +
+           `stroke="${this.colors.black}" stroke-width="${cfg.strokeWidth}"/>
+`;
+
+    return svg;
+  }
+
+  renderChangeoverContact(terminals, template, state) {
+    const cfg = template.geometry;
+    if (terminals.length < 3) return '';
+
+    const sortedByY = terminals.slice().sort((a, b) => a.y - b.y);
+    const tCommon = sortedByY[0];
+    const bottomTerminals = sortedByY.slice(1).sort((a, b) => a.x - b.x);
+    const tNc = bottomTerminals[0];
+    const tNo = bottomTerminals[1];
+    if (!tCommon || !tNo || !tNc) return '';
+
+    const isClosed = state.closed || false;
+    let svg = '';
+
+    svg += `<line x1="${tCommon.x - cfg.terminalGap}" y1="${tCommon.y}" x2="${tCommon.x}" y2="${tCommon.y}" ` +
+           `stroke="${this.colors.black}" stroke-width="${cfg.strokeWidth}"/>\n`;
+    svg += `<line x1="${tNo.x}" y1="${tNo.y}" x2="${tNo.x + cfg.terminalGap}" y2="${tNo.y}" ` +
+           `stroke="${this.colors.black}" stroke-width="${cfg.strokeWidth}"/>\n`;
+    svg += `<line x1="${tNc.x}" y1="${tNc.y}" x2="${tNc.x - cfg.terminalGap}" y2="${tNc.y}" ` +
+           `stroke="${this.colors.black}" stroke-width="${cfg.strokeWidth}"/>\n`;
+
+    if (isClosed) {
+      svg += `<line x1="${tCommon.x}" y1="${tCommon.y}" x2="${tNo.x}" y2="${tNo.y}" ` +
+             `stroke="${this.colors.black}" stroke-width="${cfg.strokeWidth}"/>\n`;
+    } else {
+      svg += `<line x1="${tCommon.x}" y1="${tCommon.y}" x2="${tNc.x}" y2="${tNc.y}" ` +
+             `stroke="${this.colors.black}" stroke-width="${cfg.strokeWidth}"/>\n`;
+    }
+
+    return svg;
+  }
+
+  renderPowerContact(terminals, template, state) {
+    const isClosed = state.closed || false;
+    const cfg = template.geometry;
+    const sorted = terminals.slice().sort((a, b) => a.y - b.y);
+    const tTop = sorted[0];
+    const tBottom = sorted[1];
+
+    const calc = CalculationHelpers;
+    const closedPos = calc.closedBar(tTop, tBottom, cfg.closedBarHalfWidth);
+    const diagonalPos = calc.diagonal(tTop, tBottom, cfg.barLength, cfg.terminalGap);
+
+    let svg = '';
+
+    svg += `<line x1="${tTop.x - cfg.terminalGap}" y1="${tTop.y}" x2="${tTop.x}" y2="${tTop.y}" ` +
+           `stroke="${this.colors.black}" stroke-width="${cfg.strokeWidth}"/>\n`;
+    svg += `<line x1="${tBottom.x}" y1="${tBottom.y}" x2="${tBottom.x + cfg.terminalGap}" y2="${tBottom.y}" ` +
+           `stroke="${this.colors.black}" stroke-width="${cfg.strokeWidth}"/>\n`;
+
+    if (isClosed) {
+      svg += `<line x1="${closedPos.left.x}" y1="${closedPos.left.y}" x2="${closedPos.right.x}" y2="${closedPos.right.y}" ` +
+             `stroke="${this.colors.black}" stroke-width="${cfg.closedStrokeWidth}"/>\n`;
+    } else {
+      svg += `<line x1="${tTop.x}" y1="${tTop.y}" x2="${diagonalPos.x}" y2="${diagonalPos.y}" ` +
+             `stroke="${this.colors.black}" stroke-width="${cfg.strokeWidth}"/>\n`;
+    }
+
+    return svg;
+  }
+
   render(partType, terminals, variant, state) {
     const template = this.getTemplate(partType);
     if (!template) return '';
@@ -435,6 +749,18 @@ class TemplateRenderer {
         return this.renderLamp(terminals, template, state);
       case 'button_mechanism':
         return this.renderButton(terminals, template, variant, state);
+      case 'timer_coil':
+        return this.renderTimerCoil(terminals, template, state);
+      case 'timer_contact':
+        return this.renderTimerContact(terminals, template, variant, state);
+      case 'terminal_block':
+        return this.renderTerminalBlock(terminals, template, state);
+      case 'fuse':
+        return this.renderFuse(terminals, template, state);
+      case 'changeover_contact':
+        return this.renderChangeoverContact(terminals, template, state);
+      case 'power_contact':
+        return this.renderPowerContact(terminals, template, state);
       default:
         return '';
     }
@@ -446,6 +772,12 @@ module.exports = {
   COIL_TEMPLATE,
   LAMP_TEMPLATE,
   BUTTON_TEMPLATE,
+  TIMER_COIL_TEMPLATE,
+  TIMER_CONTACT_TEMPLATE,
+  TERMINAL_BLOCK_TEMPLATE,
+  FUSE_TEMPLATE,
+  CHANGEOVER_CONTACT_TEMPLATE,
+  POWER_CONTACT_TEMPLATE,
   TERMINAL_TEMPLATE,
   COLOR_PALETTE,
   TEMPLATE_REGISTRY,

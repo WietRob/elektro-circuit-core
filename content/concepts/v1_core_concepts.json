@@ -1,0 +1,190 @@
+{
+  "schema_version": "1.0.0",
+  "description": "Die 10 V1-Core-Concepts fuer das Modul 'Grundlagen Elektrotechnik'. Diese Concepts sind live in V1-Core und bilden das Fundament der Lernapp.",
+  "concepts": [
+    {
+      "id": "concept_spannung",
+      "title": "Elektrische Spannung",
+      "definition": "Der elektrische Druck, der den Strom durch einen Leiter treibt.",
+      "formula": "U",
+      "unit": "Volt (V)",
+      "analogy": "Wasserturm: Die Hoehe des Turms erzeugt Druck (Spannung), der das Wasser (Strom) durch das Rohr (Leiter) treibt.",
+      "linked_episode_numbers": [1, 3, 9, 11],
+      "linked_modules": ["module_grundlagen"],
+      "difficulty": "basis",
+      "exam_relevance": "high",
+      "typical_misconceptions": [
+        "Spannung und Strom sind das Gleiche",
+        "Hohe Spannung ist immer gefaehrlich (es kommt auf den Strom an)"
+      ],
+      "status": "published"
+    },
+    {
+      "id": "concept_strom",
+      "title": "Elektrischer Strom",
+      "definition": "Die gerichtete Bewegung von Ladungstraegern (Elektronen) in einem Leiter.",
+      "formula": "I",
+      "unit": "Ampere (A)",
+      "analogy": "Wasserfluss in einem Rohr: Die Menge Wasser pro Zeit entspricht dem Strom.",
+      "linked_episode_numbers": [1, 2, 4, 5],
+      "linked_modules": ["module_grundlagen", "module_sicherheit"],
+      "difficulty": "basis",
+      "exam_relevance": "high",
+      "typical_misconceptions": [
+        "Strom wird 'verbraucht'",
+        "Der Widerstand 'verbraucht' Strom"
+      ],
+      "status": "published"
+    },
+    {
+      "id": "concept_widerstand",
+      "title": "Elektrischer Widerstand",
+      "definition": "Die Eigenschaft eines Materials, den Stromfluss zu behindern.",
+      "formula": "R",
+      "unit": "Ohm (Ω)",
+      "analogy": "Verengung im Rohr: Je enger das Rohr, desto mehr Widerstand fuer den Wasserfluss.",
+      "linked_episode_numbers": [6, 8, 18, 19],
+      "linked_modules": ["module_grundlagen"],
+      "difficulty": "basis",
+      "exam_relevance": "high",
+      "typical_misconceptions": [
+        "Der Widerstand verbraucht Energie (er wandelt sie in Waerme um)",
+        "Widerstand ist immer konstant"
+      ],
+      "status": "published"
+    },
+    {
+      "id": "concept_ohmsches_gesetz",
+      "title": "Ohmsches Gesetz",
+      "definition": "Die Spannung an einem ohmschen Widerstand ist proportional zum durchfliessenden Strom.",
+      "formula": "U = R × I",
+      "unit": "U in V, R in Ω, I in A",
+      "analogy": "Wasserturm: Doppelte Hoehe (Spannung) bei gleicher Verengung (Widerstand) = doppelter Wasserfluss (Strom).",
+      "linked_episode_numbers": [8, 18, 19],
+      "linked_modules": ["module_grundlagen"],
+      "difficulty": "basis",
+      "exam_relevance": "high",
+      "typical_misconceptions": [
+        "Gilt fuer alle Bauteile (nur fuer ohmsche Widerstaende)",
+        "R ist immer konstant (bei Lampen/LEDs aendert sich R mit Temperatur)"
+      ],
+      "status": "published"
+    },
+    {
+      "id": "concept_arbeit",
+      "title": "Elektrische Arbeit",
+      "definition": "Die Energie, die in einem Stromkreis verrichtet wird.",
+      "formula": "W = U × I × t",
+      "unit": "Wattsekunde (Ws) oder Kilowattstunde (kWh)",
+      "analogy": "Gesamtwassermenge, die in einer bestimmten Zeit durch das Rohr geflossen ist.",
+      "linked_episode_numbers": [1, 3],
+      "linked_modules": ["module_grundlagen"],
+      "difficulty": "standard",
+      "exam_relevance": "medium",
+      "typical_misconceptions": [
+        "Arbeit und Leistung sind das Gleiche",
+        "kWh ist eine Leistungseinheit"
+      ],
+      "status": "published"
+    },
+    {
+      "id": "concept_leistung",
+      "title": "Elektrische Leistung",
+      "definition": "Die pro Zeiteinheit verrichtete elektrische Arbeit.",
+      "formula": "P = U × I",
+      "unit": "Watt (W)",
+      "analogy": "Wassermenge pro Sekunde: Wie viel Wasser fliess in einer Sekunde durch das Rohr?",
+      "linked_episode_numbers": [1, 3, 11],
+      "linked_modules": ["module_grundlagen"],
+      "difficulty": "standard",
+      "exam_relevance": "medium",
+      "typical_misconceptions": [
+        "Leistung = Energie (Leistung ist Energie pro Zeit)",
+        "Watt und Wattstunde sind das Gleiche"
+      ],
+      "status": "published"
+    },
+    {
+      "id": "concept_gleichstrom",
+      "title": "Gleichstrom (DC)",
+      "definition": "Elektrischer Strom, der immer in eine Richtung fliess.",
+      "formula": "—",
+      "unit": "—",
+      "analogy": "Fliesband: Bewegt sich immer in eine Richtung.",
+      "linked_episode_numbers": [5, 9],
+      "linked_modules": ["module_grundlagen"],
+      "difficulty": "basis",
+      "exam_relevance": "medium",
+      "typical_misconceptions": [
+        "Gleichstrom ist weniger gefaehrlich als Wechselstrom",
+        "Batterien liefern keine gefaehrliche Spannung"
+      ],
+      "status": "published"
+    },
+    {
+      "id": "concept_wechselstrom",
+      "title": "Wechselstrom (AC)",
+      "definition": "Elektrischer Strom, dessen Richtung periodisch wechselt.",
+      "formula": "—",
+      "unit": "Hertz (Hz) fuer Frequenz",
+      "analogy": "Wippe: Bewegt sich rhythmisch hin und her.",
+      "linked_episode_numbers": [5, 9, 11],
+      "linked_modules": ["module_grundlagen"],
+      "difficulty": "basis",
+      "exam_relevance": "medium",
+      "typical_misconceptions": [
+        "Wechselstrom ist komplizierter als Gleichstrom (fuer viele Anwendungen einfacher)",
+        "50 Hz bedeutet 50 Volt"
+      ],
+      "status": "published"
+    },
+    {
+      "id": "concept_farbcode",
+      "title": "Widerstands-Farbcode",
+      "definition": "Farbige Ringe auf Widerstaenden zur Kennzeichnung des Widerstandswerts und der Toleranz.",
+      "formula": "—",
+      "unit": "Ω",
+      "analogy": "Nummernschild: Jede Farbe entspricht einer Ziffer, wie ein Kennzeichen ein Fahrzeug identifiziert.",
+      "linked_episode_numbers": [6],
+      "linked_modules": ["module_grundlagen"],
+      "difficulty": "basis",
+      "exam_relevance": "high",
+      "typical_misconceptions": [
+        "Die Farben sind willkuerlich",
+        "Der Goldring ist immer die Toleranz (meistens ja, aber nicht immer)"
+      ],
+      "status": "published"
+    },
+    {
+      "id": "concept_stromerzeugung",
+      "title": "Stromerzeugung",
+      "definition": "Umwandlung anderer Energieformen in elektrische Energie, meist durch elektromagnetische Induktion.",
+      "formula": "—",
+      "unit": "—",
+      "analogy": "Wassermuehle: Mechanische Energie (Wasser) wird in Bewegung (Mahlstein) umgewandelt.",
+      "linked_episode_numbers": [3, 9],
+      "linked_modules": ["module_grundlagen"],
+      "difficulty": "standard",
+      "exam_relevance": "low",
+      "typical_misconceptions": [
+        "Strom wird 'erzeugt' (er wird umgewandelt, Energie bleibt erhalten)",
+        "Nur Kraftwerke erzeugen Strom"
+      ],
+      "status": "published"
+    }
+  ],
+  "metadata": {
+    "total_concepts": 10,
+    "by_module": {
+      "module_grundlagen": 10
+    },
+    "by_difficulty": {
+      "basis": 8,
+      "standard": 2
+    },
+    "by_exam_relevance": {
+      "high": 7,
+      "medium": 3
+    }
+  }
+}

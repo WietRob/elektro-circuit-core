@@ -1,0 +1,307 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://elektro-circuit-core/schemas/learning-app-content.schema.json",
+  "title": "Giancarlo Lernapp — MVP Content Model",
+  "description": "Schema für die Content-Struktur der Giancarlo-Lernapp. Definiert Learning Modules, Learning Units und Episode-Quellen-Verknüpfungen.",
+  "version": "1.0.0",
+  "type": "object",
+  "required": ["schema_version", "learning_modules", "learning_units", "episode_source_links"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "description": "Schema-Version (SemVer)",
+      "enum": ["1.0.0"]
+    },
+    "app_metadata": {
+      "type": "object",
+      "description": "Metadaten zur App-Content-Version",
+      "properties": {
+        "content_version": {
+          "type": "string",
+          "description": "Content-Version (z.B. Datum der letzten Kuratierung)"
+        },
+        "total_modules": {
+          "type": "integer",
+          "description": "Anzahl der Learning Modules"
+        },
+        "total_units": {
+          "type": "integer",
+          "description": "Anzahl der Learning Units"
+        },
+        "episodes_linked": {
+          "type": "integer",
+          "description": "Anzahl der verknüpften Episoden"
+        }
+      }
+    },
+    "learning_modules": {
+      "type": "array",
+      "description": "Kuratierte Lernmodule (z.B. 'Grundlagen', 'Sicherheit')",
+      "items": {
+        "$ref": "#/definitions/learning_module"
+      }
+    },
+    "learning_units": {
+      "type": "array",
+      "description": "Konkrete Lernobjekte innerhalb von Modulen",
+      "items": {
+        "$ref": "#/definitions/learning_unit"
+      }
+    },
+    "episode_source_links": {
+      "type": "array",
+      "description": "Verknüpfung von Episoden mit Quellen (automatisch aus Dataset)",
+      "items": {
+        "$ref": "#/definitions/episode_source_link"
+      }
+    }
+  },
+  "definitions": {
+    "learning_module": {
+      "type": "object",
+      "required": ["id", "title", "order", "target_audience"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Eindeutige Modul-ID (z.B. 'module_grundlagen')",
+          "pattern": "^module_[a-z_]+$"
+        },
+        "title": {
+          "type": "string",
+          "description": "Anzeigetitel des Moduls",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "subtitle": {
+          "type": "string",
+          "description": "Kurze Beschreibung (max. 200 Zeichen)",
+          "maxLength": 200
+        },
+        "order": {
+          "type": "integer",
+          "description": "Reihenfolge im Lernpfad (1 = zuerst)",
+          "minimum": 1
+        },
+        "target_audience": {
+          "type": "string",
+          "description": "Zielgruppe für dieses Modul",
+          "enum": ["1_lehrjahr", "2_lehrjahr", "3_lehrjahr", "alle", "meister"]
+        },
+        "estimated_duration_minutes": {
+          "type": "integer",
+          "description": "Geschätzte Gesamtdauer in Minuten",
+          "minimum": 1
+        },
+        "unit_ids": {
+          "type": "array",
+          "description": "IDs der zugehörigen Learning Units (Reihenfolge = Array-Reihenfolge)",
+          "items": {
+            "type": "string",
+            "pattern": "^unit_[a-z_0-9]+$"
+          }
+        },
+        "topic_tags": {
+          "type": "array",
+          "description": "Themen-Tags (aus derived.topics als Vorschlag, manuell kuratiert)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "difficulty": {
+          "type": "string",
+          "description": "Schwierigkeitsgrad (menschlich bestimmt)",
+          "enum": ["basis", "standard", "pro"]
+        },
+        "status": {
+          "type": "string",
+          "description": "Produktionsstatus des Moduls",
+          "enum": ["draft", "review", "published", "deprecated"],
+          "default": "draft"
+        }
+      }
+    },
+    "learning_unit": {
+      "type": "object",
+      "required": ["id", "module_id", "title", "type", "order"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Eindeutige Unit-ID (z.B. 'unit_grundlagen_01')",
+          "pattern": "^unit_[a-z_0-9]+$"
+        },
+        "module_id": {
+          "type": "string",
+          "description": "ID des übergeordneten Moduls",
+          "pattern": "^module_[a-z_]+$"
+        },
+        "title": {
+          "type": "string",
+          "description": "Anzeigetitel der Unit",
+          "minLength": 1,
+          "maxLength": 150
+        },
+        "type": {
+          "type": "string",
+          "description": "Typ des Lernobjekts",
+          "enum": ["episode_card", "concept_sheet", "quiz", "case", "source_pack", "flashcard"]
+        },
+        "order": {
+          "type": "integer",
+          "description": "Reihenfolge innerhalb des Moduls",
+          "minimum": 1
+        },
+        "estimated_duration_minutes": {
+          "type": "integer",
+          "description": "Geschätzte Dauer in Minuten",
+          "minimum": 1
+        },
+        "linked_episode_numbers": {
+          "type": "array",
+          "description": "Verknüpfte Podcast-Episoden (aus Dataset)",
+          "items": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 999
+          }
+        },
+        "content": {
+          "type": "object",
+          "description": "Typspezifischer Content",
+          "properties": {
+            "description": {
+              "type": "string",
+              "description": "Beschreibung/Text-Inhalt der Unit"
+            },
+            "audio_url": {
+              "type": "string",
+              "description": "Audio-URL (nur für episode_card, aus Dataset)",
+              "format": "uri"
+            },
+            "quiz_questions": {
+              "type": "array",
+              "description": "Quiz-Fragen (nur für quiz)",
+              "items": {
+                "$ref": "#/definitions/quiz_question"
+              }
+            },
+            "flashcard_front": {
+              "type": "string",
+              "description": "Vorderseite der Karte (nur für flashcard)"
+            },
+            "flashcard_back": {
+              "type": "string",
+              "description": "Rückseite der Karte (nur für flashcard)"
+            },
+            "source_pack_refs": {
+              "type": "array",
+              "description": "Referenzen zu Quellen (nur für source_pack)",
+              "items": {
+                "$ref": "#/definitions/source_reference"
+              }
+            }
+          }
+        },
+        "status": {
+          "type": "string",
+          "description": "Produktionsstatus der Unit",
+          "enum": ["draft", "review", "published", "deprecated"],
+          "default": "draft"
+        }
+      }
+    },
+    "quiz_question": {
+      "type": "object",
+      "required": ["question_text", "options", "correct_answer_index", "explanation"],
+      "properties": {
+        "question_text": {
+          "type": "string",
+          "description": "Fragetext",
+          "minLength": 1
+        },
+        "options": {
+          "type": "array",
+          "description": "Antwortmöglichkeiten",
+          "minItems": 2,
+          "maxItems": 6,
+          "items": {
+            "type": "string"
+          }
+        },
+        "correct_answer_index": {
+          "type": "integer",
+          "description": "Index der richtigen Antwort (0-basiert)",
+          "minimum": 0
+        },
+        "explanation": {
+          "type": "string",
+          "description": "Erklärung nach der Antwort"
+        },
+        "difficulty": {
+          "type": "string",
+          "enum": ["easy", "medium", "hard"],
+          "default": "medium"
+        }
+      }
+    },
+    "source_reference": {
+      "type": "object",
+      "required": ["label", "url"],
+      "properties": {
+        "q_number": {
+          "type": "integer",
+          "description": "Q-Nummer aus dem Podcast (z.B. Q1, Q2)"
+        },
+        "label": {
+          "type": "string",
+          "description": "Anzeigename der Quelle",
+          "minLength": 1
+        },
+        "url": {
+          "type": "string",
+          "description": "URL der Quelle",
+          "format": "uri"
+        },
+        "source_type": {
+          "type": "string",
+          "description": "Art der Quelle",
+          "enum": ["norm", "dokumentation", "blog", "video", "pdf", "other"],
+          "default": "other"
+        },
+        "trust_level": {
+          "type": "string",
+          "description": "Vertrauenswürdigkeit der Quelle",
+          "enum": ["official", "verified", "community", "unknown"],
+          "default": "unknown"
+        }
+      }
+    },
+    "episode_source_link": {
+      "type": "object",
+      "description": "Verknüpfung einer Episode mit ihren Quellen (automatisch aus Dataset)",
+      "required": ["episode_number", "sources"],
+      "properties": {
+        "episode_number": {
+          "type": "integer",
+          "description": "Episodennummer",
+          "minimum": 1
+        },
+        "episode_title": {
+          "type": "string",
+          "description": "Episodentitel (aus Dataset)"
+        },
+        "sources": {
+          "type": "array",
+          "description": "Quellenverweise dieser Episode",
+          "items": {
+            "$ref": "#/definitions/source_reference"
+          }
+        },
+        "source_count": {
+          "type": "integer",
+          "description": "Anzahl der Quellen",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

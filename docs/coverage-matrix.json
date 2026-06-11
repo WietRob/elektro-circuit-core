@@ -1,0 +1,221 @@
+{
+  "generatedAt": "2026-04-21",
+  "generatorVersion": "2.0.0",
+  "totalImplemented": 13,
+  "totalMissing": 3,
+  "symbolFamilies": [
+    {
+      "family": "Hilfskontakt NO",
+      "partType": "aux_no",
+      "variants": ["NO"],
+      "klemmenlogik": "ja",
+      "betriebsmittelkennzeichnung": "ja",
+      "querverweisNotation": "ja",
+      "htmlSvg": "ja",
+      "pdfVorlage": "ja",
+      "imSchaltplan": "ja",
+      "testabdeckung": "ja",
+      "status": "belastbar"
+    },
+    {
+      "family": "Hilfskontakt NC",
+      "partType": "aux_nc",
+      "variants": ["NC"],
+      "klemmenlogik": "ja",
+      "betriebsmittelkennzeichnung": "ja",
+      "querverweisNotation": "ja",
+      "htmlSvg": "ja",
+      "pdfVorlage": "ja",
+      "imSchaltplan": "nein",
+      "testabdeckung": "ja",
+      "status": "teilweise"
+    },
+    {
+      "family": "Spule",
+      "partType": "coil",
+      "variants": ["standard"],
+      "klemmenlogik": "ja",
+      "betriebsmittelkennzeichnung": "ja",
+      "querverweisNotation": "ja",
+      "htmlSvg": "ja",
+      "pdfVorlage": "ja",
+      "imSchaltplan": "ja",
+      "testabdeckung": "ja",
+      "status": "belastbar"
+    },
+    {
+      "family": "Lampe",
+      "partType": "lamp_element",
+      "variants": ["standard"],
+      "klemmenlogik": "ja",
+      "betriebsmittelkennzeichnung": "ja",
+      "querverweisNotation": "nein",
+      "htmlSvg": "ja",
+      "pdfVorlage": "ja",
+      "imSchaltplan": "ja",
+      "testabdeckung": "ja",
+      "status": "belastbar"
+    },
+    {
+      "family": "Taster/Schalter",
+      "partType": "button_mechanism",
+      "variants": ["NO", "NC"],
+      "klemmenlogik": "ja",
+      "betriebsmittelkennzeichnung": "ja",
+      "querverweisNotation": "nein",
+      "htmlSvg": "ja",
+      "pdfVorlage": "ja",
+      "imSchaltplan": "ja",
+      "testabdeckung": "ja",
+      "status": "belastbar"
+    },
+    {
+      "family": "Zeitrelais-Spule",
+      "partType": "timer_coil",
+      "variants": ["standard"],
+      "klemmenlogik": "ja",
+      "betriebsmittelkennzeichnung": "ja",
+      "querverweisNotation": "ja",
+      "htmlSvg": "ja",
+      "pdfVorlage": "ja",
+      "imSchaltplan": "ja",
+      "testabdeckung": "nein",
+      "status": "teilweise"
+    },
+    {
+      "family": "Zeitrelais-Kontakt V",
+      "partType": "timer_contact_v",
+      "variants": ["V"],
+      "klemmenlogik": "ja",
+      "betriebsmittelkennzeichnung": "ja",
+      "querverweisNotation": "ja",
+      "htmlSvg": "ja",
+      "pdfVorlage": "ja",
+      "imSchaltplan": "ja",
+      "testabdeckung": "nein",
+      "status": "teilweise"
+    },
+    {
+      "family": "Zeitrelais-Kontakt P",
+      "partType": "timer_contact_p",
+      "variants": ["P"],
+      "klemmenlogik": "ja",
+      "betriebsmittelkennzeichnung": "ja",
+      "querverweisNotation": "ja",
+      "htmlSvg": "ja",
+      "pdfVorlage": "ja",
+      "imSchaltplan": "nein",
+      "testabdeckung": "nein",
+      "status": "teilweise"
+    },
+    {
+      "family": "Zeitrelais-Kontakt S",
+      "partType": "timer_contact_s",
+      "variants": ["S"],
+      "klemmenlogik": "ja",
+      "betriebsmittelkennzeichnung": "ja",
+      "querverweisNotation": "ja",
+      "htmlSvg": "ja",
+      "pdfVorlage": "ja",
+      "imSchaltplan": "ja",
+      "testabdeckung": "nein",
+      "status": "teilweise"
+    },
+    {
+      "family": "Klemme",
+      "partType": "terminal_block",
+      "variants": ["standard"],
+      "klemmenlogik": "ja",
+      "betriebsmittelkennzeichnung": "ja",
+      "querverweisNotation": "nein",
+      "htmlSvg": "ja",
+      "pdfVorlage": "ja",
+      "imSchaltplan": "nein",
+      "testabdeckung": "nein",
+      "status": "teilweise"
+    },
+    {
+      "family": "Sicherung",
+      "partType": "fuse",
+      "variants": ["standard"],
+      "klemmenlogik": "ja",
+      "betriebsmittelkennzeichnung": "ja",
+      "querverweisNotation": "nein",
+      "htmlSvg": "ja",
+      "pdfVorlage": "ja",
+      "imSchaltplan": "nein",
+      "testabdeckung": "nein",
+      "status": "teilweise"
+    },
+    {
+      "family": "Wechslerkontakt",
+      "partType": "changeover_contact",
+      "variants": ["standard"],
+      "klemmenlogik": "ja",
+      "betriebsmittelkennzeichnung": "ja",
+      "querverweisNotation": "nein",
+      "htmlSvg": "ja",
+      "pdfVorlage": "ja",
+      "imSchaltplan": "nein",
+      "testabdeckung": "ja (Render-Test + Mini-Praxis)",
+      "status": "teilweise"
+    },
+    {
+      "family": "Leistungskontakt",
+      "partType": "power_contact",
+      "variants": ["standard"],
+      "klemmenlogik": "ja",
+      "betriebsmittelkennzeichnung": "ja",
+      "querverweisNotation": "nein",
+      "htmlSvg": "ja",
+      "pdfVorlage": "ja",
+      "imSchaltplan": "nein",
+      "testabdeckung": "nein",
+      "status": "teilweise"
+    }
+  ],
+  "manifestFields": ["symbolClass", "variant", "partType", "view", "pdf", "svg", "sizeBytes", "terminalLabels", "terminalRolePolicy", "labelPolicyType", "sourceStatus"],
+  "terminalLabels": {
+    "aux_no": ["13", "14"],
+    "aux_nc": ["21", "22"],
+    "coil": ["A1", "A2"],
+    "lamp_element": ["IN", "OUT"],
+    "button_mechanism_NO": ["13", "14"],
+    "button_mechanism_NC": ["21", "22"],
+    "timer_coil": ["A1", "A2"],
+    "timer_contact": ["13", "14"],
+    "terminal_block": ["1", "2"],
+    "fuse": ["L", "T"],
+    "changeover_contact": ["11", "14", "12"],
+    "power_contact": ["L1", "T1"]
+  },
+  "sourceStatus": {
+    "contact": "used_in_example",
+    "button": "used_in_example",
+    "coil": "used_in_example",
+    "lamp": "used_in_example",
+    "timer_coil": "used_in_example",
+    "timer_contact": "used_in_example",
+    "terminal_block": "template_and_pdf_only",
+    "fuse": "template_and_pdf_only",
+    "changeover_contact": "render_test_only",
+    "power_contact": "template_and_pdf_only"
+  },
+  "missingFamilies": [
+    {
+      "family": "Motorschutz",
+      "priority": "mittel",
+      "reason": "Schutz des Motors"
+    },
+    {
+      "family": "Transformator",
+      "priority": "niedrig",
+      "reason": "Netzteil, Potenzialtrennung"
+    },
+    {
+      "family": "Leitung / Kabel",
+      "priority": "niedrig",
+      "reason": "Verbindungselement"
+    }
+  ]
+}

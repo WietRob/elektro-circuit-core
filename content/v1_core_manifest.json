@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_type": "v1_core_package",
+  "description": "Zentraler Einstiegspunkt fuer das V1-Core-Content-Paket der Giancarlo-Lernapp. Verknuepft alle produktiven Content-Dateien fuer das Modul 'Grundlagen Elektrotechnik'.",
+  "content_version": "2025-04-21",
+  "package_status": "published",
+  "modules": [
+    {
+      "module_id": "module_grundlagen",
+      "title": "Grundlagen Elektrotechnik",
+      "status": "published",
+      "content_files": {
+        "module_definition": "content/modules/module_grundlagen_v1.json",
+        "episode_cards": "content/episode_cards/v1_anchor_episodes.json",
+        "concepts": "content/concepts/v1_core_concepts.json",
+        "flashcards": "content/practice/module_grundlagen_flashcards.json",
+        "quiz": "content/practice/module_grundlagen_quiz.json"
+      },
+      "statistics": {
+        "anchor_episodes": 5,
+        "core_concepts": 10,
+        "learning_path_steps": 12,
+        "flashcards": 10,
+        "quiz_items": 15
+      }
+    }
+  ],
+  "global_statistics": {
+    "total_modules": 1,
+    "total_anchor_episodes": 5,
+    "total_core_concepts": 10,
+    "total_flashcards": 10,
+    "total_quiz_items": 15
+  },
+  "dataset_source": {
+    "description": "Alle Inhalte sind aus dem Giancarlo-Podcast-Dataset abgeleitet.",
+    "dataset_file": "data/giancarlo/giancarlo_dataset_v2.json",
+    "rss_feed": "https://feeds.redcircle.com/89770731-4660-47ca-a340-82e9fec2873e",
+    "total_episodes_in_dataset": 252,
+    "episodes_with_sources": 40
+  },
+  "note": "Dieses Manifest dient als verbindlicher Einstiegspunkt. Jede App-Instanz liest zuerst dieses Manifest, um zu wissen, welche Module und Content-Dateien verfuegbar sind. Das V1-Core-Paket nutzt bewusst eine Split-File-Struktur (Module, Concepts, Episodes, Practice getrennt) statt eines monolithischen Schemas. Die Dateien sind individuell validierbar und versionierbar."
+}

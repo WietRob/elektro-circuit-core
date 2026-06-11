@@ -1,0 +1,366 @@
+{
+  "schema_version": "1.0.0",
+  "description": "Die 20 Kern-Concepts für die Giancarlo-Lernapp V1. Jedes Concept ist ein unabhängiger Lernbaustein mit Definition, Verknüpfungen zu Episoden und Modulen.",
+  "concepts": [
+    {
+      "id": "concept_spannung",
+      "title": "Elektrische Spannung",
+      "definition": "Der elektrische Druck, der den Strom durch einen Leiter treibt.",
+      "formula": "U",
+      "unit": "Volt (V)",
+      "analogy": "Wasserturm: Die Höhe des Turms erzeugt Druck (Spannung), der das Wasser (Strom) durch das Rohr (Leiter) treibt.",
+      "linked_episode_numbers": [1, 3, 9, 11],
+      "linked_modules": ["module_grundlagen"],
+      "difficulty": "basis",
+      "exam_relevance": "high",
+      "typical_misconceptions": [
+        "Spannung und Strom sind das Gleiche",
+        "Hohe Spannung ist immer gefährlich (es kommt auf den Strom an)"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "concept_strom",
+      "title": "Elektrischer Strom",
+      "definition": "Die gerichtete Bewegung von Ladungsträgern (Elektronen) in einem Leiter.",
+      "formula": "I",
+      "unit": "Ampere (A)",
+      "analogy": "Wasserfluss in einem Rohr: Die Menge Wasser pro Zeit entspricht dem Strom.",
+      "linked_episode_numbers": [1, 2, 4, 5],
+      "linked_modules": ["module_grundlagen", "module_sicherheit"],
+      "difficulty": "basis",
+      "exam_relevance": "high",
+      "typical_misconceptions": [
+        "Strom wird 'verbraucht'",
+        "Der Widerstand 'verbraucht' Strom"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "concept_widerstand",
+      "title": "Elektrischer Widerstand",
+      "definition": "Die Eigenschaft eines Materials, den Stromfluss zu behindern.",
+      "formula": "R",
+      "unit": "Ohm (Ω)",
+      "analogy": "Verengung im Rohr: Je enger das Rohr, desto mehr Widerstand für den Wasserfluss.",
+      "linked_episode_numbers": [6, 8, 18, 19],
+      "linked_modules": ["module_grundlagen"],
+      "difficulty": "basis",
+      "exam_relevance": "high",
+      "typical_misconceptions": [
+        "Der Widerstand verbraucht Energie (er wandelt sie in Wärme um)",
+        "Widerstand ist immer konstant"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "concept_ohmsches_gesetz",
+      "title": "Ohmsches Gesetz",
+      "definition": "Die Spannung an einem ohmschen Widerstand ist proportional zum durchfließenden Strom.",
+      "formula": "U = R × I",
+      "unit": "U in V, R in Ω, I in A",
+      "analogy": "Wasserturm: Doppelte Höhe (Spannung) bei gleicher Verengung (Widerstand) = doppelter Wasserfluss (Strom).",
+      "linked_episode_numbers": [8, 18, 19],
+      "linked_modules": ["module_grundlagen"],
+      "difficulty": "basis",
+      "exam_relevance": "high",
+      "typical_misconceptions": [
+        "Gilt für alle Bauteile (nur für ohmsche Widerstände)",
+        "R ist immer konstant (bei Lampen/LEDs ändert sich R mit Temperatur)"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "concept_arbeit",
+      "title": "Elektrische Arbeit",
+      "definition": "Die Energie, die in einem Stromkreis verrichtet wird.",
+      "formula": "W = U × I × t",
+      "unit": "Wattsekunde (Ws) oder Kilowattstunde (kWh)",
+      "analogy": "Gesamtwassermenge, die in einer bestimmten Zeit durch das Rohr geflossen ist.",
+      "linked_episode_numbers": [1, 3],
+      "linked_modules": ["module_grundlagen"],
+      "difficulty": "standard",
+      "exam_relevance": "medium",
+      "typical_misconceptions": [
+        "Arbeit und Leistung sind das Gleiche",
+        "kWh ist eine Leistungseinheit"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "concept_leistung",
+      "title": "Elektrische Leistung",
+      "definition": "Die pro Zeiteinheit verrichtete elektrische Arbeit.",
+      "formula": "P = U × I",
+      "unit": "Watt (W)",
+      "analogy": "Wassermenge pro Sekunde: Wie viel Wasser fließt in einer Sekunde durch das Rohr?",
+      "linked_episode_numbers": [1, 3, 11],
+      "linked_modules": ["module_grundlagen"],
+      "difficulty": "standard",
+      "exam_relevance": "medium",
+      "typical_misconceptions": [
+        "Leistung = Energie (Leistung ist Energie pro Zeit)",
+        "Watt und Wattstunde sind das Gleiche"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "concept_gleichstrom",
+      "title": "Gleichstrom (DC)",
+      "definition": "Elektrischer Strom, der immer in eine Richtung fließt.",
+      "formula": "—",
+      "unit": "—",
+      "analogy": "Fließband: Bewegt sich immer in eine Richtung.",
+      "linked_episode_numbers": [5, 9],
+      "linked_modules": ["module_grundlagen"],
+      "difficulty": "basis",
+      "exam_relevance": "medium",
+      "typical_misconceptions": [
+        "Gleichstrom ist weniger gefährlich als Wechselstrom",
+        "Batterien liefern keine gefährliche Spannung"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "concept_wechselstrom",
+      "title": "Wechselstrom (AC)",
+      "definition": "Elektrischer Strom, dessen Richtung periodisch wechselt.",
+      "formula": "—",
+      "unit": "Hertz (Hz) für Frequenz",
+      "analogy": "Wippe: Bewegt sich rhythmisch hin und her.",
+      "linked_episode_numbers": [5, 9, 11],
+      "linked_modules": ["module_grundlagen"],
+      "difficulty": "basis",
+      "exam_relevance": "medium",
+      "typical_misconceptions": [
+        "Wechselstrom ist komplizierter als Gleichstrom (für viele Anwendungen einfacher)",
+        "50 Hz bedeutet 50 Volt"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "concept_farbcode",
+      "title": "Widerstands-Farbcode",
+      "definition": "Farbige Ringe auf Widerständen zur Kennzeichnung des Widerstandswerts und der Toleranz.",
+      "formula": "—",
+      "unit": "Ω",
+      "analogy": "Nummernschild: Jede Farbe entspricht einer Ziffer, wie ein Kennzeichen ein Fahrzeug identifiziert.",
+      "linked_episode_numbers": [6],
+      "linked_modules": ["module_grundlagen"],
+      "difficulty": "basis",
+      "exam_relevance": "high",
+      "typical_misconceptions": [
+        "Die Farben sind willkürlich",
+        "Der Goldring ist immer die Toleranz (meistens ja, aber nicht immer)"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "concept_stromerzeugung",
+      "title": "Stromerzeugung",
+      "definition": "Umwandlung anderer Energieformen in elektrische Energie, meist durch elektromagnetische Induktion.",
+      "formula": "—",
+      "unit": "—",
+      "analogy": "Wassermühle: Mechanische Energie (Wasser) wird in Bewegung (Mahlstein) umgewandelt.",
+      "linked_episode_numbers": [3, 9],
+      "linked_modules": ["module_grundlagen"],
+      "difficulty": "standard",
+      "exam_relevance": "low",
+      "typical_misconceptions": [
+        "Strom wird 'erzeugt' (er wird umgewandelt, Energie bleibt erhalten)",
+        "Nur Kraftwerke erzeugen Strom"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "concept_stromwirkung",
+      "title": "Stromwirkung auf den Körper",
+      "definition": "Elektrischer Strom kann Herzkammerflimmern, Muskelkontraktionen und Verbrennungen verursachen.",
+      "formula": "—",
+      "unit": "mA (Milliampere)",
+      "analogy": "—",
+      "linked_episode_numbers": [4, 5],
+      "linked_modules": ["module_sicherheit"],
+      "difficulty": "basis",
+      "exam_relevance": "high",
+      "typical_misconceptions": [
+        "Spannung tötet, nicht Strom (Strom ist die eigentliche Gefahr)",
+        "Unter 230V ist alles harmlos"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "concept_5_sicherheitsregeln",
+      "title": "Die 5 Sicherheitsregeln",
+      "definition": "Fünf Regeln zur sicheren Arbeit an elektrischen Anlagen: Freischalten, Sichern, Prüfen, Erden, Abdecken.",
+      "formula": "—",
+      "unit": "—",
+      "analogy": "Checkliste vor dem Flug: Jeder Punkt muss abgehakt sein, bevor es losgeht.",
+      "linked_episode_numbers": [7],
+      "linked_modules": ["module_sicherheit"],
+      "difficulty": "basis",
+      "exam_relevance": "high",
+      "typical_misconceptions": [
+        "Die Reihenfolge ist egal",
+        "Nur 3 Regeln sind wichtig"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "concept_schutzleiter",
+      "title": "Schutzleiter (PE)",
+      "definition": "Leiter, der berührbare Metallteile eines Geräts mit der Erde verbindet.",
+      "formula": "—",
+      "unit": "—",
+      "analogy": "Notausgang: Wenn etwas schiefgeht, leitet er den Strom sicher ab.",
+      "linked_episode_numbers": [7, 12],
+      "linked_modules": ["module_sicherheit"],
+      "difficulty": "basis",
+      "exam_relevance": "high",
+      "typical_misconceptions": [
+        "Schutzleiter und Neutralleiter sind das Gleiche (im TN-System oft verbunden, aber unterschiedliche Aufgaben)",
+        "Ohne Schutzleiter ist ein Gerät sicher (nur bei Schutzklasse II)"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "concept_rcd",
+      "title": "RCD / FI-Schutzschalter",
+      "definition": "Schutzschalter, der bei einem Fehlerstrom (z.B. durch den Körper) sofort abschaltet.",
+      "formula": "—",
+      "unit": "mA (Auslösestrom, z.B. 30 mA)",
+      "analogy": "Wachmann: Erkennt, wenn jemand unbefugt das Gelände betritt, und schließt sofort das Tor.",
+      "linked_episode_numbers": [26, 127, 128],
+      "linked_modules": ["module_sicherheit"],
+      "difficulty": "standard",
+      "exam_relevance": "high",
+      "typical_misconceptions": [
+        "Ein RCD ersetzt den Leitungsschutzschalter",
+        "RCD schützt vor Überlast"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "concept_tn_system",
+      "title": "TN-System",
+      "definition": "Netzform, bei der der Schutzleiter am Sternpunkt des Transformators geerdet ist.",
+      "formula": "—",
+      "unit": "—",
+      "analogy": "Gemeinsamer Abwasserkanal: Alle Häuser sind an denselben zentralen Kanal angeschlossen.",
+      "linked_episode_numbers": [31, 242],
+      "linked_modules": ["module_netzformen"],
+      "difficulty": "standard",
+      "exam_relevance": "high",
+      "typical_misconceptions": [
+        "TN-C und TN-S sind identisch",
+        "TN ist immer sicher"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "concept_tt_system",
+      "title": "TT-System",
+      "definition": "Netzform, bei der jeder Verbraucher eine eigene Erdung hat.",
+      "formula": "—",
+      "unit": "—",
+      "analogy": "Eigenes Brunnen: Jedes Haus hat seinen eigenen Brunnen, nicht den zentralen Kanal.",
+      "linked_episode_numbers": [31],
+      "linked_modules": ["module_netzformen"],
+      "difficulty": "standard",
+      "exam_relevance": "medium",
+      "typical_misconceptions": [
+        "TT ist unüblich in Deutschland (doch, sehr verbreitet bei Altbauten)",
+        "TT braucht keinen RCD"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "concept_it_system",
+      "title": "IT-System",
+      "definition": "Netzform ohne direkte Erdung, mit Isolationsüberwachung.",
+      "formula": "—",
+      "unit": "—",
+      "analogy": "Schwimmende Insel: Keine direkte Verbindung zum Festland, aber überwacht.",
+      "linked_episode_numbers": [31, 242],
+      "linked_modules": ["module_netzformen"],
+      "difficulty": "pro",
+      "exam_relevance": "medium",
+      "typical_misconceptions": [
+        "IT ist exotisch und selten (Krankenhäuser, Operationssäle)",
+        "IT ist gefährlicher (beim ersten Fehler sicher, beim zweiten gefährlich)"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "concept_vde_0100",
+      "title": "VDE 0100",
+      "definition": "Normenreihe für das Errichten von Niederspannungsanlagen.",
+      "formula": "—",
+      "unit": "—",
+      "analogy": "Bauordnung: Regeln, die beim Bauen eingehalten werden müssen.",
+      "linked_episode_numbers": [22, 23, 209],
+      "linked_modules": ["module_messen_pruefen"],
+      "difficulty": "standard",
+      "exam_relevance": "high",
+      "typical_misconceptions": [
+        "VDE 0100 ist nur eine einzelne Norm (es ist eine Reihe: 0100-1, 0100-410, 0100-600...)",
+        "VDE 0100 gilt nur für Neubauten"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "concept_isolationsmessung",
+      "title": "Isolationsmessung",
+      "definition": "Messung des Isolationswiderstands zwischen Leiter und Erde zur Sicherstellung der Sicherheit.",
+      "formula": "R_iso ≥ 1 MΩ (bei 500V DC Prüfspannung)",
+      "unit": "MΩ (Megaohm)",
+      "analogy": "Wasserdichtigkeitstest: Prüft, ob das Boot wirklich dicht ist.",
+      "linked_episode_numbers": [23],
+      "linked_modules": ["module_messen_pruefen"],
+      "difficulty": "standard",
+      "exam_relevance": "high",
+      "typical_misconceptions": [
+        "Isolationsmessung = Durchgangsprüfung",
+        "Man misst unter Spannung"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "concept_pruefprotokoll",
+      "title": "Prüfprotokoll",
+      "definition": "Dokumentation aller Prüfergebnisse bei wiederkehrenden Prüfungen elektrischer Anlagen.",
+      "formula": "—",
+      "unit": "—",
+      "analogy": "Fahrtenbuch: Dokumentiert, wann und was geprüft wurde.",
+      "linked_episode_numbers": [22, 30],
+      "linked_modules": ["module_messen_pruefen"],
+      "difficulty": "standard",
+      "exam_relevance": "medium",
+      "typical_misconceptions": [
+        "Prüfprotokoll ist optional (gesetzlich vorgeschrieben)",
+        "Nur der Elektriker muss es unterschreiben"
+      ],
+      "status": "draft"
+    }
+  ],
+  "metadata": {
+    "total_concepts": 20,
+    "by_module": {
+      "module_grundlagen": 10,
+      "module_sicherheit": 3,
+      "module_netzformen": 3,
+      "module_messen_pruefen": 3,
+      "other": 1
+    },
+    "by_difficulty": {
+      "basis": 12,
+      "standard": 7,
+      "pro": 1
+    },
+    "by_exam_relevance": {
+      "high": 12,
+      "medium": 7,
+      "low": 1
+    }
+  }
+}

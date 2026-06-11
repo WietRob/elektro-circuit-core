@@ -1,0 +1,168 @@
+{
+  "schema_version": "1.0.0",
+  "module": {
+    "id": "module_grundlagen",
+    "title": "Grundlagen Elektrotechnik",
+    "subtitle": "Strom, Spannung, Widerstand und das Ohmsche Gesetz — das Fundament fuer alle Azubis.",
+    "order": 1,
+    "target_audience": "1_lehrjahr",
+    "estimated_duration_minutes": 108,
+    "learning_goal": "Nach Abschluss dieses Moduls kann der Lernende: die Begriffe Strom, Spannung, Widerstand, Arbeit, Leistung definieren und unterscheiden; das Ohmsche Gesetz anwenden und berechnen; Widerstaende anhand des Farbcodes bestimmen; den Weg des Stroms vom Kraftwerk zur Steckdose beschreiben; die Unterschiede zwischen Gleich- und Wechselstrom erklaeren.",
+    "prerequisites": "Keine fachlichen Vorkenntnisse noetig. Physik aus der allgemeinbildenden Schule wird als bekannt vorausgesetzt.",
+    "topic_tags": ["Physik \u0026 Grundlagen", "Arbeiten unter Spannung"],
+    "difficulty": "basis",
+    "status": "published"
+  },
+  "structure": {
+    "anchor_episodes": [1, 2, 3, 6, 8],
+    "support_episodes": [5, 9, 11],
+    "reference_episodes": [4, 10],
+    "core_concepts": [
+      "concept_spannung",
+      "concept_strom",
+      "concept_widerstand",
+      "concept_ohmsches_gesetz",
+      "concept_arbeit",
+      "concept_leistung",
+      "concept_gleichstrom",
+      "concept_wechselstrom",
+      "concept_farbcode",
+      "concept_stromerzeugung"
+    ],
+    "learning_path": [
+      {
+        "step": 1,
+        "unit_id": "unit_m1_01",
+        "type": "episode_card",
+        "title": "Folge #1: Was ist Strom? Was ist Spannung?",
+        "duration_minutes": 20,
+        "automation": "auto"
+      },
+      {
+        "step": 2,
+        "unit_id": "unit_m1_02",
+        "type": "concept_sheet",
+        "title": "Konzept: Elektrische Spannung",
+        "duration_minutes": 5,
+        "automation": "curated"
+      },
+      {
+        "step": 3,
+        "unit_id": "unit_m1_03",
+        "type": "concept_sheet",
+        "title": "Konzept: Elektrischer Strom",
+        "duration_minutes": 5,
+        "automation": "curated"
+      },
+      {
+        "step": 4,
+        "unit_id": "unit_m1_04",
+        "type": "flashcard",
+        "title": "Merkkarte: Spannung vs Strom",
+        "duration_minutes": 2,
+        "automation": "curated"
+      },
+      {
+        "step": 5,
+        "unit_id": "unit_m1_05",
+        "type": "episode_card",
+        "title": "Folge #2: Elektr. Strom nachweisen",
+        "duration_minutes": 12,
+        "automation": "auto"
+      },
+      {
+        "step": 6,
+        "unit_id": "unit_m1_06",
+        "type": "concept_sheet",
+        "title": "Konzept: Stromnachweis-Methoden",
+        "duration_minutes": 5,
+        "automation": "curated"
+      },
+      {
+        "step": 7,
+        "unit_id": "unit_m1_07",
+        "type": "episode_card",
+        "title": "Folge #6: Widerstand \u0026 Waerme \u0026 Farbcodes",
+        "duration_minutes": 18,
+        "automation": "auto"
+      },
+      {
+        "step": 8,
+        "unit_id": "unit_m1_08",
+        "type": "concept_sheet",
+        "title": "Konzept: Widerstand \u0026 Farbcodes",
+        "duration_minutes": 8,
+        "automation": "curated"
+      },
+      {
+        "step": 9,
+        "unit_id": "unit_m1_09",
+        "type": "flashcard",
+        "title": "Merkkarte: Farbcode-Tabelle",
+        "duration_minutes": 3,
+        "automation": "curated"
+      },
+      {
+        "step": 10,
+        "unit_id": "unit_m1_10",
+        "type": "episode_card",
+        "title": "Folge #8: Das Ohmsche Gesetz",
+        "duration_minutes": 15,
+        "automation": "auto"
+      },
+      {
+        "step": 11,
+        "unit_id": "unit_m1_11",
+        "type": "concept_sheet",
+        "title": "Konzept: Das Ohmsche Gesetz",
+        "duration_minutes": 5,
+        "automation": "curated"
+      },
+      {
+        "step": 12,
+        "unit_id": "unit_m1_12",
+        "type": "quiz",
+        "title": "Quiz: Grundlagen-Check",
+        "duration_minutes": 10,
+        "automation": "curated"
+      }
+    ]
+  },
+  "production_plan": {
+    "phase_1_auto": {
+      "title": "Automatisch generieren",
+      "duration": "sofort",
+      "tasks": [
+        "Episode Cards fuer EP#1, #2, #3, #6, #8 erstellen",
+        "Suchindex ueber Titel + Beschreibung aufbauen"
+      ]
+    },
+    "phase_2_curated_week1": {
+      "title": "Kuratierung Woche 1",
+      "duration": "1 Woche",
+      "tasks": [
+        "10 Core Concepts definieren und beschreiben",
+        "Lernpfad-Struktur festlegen",
+        "Module 'Grundlagen' finalisieren"
+      ]
+    },
+    "phase_3_curated_week2": {
+      "title": "Kuratierung Woche 2",
+      "duration": "1 Woche",
+      "tasks": [
+        "Flashcards erstellen",
+        "Quizfragen formulieren",
+        "Praxisimpulse schreiben"
+      ]
+    },
+    "phase_4_integration": {
+      "title": "Integration \u0026 Test",
+      "duration": "1 Woche",
+      "tasks": [
+        "Learning Units mit Content verknuepfen",
+        "3 App-Modi implementieren",
+        "Test mit Azubi-Zielgruppe"
+      ]
+    }
+  }
+}

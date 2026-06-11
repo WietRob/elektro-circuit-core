@@ -476,10 +476,15 @@ ${componentSvg}  </g>
       const width = maxX - minX + 2 * padding;
       const height = maxY - minY + 2 * padding;
       
-      return `    <rect x="${x}" y="${y}" width="${width}" height="${height}" ` +
+      let frameSvg = `    <rect x="${x}" y="${y}" width="${width}" height="${height}" ` +
              `fill="none" stroke="#4caf50" stroke-width="2" stroke-dasharray="none" ` +
              `class="component-unit-frame"/>
 `;
+      const labelText = component.label || componentId;
+      frameSvg += `    <text x="${x + 4}" y="${y - 2}" font-size="10" fill="#212121" font-weight="bold" ` +
+             `class="device-label" data-component="${componentId}">${labelText}</text>
+`;
+      return frameSvg;
     } catch (error) {
       console.warn(`Could not render frame for ${componentId}:`, error.message);
       return '';
@@ -515,15 +520,22 @@ ${componentSvg}  </g>
           }
           
           if (targetBounds) {
-            // Kopplungslinie zwischen den Zentren der Parts
             const x1 = sourceBounds.x + sourceBounds.width / 2;
             const y1 = sourceBounds.y + sourceBounds.height / 2;
             const x2 = targetBounds.x + targetBounds.width / 2;
             const y2 = targetBounds.y + targetBounds.height / 2;
-            
+
             svg += `    <line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" ` +
                    `stroke="#212121" stroke-width="1.5" stroke-dasharray="4,2" ` +
                    `class="mechanical-coupling"/>
+`;
+
+            const midX = (x1 + x2) / 2;
+            const midY = (y1 + y2) / 2;
+            const targetLabel = targetRef.split('.')[0];
+            svg += `    <text x="${midX}" y="${midY - 4}" font-size="7" fill="#616161" ` +
+                   `text-anchor="middle" class="cross-reference" ` +
+                   `data-coupling="${partId}-${targetRef}">${targetLabel}</text>
 `;
           }
         } catch (error) {

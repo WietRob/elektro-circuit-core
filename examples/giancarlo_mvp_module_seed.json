@@ -1,0 +1,465 @@
+{
+  "schema_version": "1.0.0",
+  "module": {
+    "id": "module_grundlagen",
+    "title": "Grundlagen Elektrotechnik",
+    "subtitle": "Strom, Spannung, Widerstand und das Ohmsche Gesetz — das Fundament für alle Azubis.",
+    "order": 1,
+    "target_audience": "1_lehrjahr",
+    "estimated_duration_minutes": 108,
+    "learning_goal": "Nach Abschluss dieses Moduls kann der Lernende: die Begriffe Strom, Spannung, Widerstand, Arbeit, Leistung definieren und unterscheiden; das Ohmsche Gesetz anwenden und berechnen; Widerstände anhand des Farbcodes bestimmen; den Weg des Stroms vom Kraftwerk zur Steckdose beschreiben; die Unterschiede zwischen Gleich- und Wechselstrom erklären.",
+    "prerequisites": "Keine fachlichen Vorkenntnisse nötig. Physik aus der allgemeinbildenden Schule wird als bekannt vorausgesetzt.",
+    "topic_tags": ["Physik & Grundlagen", "Arbeiten unter Spannung"],
+    "difficulty": "basis",
+    "status": "draft"
+  },
+  "episodes": {
+    "anchor": [
+      {
+        "episode_number": 1,
+        "title": "Elektrotechnik-Podcast #1: Was ist Strom? Was ist Spannung? Und-was hat das mit \"Arbeit\" zu tun?",
+        "role": "anchor",
+        "role_description": "Erste Folge, definiert die 3 fundamentalen Größen. Ohne diese Folge funktioniert nichts danach.",
+        "audio_url": "https://audio3.redcircle.com/episodes/ba0b7011-456e-4469-a1e5-544c2ef90125/stream.mp3",
+        "duration_seconds": 1172,
+        "has_sources": false,
+        "source_count": 0
+      },
+      {
+        "episode_number": 2,
+        "title": "Elektrotechnik-Podcast #2: Elektr. Strom nachweisen",
+        "role": "anchor",
+        "role_description": "Brücke Theorie → Praxis. Zeigt, dass Strom nicht abstrakt ist.",
+        "audio_url": "https://audio3.redcircle.com/episodes/960817d1-4f7d-4852-b971-132f80ce6652/stream.mp3",
+        "duration_seconds": 730,
+        "has_sources": false,
+        "source_count": 0
+      },
+      {
+        "episode_number": 6,
+        "title": "Elektrotechnik-Podcast #6: Widerstand & Wärme & Farbcodes",
+        "role": "anchor",
+        "role_description": "Einführt den dritten Grundbegriff + praktische Anwendung (Farbcodes).",
+        "audio_url": "https://audio3.redcircle.com/episodes/b77b251c-4272-49d4-94e9-b4957a7a0c22/stream.mp3",
+        "duration_seconds": 1093,
+        "has_sources": false,
+        "source_count": 0
+      },
+      {
+        "episode_number": 8,
+        "title": "Elektrotechnik-Podcast #8: Das Ohmsche Gesetz",
+        "role": "anchor",
+        "role_description": "Das zentrale Gesetz der Elektrotechnik. Verbindet U, I, R.",
+        "audio_url": "https://audio3.redcircle.com/episodes/d44a03fe-1b8e-436e-98b6-47f9e5d795da/stream.mp3",
+        "duration_seconds": 909,
+        "has_sources": false,
+        "source_count": 0
+      },
+      {
+        "episode_number": 3,
+        "title": "Elektrotechnik-Podcast #3: Vom Kraftwerk in die Steckdose",
+        "role": "anchor",
+        "role_description": "Zeigt, woher Strom kommt. Motiviert und verortet die Grundlagen im realen System.",
+        "audio_url": "https://audio3.redcircle.com/episodes/2e22f7fb-9599-48db-b173-0cbb86a173d9/stream.mp3",
+        "duration_seconds": 735,
+        "has_sources": false,
+        "source_count": 0
+      }
+    ],
+    "support": [
+      {
+        "episode_number": 5,
+        "title": "Elektrotechnik-Podcast #5: AC/DC-Grenzwerte für den Menschen laut Norm",
+        "role": "support",
+        "role_description": "Zeigt, warum Strom gefährlich ist. Brücke zum späteren Sicherheits-Modul.",
+        "audio_url": "https://audio3.redcircle.com/episodes/10791a8a-8c13-43b3-be85-4357348c3be7/stream.mp3",
+        "duration_seconds": 900,
+        "has_sources": false,
+        "source_count": 0
+      },
+      {
+        "episode_number": 9,
+        "title": "Elektrotechnik-Podcast #9: Arten der Spannungserzeugung",
+        "role": "support",
+        "role_description": "Vertieft EP#3. Mechanische, chemische, thermische Erzeugung.",
+        "audio_url": "https://audio3.redcircle.com/episodes/35ce2004-a762-4ccf-aa85-7c239f0a8b17/stream.mp3",
+        "duration_seconds": 1094,
+        "has_sources": false,
+        "source_count": 0
+      },
+      {
+        "episode_number": 11,
+        "title": "Elektrotechnik-Podcast #11: Warum 230 V / 50 Hz und die Brutto- & Netto- Kapazität einer (Auto)batterie?",
+        "role": "support",
+        "role_description": "Erklärt die Alltagsspannung. Verbindet Theorie mit Steckdose.",
+        "audio_url": "https://audio3.redcircle.com/episodes/45d59037-c7e9-47f3-be75-80b8a9344785/stream.mp3",
+        "duration_seconds": 1178,
+        "has_sources": false,
+        "source_count": 0
+      }
+    ],
+    "reference": [
+      {
+        "episode_number": 10,
+        "title": "Elektrotechnik-Podcast #10: Fehlerarten",
+        "role": "reference",
+        "role_description": "Kurzschluss, Leiterschluss, Körperschluss, Erdschluss. Für spätere Module relevant.",
+        "audio_url": "https://audio3.redcircle.com/episodes/20c404bf-1e02-4144-a6f4-4719b99e73b0/stream.mp3",
+        "duration_seconds": 921,
+        "has_sources": false,
+        "source_count": 0
+      },
+      {
+        "episode_number": 4,
+        "title": "Elektrotechnik-Podcast #4: Wirkung des elektr. Stromes auf den menschl. Körper",
+        "role": "reference",
+        "role_description": "Wird im Sicherheits-Modul vertieft. Hier nur als Querverweis.",
+        "audio_url": "https://audio3.redcircle.com/episodes/43ce02ba-f598-4394-bd5b-2228144c805b/stream.mp3",
+        "duration_seconds": 887,
+        "has_sources": false,
+        "source_count": 0
+      }
+    ]
+  },
+  "learning_units": [
+    {
+      "id": "unit_m1_01",
+      "module_id": "module_grundlagen",
+      "title": "Folge #1: Was ist Strom? Was ist Spannung?",
+      "type": "episode_card",
+      "order": 1,
+      "estimated_duration_minutes": 20,
+      "linked_episode_numbers": [1],
+      "content": {
+        "description": "Giancarlo erklärt die physikalischen Grundlagen von Strom, Spannung und elektrischer Arbeit.",
+        "audio_url": "https://audio3.redcircle.com/episodes/ba0b7011-456e-4469-a1e5-544c2ef90125/stream.mp3"
+      },
+      "status": "published",
+      "automation": "auto"
+    },
+    {
+      "id": "unit_m1_02",
+      "module_id": "module_grundlagen",
+      "title": "Konzept: Elektrische Spannung",
+      "type": "concept_sheet",
+      "order": 2,
+      "estimated_duration_minutes": 5,
+      "linked_episode_numbers": [1],
+      "content": {
+        "description": "Spannung ist der elektrische Druck, der den Strom durch einen Leiter treibt. Analogie: Wasserturm (Höhe = Spannung, Wassermenge = Strom). Einheit: Volt (V). Formelzeichen: U."
+      },
+      "status": "draft",
+      "automation": "curated"
+    },
+    {
+      "id": "unit_m1_03",
+      "module_id": "module_grundlagen",
+      "title": "Konzept: Elektrischer Strom",
+      "type": "concept_sheet",
+      "order": 3,
+      "estimated_duration_minutes": 5,
+      "linked_episode_numbers": [1],
+      "content": {
+        "description": "Elektrischer Strom ist die gerichtete Bewegung von Ladungsträgern (Elektronen) in einem Leiter. Einheit: Ampere (A). Formelzeichen: I."
+      },
+      "status": "draft",
+      "automation": "curated"
+    },
+    {
+      "id": "unit_m1_04",
+      "module_id": "module_grundlagen",
+      "title": "Merkkarte: Spannung vs Strom",
+      "type": "flashcard",
+      "order": 4,
+      "estimated_duration_minutes": 2,
+      "linked_episode_numbers": [1],
+      "content": {
+        "flashcard_front": "Was ist der Unterschied zwischen Spannung und Strom?",
+        "flashcard_back": "Spannung (U) = elektrischer Druck, vergleichbar mit der Höhe eines Wasserturms. Strom (I) = elektrischer Fluss, vergleichbar mit der Wassermenge im Rohr."
+      },
+      "status": "draft",
+      "automation": "curated"
+    },
+    {
+      "id": "unit_m1_05",
+      "module_id": "module_grundlagen",
+      "title": "Folge #2: Elektr. Strom nachweisen",
+      "type": "episode_card",
+      "order": 5,
+      "estimated_duration_minutes": 12,
+      "linked_episode_numbers": [2],
+      "content": {
+        "description": "Giancarlo zeigt, wie man Strom durch physikalische und chemische Experimente sichtbar macht.",
+        "audio_url": "https://audio3.redcircle.com/episodes/960817d1-4f7d-4852-b971-132f80ce6652/stream.mp3"
+      },
+      "status": "published",
+      "automation": "auto"
+    },
+    {
+      "id": "unit_m1_06",
+      "module_id": "module_grundlagen",
+      "title": "Konzept: Stromnachweis-Methoden",
+      "type": "concept_sheet",
+      "order": 6,
+      "estimated_duration_minutes": 5,
+      "linked_episode_numbers": [2],
+      "content": {
+        "description": "Methoden zum Nachweis elektrischen Stroms: Glühlämpchen, Glimmlampe, Magnetnadel, chemische Wirkung (Elektrolyse), Wärme-Wirkung."
+      },
+      "status": "draft",
+      "automation": "curated"
+    },
+    {
+      "id": "unit_m1_07",
+      "module_id": "module_grundlagen",
+      "title": "Folge #6: Widerstand & Wärme & Farbcodes",
+      "type": "episode_card",
+      "order": 7,
+      "estimated_duration_minutes": 18,
+      "linked_episode_numbers": [6],
+      "content": {
+        "description": "Giancarlo erklärt Widerstand, Wärmewirkung und den Farbcode von Widerständen.",
+        "audio_url": "https://audio3.redcircle.com/episodes/b77b251c-4272-49d4-94e9-b4957a7a0c22/stream.mp3"
+      },
+      "status": "published",
+      "automation": "auto"
+    },
+    {
+      "id": "unit_m1_08",
+      "module_id": "module_grundlagen",
+      "title": "Konzept: Widerstand & Farbcodes",
+      "type": "concept_sheet",
+      "order": 8,
+      "estimated_duration_minutes": 8,
+      "linked_episode_numbers": [6],
+      "content": {
+        "description": "Widerstand (R) begrenzt den Stromfluss in einem Leiter. Einheit: Ohm (Ω). Farbcodes nach IEC 60062: Jeder Ring entspricht einer Ziffer oder einem Multiplikator."
+      },
+      "status": "draft",
+      "automation": "curated"
+    },
+    {
+      "id": "unit_m1_09",
+      "module_id": "module_grundlagen",
+      "title": "Merkkarte: Farbcode-Tabelle",
+      "type": "flashcard",
+      "order": 9,
+      "estimated_duration_minutes": 3,
+      "linked_episode_numbers": [6],
+      "content": {
+        "flashcard_front": "Farbcode: Rot-Rot-Orange-Gold",
+        "flashcard_back": "Rot=2, Rot=2, Orange=×1000, Gold=±5%\n= 22 × 1000 = 22.000 Ω = 22 kΩ ±5%"
+      },
+      "status": "draft",
+      "automation": "curated"
+    },
+    {
+      "id": "unit_m1_10",
+      "module_id": "module_grundlagen",
+      "title": "Folge #8: Das Ohmsche Gesetz",
+      "type": "episode_card",
+      "order": 10,
+      "estimated_duration_minutes": 15,
+      "linked_episode_numbers": [8],
+      "content": {
+        "description": "Giancarlo erklärt das zentrale Gesetz der Elektrotechnik: U = R × I.",
+        "audio_url": "https://audio3.redcircle.com/episodes/d44a03fe-1b8e-436e-98b6-47f9e5d795da/stream.mp3"
+      },
+      "status": "published",
+      "automation": "auto"
+    },
+    {
+      "id": "unit_m1_11",
+      "module_id": "module_grundlagen",
+      "title": "Konzept: Das Ohmsche Gesetz",
+      "type": "concept_sheet",
+      "order": 11,
+      "estimated_duration_minutes": 5,
+      "linked_episode_numbers": [8],
+      "content": {
+        "description": "Ohmsches Gesetz: U = R × I. Spannung ist proportional zum Strom bei konstantem Widerstand. Anwendung: Berechnung von Stromkreisen, Auslegung von Schutzmaßnahmen."
+      },
+      "status": "draft",
+      "automation": "curated"
+    },
+    {
+      "id": "unit_m1_12",
+      "module_id": "module_grundlagen",
+      "title": "Quiz: Grundlagen-Check",
+      "type": "quiz",
+      "order": 12,
+      "estimated_duration_minutes": 10,
+      "linked_episode_numbers": [1, 2, 6, 8],
+      "content": {
+        "quiz_questions": [
+          {
+            "question_text": "Welche Einheit hat die elektrische Spannung?",
+            "options": ["Ampere (A)", "Volt (V)", "Ohm (Ω)", "Watt (W)"],
+            "correct_answer_index": 1,
+            "explanation": "Spannung = Volt (V). Ampere = Strom, Ohm = Widerstand, Watt = Leistung.",
+            "difficulty": "easy"
+          },
+          {
+            "question_text": "Welche Einheit hat der elektrische Strom?",
+            "options": ["Volt (V)", "Watt (W)", "Ampere (A)", "Ohm (Ω)"],
+            "correct_answer_index": 2,
+            "explanation": "Strom = Ampere (A).",
+            "difficulty": "easy"
+          },
+          {
+            "question_text": "Ein Widerstand von 100 Ω liegt an 230 V. Wie groß ist der Strom?",
+            "options": ["23 A", "2,3 A", "0,23 A", "230 A"],
+            "correct_answer_index": 1,
+            "explanation": "I = U/R = 230/100 = 2,3 A",
+            "difficulty": "medium"
+          },
+          {
+            "question_text": "Ein Widerstand hat die Farbringe: Braun-Schwarz-Rot. Wie groß ist er?",
+            "options": ["102 Ω", "1 kΩ", "10 kΩ", "100 Ω"],
+            "correct_answer_index": 1,
+            "explanation": "Braun=1, Schwarz=0, Rot=×100 → 1000 Ω = 1 kΩ",
+            "difficulty": "medium"
+          },
+          {
+            "question_text": "Was ist der Unterschied zwischen Gleich- und Wechselstrom?",
+            "options": ["Gleichstrom ist stärker", "Wechselstrom wechselt die Richtung", "Gleichstrom ist gefährlicher", "Wechselstrom kommt nur aus der Steckdose"],
+            "correct_answer_index": 1,
+            "explanation": "Wechselstrom (AC) wechselt die Richtung periodisch (50 Hz in Deutschland).",
+            "difficulty": "easy"
+          }
+        ]
+      },
+      "status": "draft",
+      "automation": "curated"
+    }
+  ],
+  "flashcards": [
+    {
+      "id": "fc_m1_01",
+      "module_id": "module_grundlagen",
+      "front": "Was ist elektrische Spannung?",
+      "back": "Der elektrische Druck, der den Strom durch einen Leiter treibt. Einheit: Volt (V). Formelzeichen: U.",
+      "linked_episode_numbers": [1]
+    },
+    {
+      "id": "fc_m1_02",
+      "module_id": "module_grundlagen",
+      "front": "Was ist elektrischer Strom?",
+      "back": "Die gerichtete Bewegung von Ladungsträgern. Einheit: Ampere (A). Formelzeichen: I.",
+      "linked_episode_numbers": [1]
+    },
+    {
+      "id": "fc_m1_03",
+      "module_id": "module_grundlagen",
+      "front": "Was ist elektrischer Widerstand?",
+      "back": "Die Eigenschaft eines Materials, den Stromfluss zu behindern. Einheit: Ohm (Ω). Formelzeichen: R.",
+      "linked_episode_numbers": [6]
+    },
+    {
+      "id": "fc_m1_04",
+      "module_id": "module_grundlagen",
+      "front": "Wie lautet das Ohmsche Gesetz?",
+      "back": "U = R × I\nSpannung = Widerstand × Strom\nU in Volt, R in Ohm, I in Ampere",
+      "linked_episode_numbers": [8]
+    },
+    {
+      "id": "fc_m1_05",
+      "module_id": "module_grundlagen",
+      "front": "Farbcode: Rot-Rot-Orange-Gold",
+      "back": "2 - 2 - ×1000 - ±5%\n= 22.000 Ω = 22 kΩ ±5%",
+      "linked_episode_numbers": [6]
+    },
+    {
+      "id": "fc_m1_06",
+      "module_id": "module_grundlagen",
+      "front": "Unterschied Gleichstrom / Wechselstrom",
+      "back": "Gleichstrom (DC): Strom fließt immer in eine Richtung (z.B. Batterie)\nWechselstrom (AC): Stromrichtung wechselt periodisch (z.B. Steckdose, 50 Hz)",
+      "linked_episode_numbers": [5]
+    },
+    {
+      "id": "fc_m1_07",
+      "module_id": "module_grundlagen",
+      "front": "Was ist elektrische Arbeit?",
+      "back": "Arbeit = Spannung × Strom × Zeit\nW = U × I × t\nEinheit: Wattsekunde (Ws) oder Kilowattstunde (kWh)",
+      "linked_episode_numbers": [1]
+    },
+    {
+      "id": "fc_m1_08",
+      "module_id": "module_grundlagen",
+      "front": "Was ist elektrische Leistung?",
+      "back": "Leistung = Spannung × Strom\nP = U × I\nEinheit: Watt (W)",
+      "linked_episode_numbers": [1]
+    },
+    {
+      "id": "fc_m1_09",
+      "module_id": "module_grundlagen",
+      "front": "Wie entsteht elektrischer Strom in einem Kraftwerk?",
+      "back": "Durch Induktion: Ein Magnet bewegt sich relativ zu einer Spule → Spannung wird induziert → Strom fließt.",
+      "linked_episode_numbers": [3]
+    },
+    {
+      "id": "fc_m1_10",
+      "module_id": "module_grundlagen",
+      "front": "Warum 230 V / 50 Hz in Deutschland?",
+      "back": "230 V: Kompromiss aus Sicherheit und Effizienz\n50 Hz: Historisch festgelegt (Tesla vs Edison), heute europäischer Standard",
+      "linked_episode_numbers": [11]
+    }
+  ],
+  "source_packs": [
+    {
+      "id": "sp_m1_01",
+      "title": "Grundlagen: Strom, Spannung, Arbeit",
+      "description": "Quellen zu den physikalischen Grundlagen der Elektrotechnik.",
+      "linked_episode_numbers": [1, 2],
+      "sources": [],
+      "status": "draft",
+      "note": "Keine automatisch extrahierten Quellen in EP#1-2 vorhanden. Muss kuratiert werden."
+    },
+    {
+      "id": "sp_m1_02",
+      "title": "Ohmsches Gesetz & Widerstände",
+      "description": "Quellen zum Ohmschen Gesetz und zur Widerstandsberechnung.",
+      "linked_episode_numbers": [6, 8],
+      "sources": [],
+      "status": "draft",
+      "note": "Keine automatisch extrahierten Quellen in EP#6, #8 vorhanden. Muss kuratiert werden."
+    },
+    {
+      "id": "sp_m1_03",
+      "title": "Stromerzeugung & Netz",
+      "description": "Quellen zur Stromerzeugung und zum Stromnetz.",
+      "linked_episode_numbers": [3],
+      "sources": [],
+      "status": "draft",
+      "note": "Keine automatisch extrahierten Quellen in EP#3 vorhanden. Muss kuratiert werden."
+    }
+  ],
+  "production_plan": {
+    "phase_1_auto": {
+      "title": "Automatisch generieren",
+      "duration": "sofort",
+      "tasks": [
+        "Episode Cards für EP#1, #2, #6, #8, #3 erstellen",
+        "Themen-Vorschläge aus derived.topics übernehmen"
+      ]
+    },
+    "phase_2_curated_week1": {
+      "title": "Kuratierung Woche 1",
+      "duration": "1 Woche",
+      "tasks": [
+        "Concept Sheets für Spannung, Strom, Widerstand, Ohmsches Gesetz",
+        "Flashcards (10×)",
+        "Lernpfad-Struktur festlegen"
+      ]
+    },
+    "phase_3_curated_week2": {
+      "title": "Kuratierung Woche 2",
+      "duration": "1 Woche",
+      "tasks": [
+        "Quizfragen (12×)",
+        "Source Packs recherchieren und verlinken",
+        "Review und Test"
+      ]
+    }
+  }
+}

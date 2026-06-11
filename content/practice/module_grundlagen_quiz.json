@@ -1,0 +1,176 @@
+{
+  "schema_version": "1.0.0",
+  "module_id": "module_grundlagen",
+  "description": "15 Quizfragen fuer das V1-Core-Modul 'Grundlagen Elektrotechnik'. Fragen decken Einheiten, das Ohmsche Gesetz, Farbcodes, Gleich-/Wechselstrom und Berechnungen ab.",
+  "quiz_items": [
+    {
+      "id": "quiz_m1_01",
+      "concept_id": "concept_spannung",
+      "question_text": "Welche Einheit hat die elektrische Spannung?",
+      "options": ["Ampere (A)", "Volt (V)", "Ohm (Ω)", "Watt (W)"],
+      "correct_answer_index": 1,
+      "explanation": "Spannung = Volt (V). Ampere = Strom, Ohm = Widerstand, Watt = Leistung.",
+      "difficulty": "easy",
+      "linked_episode_numbers": [1]
+    },
+    {
+      "id": "quiz_m1_02",
+      "concept_id": "concept_strom",
+      "question_text": "Welche Einheit hat der elektrische Strom?",
+      "options": ["Volt (V)", "Watt (W)", "Ampere (A)", "Ohm (Ω)"],
+      "correct_answer_index": 2,
+      "explanation": "Strom = Ampere (A).",
+      "difficulty": "easy",
+      "linked_episode_numbers": [1]
+    },
+    {
+      "id": "quiz_m1_03",
+      "concept_id": "concept_widerstand",
+      "question_text": "Welche Einheit hat der elektrische Widerstand?",
+      "options": ["Volt (V)", "Ampere (A)", "Watt (W)", "Ohm (Ω)"],
+      "correct_answer_index": 3,
+      "explanation": "Widerstand = Ohm (Ω).",
+      "difficulty": "easy",
+      "linked_episode_numbers": [6]
+    },
+    {
+      "id": "quiz_m1_04",
+      "concept_id": "concept_ohmsches_gesetz",
+      "question_text": "Ein Widerstand von 100 Ω liegt an 230 V. Wie gross ist der Strom?",
+      "options": ["23 A", "2,3 A", "0,23 A", "230 A"],
+      "correct_answer_index": 1,
+      "explanation": "I = U / R = 230 V / 100 Ω = 2,3 A. Nach dem Ohmschen Gesetz ist der Strom proportional zur Spannung und umgekehrt proportional zum Widerstand.",
+      "difficulty": "medium",
+      "linked_episode_numbers": [8]
+    },
+    {
+      "id": "quiz_m1_05",
+      "concept_id": "concept_farbcode",
+      "question_text": "Ein Widerstand hat die Farbringe: Braun-Schwarz-Rot. Wie gross ist er?",
+      "options": ["102 Ω", "1 kΩ", "10 kΩ", "100 Ω"],
+      "correct_answer_index": 1,
+      "explanation": "Braun = 1, Schwarz = 0, Rot = × 100 → 10 × 100 = 1.000 Ω = 1 kΩ.",
+      "difficulty": "medium",
+      "linked_episode_numbers": [6]
+    },
+    {
+      "id": "quiz_m1_06",
+      "concept_id": "concept_gleichstrom",
+      "question_text": "Was ist der wesentliche Unterschied zwischen Gleich- und Wechselstrom?",
+      "options": ["Gleichstrom ist staerker", "Wechselstrom wechselt die Richtung periodisch", "Gleichstrom ist gefaehrlicher", "Wechselstrom kommt nur aus der Steckdose"],
+      "correct_answer_index": 1,
+      "explanation": "Wechselstrom (AC) wechselt die Richtung periodisch (50 Hz in Deutschland). Gleichstrom (DC) fliess immer in eine Richtung.",
+      "difficulty": "easy",
+      "linked_episode_numbers": [5]
+    },
+    {
+      "id": "quiz_m1_07",
+      "concept_id": "concept_spannung",
+      "question_text": "Was bedeutet das Formelzeichen 'U'?",
+      "options": ["Strom", "Widerstand", "Spannung", "Leistung"],
+      "correct_answer_index": 2,
+      "explanation": "U = elektrische Spannung (Unit: Volt). I = Strom, R = Widerstand, P = Leistung.",
+      "difficulty": "easy",
+      "linked_episode_numbers": [1]
+    },
+    {
+      "id": "quiz_m1_08",
+      "concept_id": "concept_wechselstrom",
+      "question_text": "Wie hoch ist die Spannung in einer deutschen Haushaltssteckdose?",
+      "options": ["110 V", "230 V", "400 V", "12 V"],
+      "correct_answer_index": 1,
+      "explanation": "In Deutschland: 230 V Wechselspannung (frueher 220 V, heute europaeischer Standard).",
+      "difficulty": "easy",
+      "linked_episode_numbers": [11]
+    },
+    {
+      "id": "quiz_m1_09",
+      "concept_id": "concept_strom",
+      "question_text": "Was bewirkt elektrischer Strom im menschlichen Koerper bei zu hoher Staerke?",
+      "options": ["Er wärmt nur", "Er kann Muskeln kontrahieren und das Herz beeinflussen", "Er ist immer harmlos unter 230 V", "Er hat keine Wirkung"],
+      "correct_answer_index": 1,
+      "explanation": "Strom kann Herzkammerflimmern, Muskelkraempfe und Verbrennungen verursachen. Schon ab ca. 30 mA Wechselstrom besteht Lebensgefahr.",
+      "difficulty": "medium",
+      "linked_episode_numbers": [4]
+    },
+    {
+      "id": "quiz_m1_10",
+      "concept_id": "concept_stromerzeugung",
+      "question_text": "Wie wird elektrischer Strom in einem Kraftwerk hauptsaechlich erzeugt?",
+      "options": ["Durch chemische Reaktion", "Durch magnetische Induktion", "Durch Sonnenlicht", "Durch Reibung"],
+      "correct_answer_index": 1,
+      "explanation": "Ein Generator nutzt magnetische Induktion: Magnet + Spule + Bewegung = Strom. Die Bewegung wird durch Wasser, Dampf, Wind etc. erzeugt.",
+      "difficulty": "medium",
+      "linked_episode_numbers": [3]
+    },
+    {
+      "id": "quiz_m1_11",
+      "concept_id": "concept_wechselstrom",
+      "question_text": "Was bedeutet '50 Hz' bei Wechselstrom?",
+      "options": ["50 Volt", "50 Ampere", "Die Richtung wechselt 50-mal pro Sekunde", "50 Watt"],
+      "correct_answer_index": 2,
+      "explanation": "Hertz (Hz) = Schwingungen pro Sekunde. Bei 50 Hz wechselt der Strom 50-mal pro Sekunde die Richtung (100-mal pro Sekunde die Polaritaet).",
+      "difficulty": "medium",
+      "linked_episode_numbers": [11]
+    },
+    {
+      "id": "quiz_m1_12",
+      "concept_id": "concept_ohmsches_gesetz",
+      "question_text": "In einer Reihenschaltung mit R1 = 10 Ω und R2 = 20 Ω bei U = 30 V: Wie gross ist der Gesamtstrom?",
+      "options": ["3 A", "1 A", "0,5 A", "2 A"],
+      "correct_answer_index": 1,
+      "explanation": "R_ges = 10 + 20 = 30 Ω. I = U / R = 30 V / 30 Ω = 1 A. In Reihe addieren sich die Widerstaende, der Strom ist ueberall gleich.",
+      "difficulty": "hard",
+      "linked_episode_numbers": [8]
+    },
+    {
+      "id": "quiz_m1_13",
+      "concept_id": "concept_farbcode",
+      "question_text": "Ein Widerstand hat die Farbringe Gelb-Violett-Braun-Silber. Wie gross ist er?",
+      "options": ["47 Ω", "470 Ω", "4,7 kΩ", "47 kΩ"],
+      "correct_answer_index": 1,
+      "explanation": "Gelb = 4, Violett = 7, Braun = × 10, Silber = ± 10 % → 47 × 10 = 470 Ω ± 10 %.",
+      "difficulty": "medium",
+      "linked_episode_numbers": [6]
+    },
+    {
+      "id": "quiz_m1_14",
+      "concept_id": "concept_leistung",
+      "question_text": "Eine Glauehbirne hat 230 V und 0,1 A. Wie gross ist ihre Leistung?",
+      "options": ["23 W", "2,3 W", "2300 W", "0,23 W"],
+      "correct_answer_index": 0,
+      "explanation": "P = U × I = 230 V × 0,1 A = 23 W. Das ist eine typische Leistung fuer eine energiesparende Lampe.",
+      "difficulty": "medium",
+      "linked_episode_numbers": [1]
+    },
+    {
+      "id": "quiz_m1_15",
+      "concept_id": "concept_ohmsches_gesetz",
+      "question_text": "Welche Aussage ueber das Ohmsche Gesetz ist FALSCH?",
+      "options": ["U = R × I", "Es gilt fuer alle Bauteile", "R = U / I", "I = U / R"],
+      "correct_answer_index": 1,
+      "explanation": "Das Ohmsche Gesetz gilt NUR fuer ohmsche Widerstaende mit linearer Kennlinie. Fuer LEDs, Dioden, Transistoren etc. gilt es nicht. Die anderen Formeln sind alle Umstellungen von U = R × I.",
+      "difficulty": "hard",
+      "linked_episode_numbers": [8]
+    }
+  ],
+  "metadata": {
+    "total_quiz_items": 15,
+    "by_difficulty": {
+      "easy": 7,
+      "medium": 5,
+      "hard": 3
+    },
+    "by_concept": {
+      "concept_spannung": 2,
+      "concept_strom": 2,
+      "concept_widerstand": 1,
+      "concept_ohmsches_gesetz": 3,
+      "concept_farbcode": 2,
+      "concept_gleichstrom": 1,
+      "concept_wechselstrom": 2,
+      "concept_stromerzeugung": 1,
+      "concept_leistung": 1
+    }
+  }
+}
